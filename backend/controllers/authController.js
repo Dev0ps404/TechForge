@@ -3,7 +3,13 @@ const jwt = require('jsonwebtoken');
 const { OAuth2Client } = require('google-auth-library');
 const { sendWelcomeEmail } = require('../services/emailService');
 
-const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+let oauth2Client;
+const getOAuth2Client = () => {
+  if (!oauth2Client) {
+    oauth2Client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+  }
+  return oauth2Client;
+};
 
 // Helper to sign JWT token
 const generateToken = (id) => {
@@ -116,28 +122,29 @@ exports.login = async (req, res, next) => {
  */
 exports.googleAuth = async (req, res, next) => {
   try {
-    const { credential } = req.body;
+    const token = req.body.token || req.body.credential;
 
-    if (!credential) {
+    if (!token) {
       return res.status(400).json({
         success: false,
-        message: 'Google credential token is required',
+        message: 'Google token or credential is required',
       });
     }
 
     let payload;
     
     // Attempt real verification if GOOGLE_CLIENT_ID is set and token is not mock
-    if (process.env.GOOGLE_CLIENT_ID && !process.env.GOOGLE_CLIENT_ID.includes('placeholder') && !credential.startsWith('mock_')) {
+    if (process.env.GOOGLE_CLIENT_ID && !process.env.GOOGLE_CLIENT_ID.includes('placeholder') && !token.startsWith('mock_')) {
       try {
-        if (credential.startsWith('ey')) {
-          const ticket = await client.verifyIdToken({
-            idToken: credential,
+        if (token.startsWith('ey')) {
+          const clientInstance = getOAuth2Client();
+          const ticket = await clientInstance.verifyIdToken({
+            idToken: token,
             audience: process.env.GOOGLE_CLIENT_ID,
           });
           payload = ticket.getPayload();
         } else {
-          const userInfoRes = await fetch(`https://www.googleapis.com/oauth2/v3/userinfo?access_token=${credential}`);
+          const userInfoRes = await fetch(`https://www.googleapis.com/oauth2/v3/userinfo?access_token=${token}`);
           if (!userInfoRes.ok) {
             throw new Error(`Google userinfo returned status ${userInfoRes.status}`);
           }
@@ -153,7 +160,7 @@ exports.googleAuth = async (req, res, next) => {
         console.error('Google token verification failed:', err);
         return res.status(400).json({
           success: false,
-          message: 'Invalid Google token',
+          message: 'Invalid Google token: ' + err.message,
         });
       }
     } else {
@@ -163,7 +170,7 @@ exports.googleAuth = async (req, res, next) => {
         email: req.body.email || 'google_user@gmail.com',
         name: req.body.name || 'Google User',
         picture: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&h=150',
-        sub: credential.startsWith('mock_') ? credential : 'mock_sub_google_12345',
+        sub: token.startsWith('mock_') ? token : 'mock_sub_google_12345',
       };
     }
 
