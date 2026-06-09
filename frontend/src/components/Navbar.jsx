@@ -1,19 +1,89 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
-import { Sun, Moon, Menu, LogOut, User, Bell, ChevronDown, Search } from 'lucide-react';
+import { Sun, Moon, Menu, LogOut, User, Bell, ChevronDown, Search, X, ArrowRight } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
+import { AnimatePresence, motion } from 'framer-motion';
 
 const Navbar = ({ onMenuToggle }) => {
   const { user, logout } = useAuth();
   const { theme, toggleTheme } = useTheme();
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const searchInputRef = useRef(null);
   const navigate = useNavigate();
 
   const handleLogout = () => {
     logout();
     navigate('/');
   };
+
+  const searchItems = [
+    { name: 'Dashboard', path: '/dashboard', category: 'Navigation', desc: 'Overview of stats & analytics' },
+    { name: 'Mock Interview Room', path: '/mock-interview-room', category: 'Prep Tools', desc: 'Start an AI voice interview' },
+    { name: 'Generate Questions', path: '/mock-interview', category: 'Prep Tools', desc: 'Create custom technical questions' },
+    { name: 'Resume Scanning', path: '/resume-upload', category: 'Resume', desc: 'Analyze ATS score & feedback' },
+    { name: 'DSA Progress', path: '/dsa-practice', category: 'DSA', desc: 'Track Leetcode-style coding prep' },
+    { name: 'AI Chat Assistant', path: '/ai-chat', category: 'AI Tools', desc: 'Chat with TalentForge AI advisor' },
+    { name: 'Leaderboard', path: '/leaderboard', category: 'Community', desc: 'Check global ranks and scores' },
+    { name: 'Daily Challenges', path: '/daily-challenge', category: 'Community', desc: 'Solve daily coding challenges' },
+    { name: 'Analytics', path: '/analytics', category: 'Metrics', desc: 'Deep dive into performance history' },
+    { name: 'Notifications', path: '/notifications', category: 'Account', desc: 'View alerts and activity updates' },
+    { name: 'My Profile', path: '/profile', category: 'Account', desc: 'Manage skills, avatar, & account' },
+  ];
+
+  if (user && user.role === 'admin') {
+    searchItems.push({ name: 'Admin Panel', path: '/admin', category: 'Admin', desc: 'Manage challenges & users' });
+  }
+
+  const filteredItems = searchItems.filter(item => 
+    item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    item.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    item.desc.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  useEffect(() => {
+    if (searchOpen) {
+      setTimeout(() => {
+        searchInputRef.current?.focus();
+      }, 50);
+      setSearchQuery('');
+      setSelectedIndex(0);
+    }
+  }, [searchOpen]);
+
+  useEffect(() => {
+    setSelectedIndex(0);
+  }, [searchQuery]);
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
+        e.preventDefault();
+        setSearchOpen(prev => !prev);
+      } else if (e.key === 'Escape') {
+        setSearchOpen(false);
+      } else if (searchOpen) {
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          setSelectedIndex(prev => (prev + 1) % filteredItems.length);
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          setSelectedIndex(prev => (prev - 1 + filteredItems.length) % filteredItems.length);
+        } else if (e.key === 'Enter') {
+          e.preventDefault();
+          if (filteredItems[selectedIndex]) {
+            navigate(filteredItems[selectedIndex].path);
+            setSearchOpen(false);
+          }
+        }
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [searchOpen, filteredItems, selectedIndex, navigate]);
 
   return (
     <header className="sticky top-0 z-30 w-full bg-white/70 dark:bg-bg-dark/70 backdrop-blur-xl border-b border-slate-200/50 dark:border-white/5 px-6 py-3 flex items-center justify-between transition-colors duration-300">
@@ -38,7 +108,10 @@ const Navbar = ({ onMenuToggle }) => {
       </div>
 
       {/* Modern Finder / Search bar */}
-      <div className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100/60 dark:bg-bg-dark-sec/60 border border-slate-200/60 dark:border-white/5 text-slate-400 dark:text-dark-400 text-xs cursor-pointer hover:border-indigo-500/40 dark:hover:border-indigo-500/30 transition-all duration-200 w-64 shadow-[0_2px_8px_rgba(0,0,0,0.01)]">
+      <div 
+        onClick={() => setSearchOpen(true)}
+        className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100/60 dark:bg-bg-dark-sec/60 border border-slate-200/60 dark:border-white/5 text-slate-400 dark:text-dark-400 text-xs cursor-pointer hover:border-primary/40 dark:hover:border-primary/30 transition-all duration-200 w-64 shadow-[0_2px_8px_rgba(0,0,0,0.01)]"
+      >
         <Search className="w-3.5 h-3.5 text-slate-400" />
         <span className="font-light">Search dashboard...</span>
         <kbd className="ml-auto font-sans font-semibold text-[9px] bg-slate-250 dark:bg-white/5 px-1.5 py-0.5 rounded border border-slate-300/40 dark:border-white/10 text-slate-500 dark:text-slate-400">⌘K</kbd>
@@ -82,7 +155,7 @@ const Navbar = ({ onMenuToggle }) => {
                 alt={user.name}
                 className="w-7.5 h-7.5 rounded-lg object-cover ring-2 ring-indigo-500/10"
               />
-              <span className="hidden sm:block text-xs font-semibold text-slate-700 dark:text-slate-300 max-w-28 truncate">
+              <span className="hidden sm:block text-xs font-semibold text-slate-700 dark:text-slate-350 max-w-28 truncate">
                 {user.name}
               </span>
               <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
@@ -125,6 +198,109 @@ const Navbar = ({ onMenuToggle }) => {
           </div>
         )}
       </div>
+
+      {/* Dynamic Command Menu Modal */}
+      <AnimatePresence>
+        {searchOpen && (
+          <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 px-4">
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSearchOpen(false)}
+              className="absolute inset-0 bg-slate-950/60 backdrop-blur-md"
+            />
+
+            {/* Modal Box */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.97, y: -8 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.97, y: -8 }}
+              transition={{ duration: 0.15, ease: 'easeOut' }}
+              className="w-full max-w-lg bg-white dark:bg-card-dark border border-slate-200/80 dark:border-white/10 rounded-2xl shadow-2xl overflow-hidden relative z-10 flex flex-col max-h-[440px]"
+            >
+              {/* Search Header */}
+              <div className="flex items-center gap-3 px-4 py-3.5 border-b border-slate-100 dark:border-white/5 bg-slate-50/50 dark:bg-bg-dark/15">
+                <Search className="w-4.5 h-4.5 text-slate-400 dark:text-slate-500" />
+                <input
+                  ref={searchInputRef}
+                  type="text"
+                  placeholder="Type a command or search prep paths..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full bg-transparent text-sm text-slate-800 dark:text-slate-100 focus:outline-none placeholder:text-slate-400 dark:placeholder:text-slate-500"
+                />
+                <button
+                  onClick={() => setSearchOpen(false)}
+                  className="p-1 hover:bg-slate-100 dark:hover:bg-white/5 rounded-lg text-slate-400 hover:text-slate-650 dark:hover:text-white transition-colors"
+                >
+                  <X className="w-4.5 h-4.5" />
+                </button>
+              </div>
+
+              {/* Suggestions / Results */}
+              <div className="flex-1 overflow-y-auto no-scrollbar p-2.5 space-y-1">
+                {filteredItems.length === 0 ? (
+                  <div className="py-8 text-center text-xs text-slate-400 dark:text-slate-500">
+                    No results found for "{searchQuery}"
+                  </div>
+                ) : (
+                  filteredItems.map((item, idx) => {
+                    const isSelected = idx === selectedIndex;
+                    return (
+                      <div
+                        key={item.path}
+                        onClick={() => {
+                          navigate(item.path);
+                          setSearchOpen(false);
+                        }}
+                        onMouseEnter={() => setSelectedIndex(idx)}
+                        className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl cursor-pointer transition-all ${
+                          isSelected
+                            ? 'bg-primary text-white shadow-md shadow-primary/15'
+                            : 'text-slate-700 dark:text-slate-350 hover:bg-slate-50 dark:hover:bg-white/5'
+                        }`}
+                      >
+                        <div className="flex flex-col gap-0.5">
+                          <span className={`text-xs font-bold ${isSelected ? 'text-white' : 'text-slate-800 dark:text-slate-200'}`}>
+                            {item.name}
+                          </span>
+                          <span className={`text-[10px] ${isSelected ? 'text-purple-100' : 'text-slate-400 dark:text-slate-500'}`}>
+                            {item.desc}
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                          <span className={`text-[9px] px-2 py-0.5 rounded-md font-semibold border ${
+                            isSelected
+                              ? 'bg-white/10 border-white/20 text-white'
+                              : 'bg-slate-100 dark:bg-white/5 border-slate-200/50 dark:border-white/10 text-slate-400 dark:text-slate-400'
+                          }`}>
+                            {item.category}
+                          </span>
+                          {isSelected && <ArrowRight className="w-3.5 h-3.5 text-white" />}
+                        </div>
+                      </div>
+                    );
+                  })
+                )}
+              </div>
+
+              {/* Status Footer */}
+              <div className="px-4 py-2 bg-slate-50 dark:bg-bg-dark-sec/40 border-t border-slate-100 dark:border-white/5 flex items-center justify-between text-[9px] text-slate-400 dark:text-slate-500">
+                <div className="flex items-center gap-2">
+                  <span className="flex items-center gap-0.5"><kbd className="bg-slate-200/60 dark:bg-white/5 px-1 py-0.2 rounded border border-slate-300/20 dark:border-white/10">↑↓</kbd> navigate</span>
+                  <span className="flex items-center gap-0.5"><kbd className="bg-slate-200/60 dark:bg-white/5 px-1 py-0.2 rounded border border-slate-300/20 dark:border-white/10">↵</kbd> select</span>
+                  <span className="flex items-center gap-0.5"><kbd className="bg-slate-200/60 dark:bg-white/5 px-1 py-0.2 rounded border border-slate-300/20 dark:border-white/10">esc</kbd> close</span>
+                </div>
+                <div className="flex items-center gap-1 font-mono">
+                  <span className="text-[10px] font-bold">TalentForge</span> finder
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </header>
   );
 };

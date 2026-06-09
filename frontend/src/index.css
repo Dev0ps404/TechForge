@@ -59,7 +59,7 @@
     @apply font-sans bg-bg-light text-text-light antialiased transition-colors duration-300 overflow-x-hidden;
   }
   
-  body.dark {
+  .dark body {
     @apply bg-bg-dark text-text-primary-dark;
   }
 

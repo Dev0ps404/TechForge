@@ -62,7 +62,7 @@ const AppLayout = ({ children }) => {
       <Navbar onMenuToggle={() => setSidebarOpen(!sidebarOpen)} />
       <div className="flex flex-1 relative">
         <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
-        <main className="flex-1 p-4 md:p-6 lg:pl-70 w-full overflow-x-hidden min-h-[calc(100vh-62px)] lg:ml-64">
+        <main className="flex-1 p-4 md:p-6 lg:pl-68 w-full overflow-x-hidden min-h-[calc(100vh-62px)]">
           {children}
         </main>
       </div>
