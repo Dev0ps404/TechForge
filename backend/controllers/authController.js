@@ -130,11 +130,25 @@ exports.googleAuth = async (req, res, next) => {
     // Attempt real verification if GOOGLE_CLIENT_ID is set and token is not mock
     if (process.env.GOOGLE_CLIENT_ID && !process.env.GOOGLE_CLIENT_ID.includes('placeholder') && !credential.startsWith('mock_')) {
       try {
-        const ticket = await client.verifyIdToken({
-          idToken: credential,
-          audience: process.env.GOOGLE_CLIENT_ID,
-        });
-        payload = ticket.getPayload();
+        if (credential.startsWith('ey')) {
+          const ticket = await client.verifyIdToken({
+            idToken: credential,
+            audience: process.env.GOOGLE_CLIENT_ID,
+          });
+          payload = ticket.getPayload();
+        } else {
+          const userInfoRes = await fetch(`https://www.googleapis.com/oauth2/v3/userinfo?access_token=${credential}`);
+          if (!userInfoRes.ok) {
+            throw new Error(`Google userinfo returned status ${userInfoRes.status}`);
+          }
+          const googleData = await userInfoRes.json();
+          payload = {
+            email: googleData.email,
+            name: googleData.name,
+            picture: googleData.picture,
+            sub: googleData.sub,
+          };
+        }
       } catch (err) {
         console.error('Google token verification failed:', err);
         return res.status(400).json({
