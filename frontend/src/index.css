@@ -3,8 +3,10 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #6366f1;
-  --color-primary-hover: #4f46e5;
+  --color-primary: #7c3aed;
+  --color-primary-hover: #6d28d9;
+  --color-secondary: #6366f1;
+  --color-secondary-hover: #4f46e5;
   --color-accent: #06b6d4;
   --color-success: #22c55e;
   --color-warning: #f59e0b;
@@ -15,12 +17,38 @@
   --color-card-dark: #161f33;
   --color-text-primary-dark: #f8fafc;
   --color-text-secondary-dark: #94a3b8;
-  --color-border-dark: rgba(255, 255, 255, 0.08);
+  --color-border-dark: rgba(255, 255, 255, 0.12); /* Increased contrast border */
 
   --color-bg-light: #f8fafc;
   --color-card-light: #ffffff;
   --color-text-light: #0f172a;
   --color-border-light: #e5e7eb;
+
+  /* Standard dark-xxx color overrides for layout templates using them */
+  --color-dark-950: #0b1220;
+  --color-dark-900: #0b1220;
+  --color-dark-800: #111827;
+  --color-dark-700: #161f33;
+  --color-dark-400: #94a3b8;
+  --color-dark-300: #cbd5e1;
+  --color-dark-200: #e2e8f0;
+  --color-dark-100: #f1f5f9;
+  --color-dark-50: #f8fafc;
+
+  /* Remap indigo system to point to Violet/Purple primary to seamlessly skin the site buttons/accents */
+  --color-indigo-50: #f5f3ff;
+  --color-indigo-100: #ede9fe;
+  --color-indigo-200: #ddd6fe;
+  --color-indigo-300: #c084fc;
+  --color-indigo-400: #a78bfa;
+  --color-indigo-500: #7c3aed; /* Violet/Purple Primary */
+  --color-indigo-550: #6d28d9;
+  --color-indigo-600: #6d28d9; /* Violet Hover */
+  --color-indigo-650: #5b21b6;
+  --color-indigo-700: #4c1d95;
+  --color-indigo-800: #1e1b4b;
+  --color-indigo-900: #0f172a;
+  --color-indigo-950: #030712;
 
   --font-sans: "Plus Jakarta Sans", "Inter", sans-serif;
   --radius-2xl: 20px;
@@ -42,22 +70,22 @@
   }
 
   .dark .grid-bg-dark {
-    background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
     background-size: 24px 24px;
   }
 }
 
 /* Glassmorphism panel styles */
 .glass-panel {
-  @apply bg-white/70 dark:bg-card-dark/60 backdrop-blur-xl border border-border-light dark:border-border-dark rounded-2xl shadow-sm transition-all duration-300;
+  @apply bg-white/80 dark:bg-card-dark/80 backdrop-blur-2xl border border-border-light dark:border-border-dark rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.02)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.2)] transition-all duration-300;
 }
 
 .glass-card {
-  @apply bg-white/80 dark:bg-card-dark/50 backdrop-blur-xl border border-border-light dark:border-border-dark rounded-2xl transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.02)] dark:shadow-[0_4px_30px_rgba(0,0,0,0.15)] hover:-translate-y-1 hover:shadow-lg dark:hover:shadow-[0_20px_40px_rgba(0,0,0,0.3)];
+  @apply bg-white/90 dark:bg-card-dark/75 backdrop-blur-2xl border border-border-light dark:border-border-dark rounded-2xl transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.02)] dark:shadow-[0_4px_30px_rgba(0,0,0,0.2)] hover:-translate-y-1 hover:shadow-xl dark:hover:shadow-[0_20px_40px_rgba(0,0,0,0.45)] hover:border-primary/40 dark:hover:border-primary/30;
 }
 
 .glass-input {
-  @apply w-full px-4 py-3 rounded-xl border border-border-light dark:border-border-dark bg-white/50 dark:bg-bg-dark/40 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all duration-200 placeholder:text-slate-400 dark:placeholder:text-slate-500;
+  @apply w-full px-4 py-3 rounded-xl border border-border-light dark:border-border-dark bg-white/70 dark:bg-bg-dark-sec/60 text-sm text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary transition-all duration-200 placeholder:text-slate-400 dark:placeholder:text-slate-500;
 }
 
 /* Premium Gradient Border */
@@ -78,12 +106,12 @@
   top: -1px; bottom: -1px; left: -1px; right: -1px;
   z-index: -1;
   border-radius: inherit;
-  background: linear-gradient(135deg, rgba(99,102,241,0.2) 0%, rgba(6,182,212,0.1) 50%, rgba(255,255,255,0.05) 100%);
+  background: linear-gradient(135deg, rgba(124,58,237,0.2) 0%, rgba(6,182,212,0.1) 50%, rgba(255,255,255,0.05) 100%);
   transition: opacity 0.3s ease;
 }
 
 .dark .gradient-border-panel::before {
-  background: linear-gradient(135deg, rgba(99,102,241,0.4) 0%, rgba(6,182,212,0.2) 50%, rgba(255,255,255,0.02) 100%);
+  background: linear-gradient(135deg, rgba(124,58,237,0.4) 0%, rgba(6,182,212,0.2) 50%, rgba(255,255,255,0.02) 100%);
 }
 
 /* Accent glows and ambient lights */
