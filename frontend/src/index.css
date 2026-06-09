@@ -50,6 +50,21 @@
   --color-indigo-900: #0f172a;
   --color-indigo-950: #030712;
 
+  /* Custom slate-xxx levels used in pages */
+  --color-slate-150: #e2e8f0;
+  --color-slate-250: #cbd5e1;
+  --color-slate-350: #94a3b8; /* Subtext */
+  --color-slate-550: #64748b;
+  --color-slate-650: #475569;
+  --color-slate-705: #334155;
+  --color-slate-750: #1e293b;
+  --color-slate-755: #0f172a;
+
+  /* Custom purple-xxx levels used in gradients */
+  --color-purple-550: #7c3aed;
+  --color-purple-650: #6d28d9;
+  --color-purple-705: #5b21b6;
+
   --font-sans: "Plus Jakarta Sans", "Inter", sans-serif;
   --radius-2xl: 20px;
 }
