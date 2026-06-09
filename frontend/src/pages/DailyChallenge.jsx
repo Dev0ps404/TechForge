@@ -3,6 +3,7 @@ import api from '../utils/api';
 import { useAuth } from '../context/AuthContext';
 import toast from 'react-hot-toast';
 import { Calendar, Play, Send, Award, Flame, CheckCircle, Loader2, Sparkles } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const DailyChallenge = () => {
   const { user, refreshProfile } = useAuth();
@@ -66,7 +67,7 @@ const DailyChallenge = () => {
       if (res.data.success) {
         toast.success(res.data.message);
         setCompletedToday(true);
-        refreshProfile(); // refresh points/streaks
+        refreshProfile();
       }
     } catch (err) {
       toast.dismiss();
@@ -79,76 +80,89 @@ const DailyChallenge = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-dark-950">
-        <Loader2 className="w-8 h-8 text-indigo-500 animate-spin" />
+      <div className="min-h-[70vh] flex items-center justify-center">
+        <Loader2 className="w-8 h-8 text-primary animate-spin" />
       </div>
     );
   }
 
   if (!challenge) {
     return (
-      <div className="text-center py-16 text-slate-400 space-y-4">
-        <p className="text-sm">No daily challenges loaded.</p>
+      <div className="text-center py-16 text-slate-400 space-y-4 max-w-md mx-auto">
+        <AlertCircle className="w-10 h-10 text-slate-355 mx-auto" />
+        <p className="text-xs font-light">No daily challenges loaded today.</p>
       </div>
     );
   }
 
   return (
-    <div className="grid lg:grid-cols-2 gap-6 items-stretch">
+    <div className="grid lg:grid-cols-2 gap-6 items-stretch max-w-7xl mx-auto pb-12">
       {/* Description Panel */}
-      <div className="glass-panel border p-8 rounded-3xl flex flex-col justify-between space-y-6">
-        <div className="space-y-4">
+      <motion.div 
+        initial={{ opacity: 0, x: -10 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.3 }}
+        className="glass-panel border p-6 sm:p-8 bg-white dark:bg-card-dark flex flex-col justify-between space-y-6 rounded-2xl shadow-sm"
+      >
+        <div className="space-y-5">
           {/* Header */}
-          <div className="flex items-center justify-between border-b pb-4 border-slate-100 dark:border-dark-800">
+          <div className="flex items-center justify-between border-b pb-4 border-slate-100 dark:border-white/5">
             <div className="flex items-center gap-2">
-              <Calendar className="w-5 h-5 text-orange-500 animate-pulse" />
-              <h2 className="font-bold text-lg">Daily Coding Challenge</h2>
+              <Calendar className="w-4.5 h-4.5 text-orange-500 animate-pulse" />
+              <h2 className="font-bold text-sm text-slate-800 dark:text-slate-100">Daily Challenge</h2>
             </div>
-            <div className="flex items-center gap-1.5 px-3 py-1 rounded-xl bg-orange-500/10 text-orange-500 text-xs font-bold">
-              <Award className="w-4 h-4" />
+            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-orange-500/10 text-orange-500 text-[10px] font-bold tracking-wider uppercase">
+              <Award className="w-3.5 h-3.5" />
               <span>+{challenge.rewardPoints} XP</span>
             </div>
           </div>
 
-          <span className="px-2.5 py-1 text-[10px] font-bold rounded-lg bg-orange-500/10 text-orange-600 dark:text-orange-400 uppercase tracking-widest">
+          <span className="inline-block px-2.5 py-0.5 text-[9px] font-bold rounded-md bg-indigo-500/10 text-indigo-500 uppercase tracking-wider">
             {challenge.type} challenge
           </span>
 
-          <h1 className="text-xl md:text-2xl font-extrabold">{challenge.title}</h1>
+          <h1 className="text-lg md:text-xl font-bold text-slate-850 dark:text-white leading-snug">{challenge.title}</h1>
 
           {/* Description text */}
-          <div className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-light whitespace-pre-line bg-slate-50 dark:bg-dark-900/20 p-5 rounded-2xl border">
+          <div className="text-xs text-slate-600 dark:text-slate-350 leading-relaxed font-light whitespace-pre-line bg-slate-50/50 dark:bg-bg-dark/30 p-5 rounded-xl border border-slate-150 dark:border-white/5 font-mono">
             {challenge.description}
           </div>
         </div>
 
         {/* Streak detail */}
-        <div className="flex items-center gap-3 p-4 rounded-2xl bg-indigo-500/5 border border-indigo-500/10 text-xs text-indigo-700 dark:text-indigo-400">
-          <Flame className="w-5 h-5 text-orange-500" />
+        <div className="flex items-center gap-3 p-4 rounded-xl bg-indigo-500/5 dark:bg-indigo-550/10 border border-indigo-500/10 text-xs text-indigo-650 dark:text-indigo-400">
+          <Flame className="w-5 h-5 text-orange-500 animate-pulse-smooth" />
           <div>
-            <p className="font-bold">Maintain your Daily Streak!</p>
-            <p className="font-light mt-0.5">Solve a challenge every 24 hours to claim consecutive XP modifiers.</p>
+            <p className="font-bold text-xs">Maintain your Daily Streak!</p>
+            <p className="text-[10px] font-light mt-0.5">Solve a challenge every 24 hours to claim consecutive XP multipliers.</p>
           </div>
         </div>
-      </div>
+      </motion.div>
 
       {/* Code Editor or Text Submission Panel */}
-      <div className="glass-panel border p-6 rounded-3xl flex flex-col justify-between min-h-[450px]">
+      <motion.div 
+        initial={{ opacity: 0, x: 10 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.3 }}
+        className="glass-panel border p-6 bg-white dark:bg-card-dark flex flex-col justify-between min-h-[450px] rounded-2xl shadow-sm relative overflow-hidden"
+      >
+        <div className="absolute top-0 right-0 w-36 h-36 bg-gradient-to-br from-indigo-500/5 to-transparent blur-2xl pointer-events-none"></div>
+
         {completedToday ? (
-          <div className="flex-grow flex flex-col items-center justify-center text-center space-y-4">
-            <CheckCircle className="w-16 h-16 text-emerald-500" />
-            <h3 className="text-xl font-bold">Challenge Completed!</h3>
+          <div className="flex-grow flex flex-col items-center justify-center text-center space-y-4 py-12">
+            <CheckCircle className="w-14 h-14 text-emerald-500" />
+            <h3 className="text-base font-bold text-slate-800 dark:text-white">Challenge Completed!</h3>
             <p className="text-xs text-slate-400 max-w-xs leading-relaxed font-light">
               You have successfully completed today's task. Check back tomorrow for the next challenge!
             </p>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="flex-grow flex flex-col justify-between h-full space-y-6">
+          <form onSubmit={handleSubmit} className="flex-grow flex flex-col justify-between h-full space-y-6 relative z-10">
             <div className="flex-grow flex flex-col space-y-3">
-              <div className="flex justify-between items-center text-xs font-semibold text-slate-400">
-                <span>{challenge.type === 'coding' ? 'JAVASCRIPT EDITOR' : 'SCENARIO RESPONSE'}</span>
-                <span className="flex items-center gap-1">
-                  <Sparkles className="w-3.5 h-3.5 text-indigo-500" /> Code compiles locally
+              <div className="flex justify-between items-center text-[10px] font-bold text-slate-400 tracking-wider">
+                <span>{challenge.type === 'coding' ? 'JAVASCRIPT CONSOLE' : 'SCENARIO WORKSPACE'}</span>
+                <span className="flex items-center gap-1.5 text-indigo-500">
+                  <Sparkles className="w-3.5 h-3.5" /> Auto-lint enabled
                 </span>
               </div>
 
@@ -156,32 +170,32 @@ const DailyChallenge = () => {
                 <textarea
                   value={editorCode}
                   onChange={(e) => setEditorCode(e.target.value)}
-                  className="w-full flex-grow p-4 rounded-2xl border border-slate-200 dark:border-dark-800 bg-slate-900 text-slate-100 font-mono text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500/25 h-72 resize-none"
+                  className="w-full flex-grow p-4 rounded-xl border border-slate-200 dark:border-white/5 bg-slate-950 text-slate-100 font-mono text-xs focus:outline-none focus:ring-1 focus:ring-primary/45 h-72 resize-none leading-relaxed"
                 />
               ) : (
                 <textarea
                   placeholder="Explain your approach or solution in detail..."
                   value={textResponse}
                   onChange={(e) => setTextResponse(e.target.value)}
-                  className="w-full flex-grow p-4 rounded-2xl border border-slate-200 dark:border-dark-800 bg-white dark:bg-dark-900 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500/25 h-72"
+                  className="w-full flex-grow p-4 rounded-xl border border-slate-200 dark:border-white/5 bg-slate-50/50 dark:bg-bg-dark/30 text-xs focus:outline-none focus:ring-2 focus:ring-primary/25 h-72 font-light leading-relaxed"
                 />
               )}
             </div>
 
             {/* Actions */}
-            <div className="flex items-center gap-3 pt-4 border-t border-slate-100 dark:border-dark-800/60">
+            <div className="flex items-center gap-3 pt-4 border-t border-slate-100 dark:border-white/5">
               {challenge.type === 'coding' && (
                 <button
                   type="button"
                   onClick={handleRunTests}
                   disabled={runningTests || submitting}
-                  className="px-4 py-3 rounded-xl border hover:bg-slate-50 dark:hover:bg-dark-800 text-xs font-bold transition-colors disabled:opacity-40 flex items-center gap-1.5"
+                  className="px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/5 hover:bg-slate-50 dark:hover:bg-white/5 text-xs font-bold transition-all disabled:opacity-40 flex items-center gap-1.5 text-slate-700 dark:text-slate-350"
                 >
                   {runningTests ? (
-                    <Loader2 className="w-4 h-4 animate-spin" />
+                    <Loader2 className="w-3.5 h-3.5 animate-spin text-primary" />
                   ) : (
                     <>
-                      <Play className="w-4 h-4" /> Run Tests
+                      <Play className="w-3.5 h-3.5" /> Run Tests
                     </>
                   )}
                 </button>
@@ -190,20 +204,20 @@ const DailyChallenge = () => {
               <button
                 type="submit"
                 disabled={submitting}
-                className="flex-grow py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl text-xs transition-colors shadow-lg shadow-indigo-650/15 flex items-center justify-center gap-1.5"
+                className="flex-grow py-2.5 bg-gradient-to-r from-indigo-500 to-purple-650 hover:from-indigo-600 hover:to-purple-700 text-white font-bold rounded-xl text-xs transition-colors shadow-lg shadow-indigo-500/20 flex items-center justify-center gap-1.5"
               >
                 {submitting ? (
-                  <Loader2 className="w-4 h-4 animate-spin" />
+                  <Loader2 className="w-3.5 h-3.5 animate-spin" />
                 ) : (
                   <>
-                    Submit Solution <Send className="w-4 h-4" />
+                    Submit Solution <Send className="w-3.5 h-3.5" />
                   </>
                 )}
               </button>
             </div>
           </form>
         )}
-      </div>
+      </motion.div>
     </div>
   );
 };

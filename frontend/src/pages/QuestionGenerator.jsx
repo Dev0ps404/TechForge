@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../utils/api';
 import toast from 'react-hot-toast';
-import { Video, Sparkles, CheckSquare, Loader2, ArrowRight } from 'lucide-react';
+import { Video, Sparkles, Loader2, ArrowRight, BookOpen, Clock, Settings, UserCheck } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const QuestionGenerator = () => {
   const navigate = useNavigate();
@@ -59,7 +60,6 @@ const QuestionGenerator = () => {
       if (res.data.success) {
         toast.success('Questions generated successfully! Launching interview room.');
         
-        // Pass session details to the mock interview page via state
         navigate('/mock-interview-room', {
           state: {
             session: res.data.session,
@@ -77,31 +77,38 @@ const QuestionGenerator = () => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto space-y-6">
-      {/* Title */}
-      <div>
-        <h1 className="text-3xl font-extrabold tracking-tight">AI Interview Generator</h1>
-        <p className="text-slate-500 dark:text-slate-400 text-sm font-light mt-1">
+    <motion.div 
+      initial={{ opacity: 0, y: 15 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+      className="max-w-3xl mx-auto space-y-8 pb-12"
+    >
+      {/* Header */}
+      <div className="space-y-2">
+        <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">AI Interview Room Setup</h1>
+        <p className="text-slate-400 text-xs font-light">
           Configure your mock room details. Our AI will curate industry-aligned conceptual, coding, and behavioral prompts.
         </p>
       </div>
 
-      <div className="glass-panel border p-8 rounded-3xl relative overflow-hidden">
+      <div className="glass-panel border p-6 sm:p-8 relative overflow-hidden bg-white dark:bg-card-dark">
         {/* Glow */}
-        <div className="absolute top-0 right-0 w-48 h-48 rounded-full bg-indigo-500/10 blur-3xl"></div>
+        <div className="absolute top-0 right-0 w-64 h-64 rounded-full bg-indigo-500/5 blur-3xl pointer-events-none"></div>
 
-        <form onSubmit={handleGenerate} className="space-y-6">
+        <form onSubmit={handleGenerate} className="space-y-6 relative z-10">
           <div className="grid md:grid-cols-2 gap-6">
             {/* Job Role select */}
-            <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-bold text-slate-400 uppercase">Target Job Role</label>
+            <div className="space-y-2">
+              <label className="text-[10px] font-bold text-slate-450 dark:text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
+                <UserCheck className="w-3.5 h-3.5 text-indigo-550" /> Target Job Role
+              </label>
               <select
                 value={jobRole}
                 onChange={(e) => setJobRole(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-dark-800 bg-white dark:bg-dark-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 text-sm"
+                className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/5 bg-slate-50/50 dark:bg-bg-dark/40 text-xs focus:outline-none focus:ring-2 focus:ring-primary/25 focus:border-primary transition-all font-medium"
               >
                 {roles.map((r) => (
-                  <option key={r} value={r}>
+                  <option key={r} value={r} className="dark:bg-card-dark">
                     {r}
                   </option>
                 ))}
@@ -109,15 +116,17 @@ const QuestionGenerator = () => {
             </div>
 
             {/* Experience level select */}
-            <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-bold text-slate-400 uppercase">Experience Level</label>
+            <div className="space-y-2">
+              <label className="text-[10px] font-bold text-slate-450 dark:text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
+                <BookOpen className="w-3.5 h-3.5 text-indigo-550" /> Experience Level
+              </label>
               <select
                 value={experience}
                 onChange={(e) => setExperience(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-dark-800 bg-white dark:bg-dark-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 text-sm"
+                className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/5 bg-slate-50/50 dark:bg-bg-dark/40 text-xs focus:outline-none focus:ring-2 focus:ring-primary/25 focus:border-primary transition-all font-medium"
               >
                 {experienceLevels.map((exp) => (
-                  <option key={exp} value={exp}>
+                  <option key={exp} value={exp} className="dark:bg-card-dark">
                     {exp}
                   </option>
                 ))}
@@ -126,14 +135,16 @@ const QuestionGenerator = () => {
           </div>
 
           {/* Tech Stack string */}
-          <div className="flex flex-col gap-1.5">
-            <label className="text-xs font-bold text-slate-400 uppercase">Technology Stack / Core Skills</label>
+          <div className="space-y-2">
+            <label className="text-[10px] font-bold text-slate-450 dark:text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
+              <Settings className="w-3.5 h-3.5 text-indigo-550" /> Tech Stack & Skills
+            </label>
             <input
               type="text"
               placeholder="e.g. React, Node.js, Express, MongoDB, Redux"
               value={techStack}
               onChange={(e) => setTechStack(e.target.value)}
-              className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-dark-800 bg-white dark:bg-dark-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 text-sm"
+              className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/5 bg-slate-50/50 dark:bg-bg-dark/40 text-xs focus:outline-none focus:ring-2 focus:ring-primary/25 focus:border-primary transition-all font-medium"
             />
             <p className="text-[10px] text-slate-400 font-light">
               Separate with commas to ensure OpenAI focuses on these specific topics.
@@ -142,15 +153,17 @@ const QuestionGenerator = () => {
 
           <div className="grid md:grid-cols-2 gap-6">
             {/* Difficulty select */}
-            <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-bold text-slate-400 uppercase">Room Difficulty</label>
+            <div className="space-y-2">
+              <label className="text-[10px] font-bold text-slate-450 dark:text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
+                <Sparkles className="w-3.5 h-3.5 text-indigo-550" /> Room Difficulty
+              </label>
               <select
                 value={difficulty}
                 onChange={(e) => setDifficulty(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-dark-800 bg-white dark:bg-dark-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 text-sm"
+                className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/5 bg-slate-50/50 dark:bg-bg-dark/40 text-xs focus:outline-none focus:ring-2 focus:ring-primary/25 focus:border-primary transition-all font-medium"
               >
                 {difficulties.map((diff) => (
-                  <option key={diff} value={diff}>
+                  <option key={diff} value={diff} className="dark:bg-card-dark">
                     {diff}
                   </option>
                 ))}
@@ -158,15 +171,17 @@ const QuestionGenerator = () => {
             </div>
 
             {/* Questions count select */}
-            <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-bold text-slate-400 uppercase">Number of Questions</label>
+            <div className="space-y-2">
+              <label className="text-[10px] font-bold text-slate-450 dark:text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
+                <Clock className="w-3.5 h-3.5 text-indigo-550" /> Number of Questions
+              </label>
               <select
                 value={numQuestions}
                 onChange={(e) => setNumQuestions(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-dark-800 bg-white dark:bg-dark-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 text-sm"
+                className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/5 bg-slate-50/50 dark:bg-bg-dark/40 text-xs focus:outline-none focus:ring-2 focus:ring-primary/25 focus:border-primary transition-all font-medium"
               >
                 {[3, 5, 7, 10].map((n) => (
-                  <option key={n} value={n}>
+                  <option key={n} value={n} className="dark:bg-card-dark">
                     {n} Questions
                   </option>
                 ))}
@@ -175,15 +190,15 @@ const QuestionGenerator = () => {
           </div>
 
           {/* Guidelines info */}
-          <div className="p-4 rounded-2xl bg-indigo-500/5 border border-indigo-500/20 text-xs text-indigo-700 dark:text-indigo-400 space-y-2">
-            <h4 className="font-bold flex items-center gap-1">
-              <Sparkles className="w-3.5 h-3.5 text-indigo-500" /> Mock Room Rules:
+          <div className="p-4 rounded-xl bg-indigo-500/5 dark:bg-indigo-500/10 border border-indigo-500/10 text-xs text-indigo-655 dark:text-indigo-400 space-y-2">
+            <h4 className="font-bold flex items-center gap-1 text-xs">
+              <Sparkles className="w-3.5 h-3.5 text-indigo-500 animate-pulse" /> Mock Room Guidelines:
             </h4>
-            <ul className="list-disc pl-4 space-y-1 font-light">
-              <li>You can record answers using speech-to-text voice controls.</li>
-              <li>Toggle your web camera at any time for live feedback visual overlays.</li>
-              <li>Do not leave or refresh the tab once the timer starts to maintain session integrity.</li>
-              <li>A full AI performance report will be generated and emailed upon submission.</li>
+            <ul className="list-disc pl-4 space-y-1 font-light text-[11px] leading-relaxed">
+              <li>Record spoken answers directly via Speech-to-Text triggers in browser.</li>
+              <li>Optional visual camera overlay is supported for eye-tracking simulation.</li>
+              <li>Avoid reloading or exiting the interview room during live intervals.</li>
+              <li>A full scorecard report will be automatically calculated and emailed to your address.</li>
             </ul>
           </div>
 
@@ -191,21 +206,21 @@ const QuestionGenerator = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-4 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-2xl transition-all shadow-lg shadow-indigo-650/25 flex items-center justify-center gap-2"
+            className="w-full py-3 bg-gradient-to-r from-indigo-500 to-purple-650 hover:from-indigo-600 hover:to-purple-700 text-white font-bold rounded-xl transition-all shadow-lg shadow-indigo-500/20 flex items-center justify-center gap-2 text-xs"
           >
             {loading ? (
               <>
-                <Loader2 className="w-5 h-5 animate-spin" /> Customizing Interview Room...
+                <Loader2 className="w-4 h-4 animate-spin" /> Curating Questions with GPT...
               </>
             ) : (
               <>
-                Generate Mock Interview <ArrowRight className="w-5 h-5" />
+                Generate Mock Interview <ArrowRight className="w-4 h-4" />
               </>
             )}
           </button>
         </form>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

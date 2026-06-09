@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import api from '../utils/api';
 import { useAuth } from '../context/AuthContext';
-import { MessageSquare, Send, Sparkles, User, Loader2, ArrowRight } from 'lucide-react';
+import { Send, Sparkles, User, Loader2 } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const ChatAssistant = () => {
   const { user } = useAuth();
@@ -45,7 +46,6 @@ How can I help you prepare today? You can ask me to review a concept, optimize a
     try {
       setSending(true);
 
-      // Call Chat API
       const res = await api.post('/chat', {
         messages: updatedMessages.map((m) => ({ role: m.role, content: m.content })),
       });
@@ -70,25 +70,24 @@ How can I help you prepare today? You can ask me to review a concept, optimize a
     }
   };
 
-  // Simple text renderer that handles newlines and basic list marks
   const renderMessageContent = (content) => {
     return content.split('\n').map((line, idx) => {
       if (line.startsWith('- ') || line.startsWith('* ')) {
         return (
-          <li key={idx} className="ml-4 list-disc my-1">
+          <li key={idx} className="ml-4 list-disc my-1 text-xs font-light">
             {line.substring(2)}
           </li>
         );
       }
       if (line.startsWith('### ')) {
         return (
-          <h4 key={idx} className="font-extrabold text-sm text-indigo-500 mt-2 mb-1">
+          <h4 key={idx} className="font-extrabold text-xs text-indigo-500 dark:text-indigo-400 mt-3 mb-1.5 uppercase tracking-wider">
             {line.substring(4)}
           </h4>
         );
       }
       return (
-        <p key={idx} className="my-1.5 leading-relaxed">
+        <p key={idx} className="my-1.5 leading-relaxed text-xs font-light">
           {line}
         </p>
       );
@@ -96,63 +95,74 @@ How can I help you prepare today? You can ask me to review a concept, optimize a
   };
 
   return (
-    <div className="flex flex-col h-[calc(100vh-140px)] max-w-4xl mx-auto border rounded-3xl glass-panel overflow-hidden">
+    <motion.div 
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+      className="flex flex-col h-[calc(100vh-140px)] max-w-4xl mx-auto border border-slate-200/60 dark:border-white/5 bg-white dark:bg-card-dark rounded-2xl shadow-xl overflow-hidden"
+    >
       {/* Advisor Header */}
-      <div className="px-6 py-4 border-b flex items-center gap-3 bg-indigo-500/5">
-        <div className="w-10 h-10 rounded-2xl bg-indigo-500/10 flex items-center justify-center text-indigo-500">
-          <Sparkles className="w-5 h-5 animate-pulse" />
+      <div className="px-6 py-4 border-b border-slate-100 dark:border-white/5 flex items-center gap-3 bg-slate-50/50 dark:bg-bg-dark/15">
+        <div className="w-10 h-10 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-550 flex-shrink-0">
+          <Sparkles className="w-5 h-5 animate-pulse-smooth text-indigo-500" />
         </div>
         <div>
-          <h3 className="font-bold text-sm">TalentForge Career Mentor</h3>
-          <span className="flex items-center gap-1 text-[10px] text-emerald-500 font-semibold">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span> AI Assistant Online
+          <h3 className="font-bold text-xs text-slate-800 dark:text-slate-150">Career Mentor</h3>
+          <span className="flex items-center gap-1.5 text-[9px] text-emerald-500 font-bold tracking-wider uppercase mt-0.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> AI Mentor Online
           </span>
         </div>
       </div>
 
       {/* Messages Timeline */}
-      <div className="flex-grow p-6 overflow-y-auto no-scrollbar space-y-4 bg-white/20 dark:bg-dark-900/10">
-        {messages.map((msg, index) => {
-          const isAssistant = msg.role === 'assistant';
-          return (
-            <div
-              key={index}
-              className={`flex gap-3 max-w-[85%] ${
-                isAssistant ? 'self-start' : 'self-end flex-row-reverse ml-auto'
-              }`}
-            >
-              {/* Profile Avatar */}
-              <div
-                className={`w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0 text-xs font-bold ${
-                  isAssistant
-                    ? 'bg-indigo-500/15 text-indigo-500'
-                    : 'bg-slate-200 dark:bg-dark-800 text-slate-600 dark:text-slate-300'
+      <div className="flex-grow p-6 overflow-y-auto no-scrollbar space-y-4 bg-slate-50/20 dark:bg-bg-dark/5">
+        <AnimatePresence initial={false}>
+          {messages.map((msg, index) => {
+            const isAssistant = msg.role === 'assistant';
+            return (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
+                className={`flex gap-3 max-w-[85%] ${
+                  isAssistant ? 'self-start' : 'self-end flex-row-reverse ml-auto'
                 }`}
               >
-                {isAssistant ? 'TF' : <User className="w-4 h-4" />}
-              </div>
+                {/* Profile Avatar */}
+                <div
+                  className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 text-[10px] font-bold border ${
+                    isAssistant
+                      ? 'bg-indigo-500/10 text-indigo-500 border-indigo-500/15'
+                      : 'bg-slate-100 dark:bg-white/5 text-slate-650 dark:text-slate-350 border-slate-200/50 dark:border-white/10'
+                  }`}
+                >
+                  {isAssistant ? 'TF' : <User className="w-3.5 h-3.5" />}
+                </div>
 
-              {/* Message box */}
-              <div
-                className={`p-4 rounded-2xl border text-xs font-light shadow-sm ${
-                  isAssistant
-                    ? 'bg-white dark:bg-dark-900 border-slate-100 dark:border-dark-850 text-slate-800 dark:text-slate-200 rounded-tl-none'
-                    : 'bg-indigo-650 border-indigo-700 text-white rounded-tr-none shadow-indigo-500/5'
-                }`}
-              >
-                {renderMessageContent(msg.content)}
-              </div>
-            </div>
-          );
-        })}
+                {/* Message box */}
+                <div
+                  className={`p-4 rounded-xl border text-xs shadow-[0_2px_10px_rgba(0,0,0,0.01)] ${
+                    isAssistant
+                      ? 'bg-white dark:bg-bg-dark-sec/60 border-slate-200/60 dark:border-white/5 text-slate-800 dark:text-slate-200 rounded-tl-none'
+                      : 'bg-indigo-600 border-indigo-700 text-white rounded-tr-none'
+                  }`}
+                >
+                  {renderMessageContent(msg.content)}
+                </div>
+              </motion.div>
+            );
+          })}
+        </AnimatePresence>
+
         {sending && (
           <div className="flex gap-3 max-w-[80%] self-start">
-            <div className="w-8 h-8 rounded-xl bg-indigo-500/15 text-indigo-500 flex items-center justify-center text-xs font-bold">
+            <div className="w-8 h-8 rounded-lg bg-indigo-500/10 text-indigo-500 flex items-center justify-center text-[10px] font-bold border border-indigo-500/15">
               TF
             </div>
-            <div className="p-4 rounded-2xl border bg-white dark:bg-dark-900 border-slate-100 dark:border-dark-850 rounded-tl-none flex items-center gap-2 text-xs text-slate-400">
-              <Loader2 className="w-4 h-4 animate-spin text-indigo-500" />
-              <span>AI is thinking...</span>
+            <div className="p-4 rounded-xl border bg-white dark:bg-bg-dark-sec/60 border-slate-250 dark:border-white/5 rounded-tl-none flex items-center gap-2 text-xs text-slate-400">
+              <Loader2 className="w-3.5 h-3.5 animate-spin text-primary" />
+              <span className="font-light text-[11px]">Analyzing prompt...</span>
             </div>
           </div>
         )}
@@ -161,12 +171,12 @@ How can I help you prepare today? You can ask me to review a concept, optimize a
 
       {/* Suggestion Prompt Chips */}
       {messages.length === 1 && (
-        <div className="px-6 py-3 border-t bg-slate-50/50 dark:bg-dark-950/20 flex flex-wrap gap-2">
+        <div className="px-6 py-3 border-t border-slate-100 dark:border-white/5 bg-slate-50/40 dark:bg-bg-dark/10 flex flex-wrap gap-2">
           {promptSuggestions.map((prompt) => (
             <button
               key={prompt}
               onClick={() => handleSend(prompt)}
-              className="text-[10px] font-bold px-3 py-1.5 rounded-full border border-slate-200 dark:border-dark-850 hover:border-indigo-500/40 hover:bg-indigo-50/10 transition-all text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+              className="text-[10px] font-semibold px-3 py-1.5 rounded-lg border border-slate-200 dark:border-white/5 hover:border-indigo-500/40 hover:bg-indigo-500/5 transition-all text-slate-500 dark:text-slate-450 hover:text-slate-800 dark:hover:text-white"
             >
               {prompt}
             </button>
@@ -175,24 +185,24 @@ How can I help you prepare today? You can ask me to review a concept, optimize a
       )}
 
       {/* Message Input Panel */}
-      <div className="p-4 border-t flex items-center gap-2 bg-slate-50 dark:bg-dark-950/30">
+      <div className="p-4 border-t border-slate-150 dark:border-white/5 flex items-center gap-2 bg-slate-50/50 dark:bg-bg-dark/15">
         <input
           type="text"
           placeholder="Ask a career guidance question..."
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-          className="w-full px-4 py-3.5 rounded-2xl border border-slate-200 dark:border-dark-800 bg-white dark:bg-dark-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/25 text-xs transition-all"
+          className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-white/5 bg-white dark:bg-bg-dark/40 focus:outline-none focus:ring-2 focus:ring-primary/25 focus:border-primary text-xs transition-all font-medium placeholder:text-slate-400"
         />
         <button
           onClick={() => handleSend()}
           disabled={sending || !inputValue.trim()}
-          className="p-3.5 bg-indigo-600 hover:bg-indigo-500 disabled:opacity-40 text-white rounded-2xl transition-all shadow-md shadow-indigo-650/15"
+          className="p-3 bg-indigo-650 hover:bg-indigo-600 disabled:opacity-40 text-white rounded-xl transition-all shadow-md shadow-indigo-500/15 flex-shrink-0"
         >
           <Send className="w-4 h-4" />
         </button>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

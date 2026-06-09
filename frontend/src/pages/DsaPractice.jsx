@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import api from '../utils/api';
 import { useAuth } from '../context/AuthContext';
 import toast from 'react-hot-toast';
-import { Code, CheckSquare, Square, Flame, Award, Loader2, Sparkles } from 'lucide-react';
+import { Code, CheckSquare, Square, Flame, Loader2, Sparkles, PlusCircle } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const DsaPractice = () => {
   const { user, refreshProfile } = useAuth();
@@ -11,7 +12,6 @@ const DsaPractice = () => {
   const [toggling, setToggling] = useState(null);
   const [filterDifficulty, setFilterDifficulty] = useState('All');
 
-  // Hardcoded problems bank categorized by topic
   const problemsBank = {
     'Arrays': [
       { id: 'arr1', name: 'Two Sum', difficulty: 'Easy' },
@@ -113,8 +113,8 @@ const DsaPractice = () => {
 
       if (res.data.success) {
         toast.success(res.data.message);
-        fetchDsaProgress(); // reload progress list
-        refreshProfile(); // sync updated points and streaks
+        fetchDsaProgress();
+        refreshProfile();
       }
     } catch (err) {
       console.error('Failed to modify DSA progress:', err);
@@ -130,14 +130,12 @@ const DsaPractice = () => {
     );
   };
 
-  // Helper to color difficulty text
   const getDiffColor = (diff) => {
-    if (diff === 'Easy') return 'text-emerald-500 bg-emerald-500/10';
-    if (diff === 'Medium') return 'text-amber-500 bg-amber-500/10';
-    return 'text-pink-500 bg-pink-500/10';
+    if (diff === 'Easy') return 'text-emerald-500 bg-emerald-550/10';
+    if (diff === 'Medium') return 'text-amber-500 bg-amber-550/10';
+    return 'text-rose-500 bg-rose-550/10';
   };
 
-  // Calculates completion rates per category
   const getCompletionPercentage = (topic) => {
     const categoryProblems = problemsBank[topic] || [];
     if (categoryProblems.length === 0) return 0;
@@ -149,41 +147,49 @@ const DsaPractice = () => {
     return Math.round((completedCount / categoryProblems.length) * 100);
   };
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { staggerChildren: 0.05 } }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 10 },
+    visible: { opacity: 1, y: 0 }
+  };
+
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 max-w-7xl mx-auto pb-12">
       {/* Header and Streaks */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b pb-4 border-slate-200/50 dark:border-white/5">
         <div>
-          <h1 className="text-3xl font-extrabold tracking-tight">Data Structures & Algorithms</h1>
-          <p className="text-slate-500 dark:text-slate-400 text-sm font-light mt-1">
-            Maintain consistency. Practice essential conceptual coding templates across 13 core categories.
+          <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">DSA Practice & Streaks</h1>
+          <p className="text-slate-400 text-xs font-light">
+            Stay consistent. Practice essential conceptual coding templates across 13 core categories.
           </p>
         </div>
 
         <div className="flex items-center gap-3">
-          <div className="flex items-center gap-1.5 px-4 py-2 rounded-2xl glass-panel border">
-            <Flame className="w-5 h-5 text-orange-500" />
-            <span className="font-bold text-sm">{user?.dsaStreak || 0} Streak</span>
+          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white dark:bg-card-dark border border-slate-200/60 dark:border-white/5 text-xs font-bold shadow-sm">
+            <Flame className="w-4.5 h-4.5 text-orange-500 animate-pulse" />
+            <span className="text-slate-700 dark:text-slate-250">{user?.dsaStreak || 0} Day Streak</span>
           </div>
-          <div className="flex items-center gap-1.5 px-4 py-2 rounded-2xl glass-panel border bg-emerald-500/5 border-emerald-500/20">
-            <Code className="w-5 h-5 text-emerald-500" />
-            <span className="font-bold text-sm text-emerald-600 dark:text-emerald-400">
-              {progressList.length} Solved
-            </span>
+          <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-500/10 dark:bg-emerald-500/15 border border-emerald-500/20 text-xs font-bold text-emerald-600 dark:text-emerald-450">
+            <Code className="w-4.5 h-4.5" />
+            <span>{progressList.length} Solved</span>
           </div>
         </div>
       </div>
 
       {/* Filter Options */}
-      <div className="flex gap-2 border-b border-slate-100 dark:border-dark-800 pb-3">
+      <div className="flex flex-wrap gap-2">
         {['All', 'Easy', 'Medium', 'Hard'].map((diff) => (
           <button
             key={diff}
             onClick={() => setFilterDifficulty(diff)}
-            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+            className={`px-3 py-1.5 rounded-lg text-[10px] font-bold tracking-wider uppercase transition-all ${
               filterDifficulty === diff
-                ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900'
-                : 'bg-slate-100 dark:bg-dark-900 text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-dark-800'
+                ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-sm'
+                : 'bg-slate-100 dark:bg-white/5 text-slate-500 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-white/10'
             }`}
           >
             {diff} Problems
@@ -191,15 +197,19 @@ const DsaPractice = () => {
         ))}
       </div>
 
-      {/* Topics grid */}
+      {/* Topics Grid */}
       {loading ? (
-        <div className="flex items-center justify-center py-16">
-          <Loader2 className="w-8 h-8 text-indigo-500 animate-spin" />
+        <div className="flex items-center justify-center py-20">
+          <Loader2 className="w-7 h-7 text-primary animate-spin" />
         </div>
       ) : (
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+        >
           {Object.keys(problemsBank).map((topic) => {
-            // Filter category list based on selected difficulty
             const allProblems = problemsBank[topic];
             const filteredProblems =
               filterDifficulty === 'All'
@@ -211,17 +221,23 @@ const DsaPractice = () => {
             const completionRate = getCompletionPercentage(topic);
 
             return (
-              <div key={topic} className="glass-panel border p-6 rounded-3xl space-y-4 flex flex-col justify-between">
-                <div>
-                  <div className="flex items-center justify-between border-b pb-3 border-slate-100 dark:border-dark-800/60">
-                    <h3 className="font-bold text-base">{topic}</h3>
-                    <span className="text-xs font-bold text-emerald-500">
+              <motion.div 
+                key={topic} 
+                variants={itemVariants}
+                className="glass-card p-6 bg-white dark:bg-card-dark border-slate-200/50 dark:border-white/5 rounded-2xl flex flex-col justify-between shadow-sm relative overflow-hidden"
+              >
+                <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-indigo-500/5 to-transparent blur-2xl pointer-events-none"></div>
+
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between border-b pb-2.5 border-slate-100 dark:border-white/5">
+                    <h3 className="font-bold text-xs text-slate-800 dark:text-slate-205">{topic}</h3>
+                    <span className="text-[10px] font-extrabold text-emerald-500 bg-emerald-500/10 px-2 py-0.5 rounded-md">
                       {completionRate}%
                     </span>
                   </div>
 
                   {/* Problems list */}
-                  <div className="flex flex-col gap-2 mt-3">
+                  <div className="flex flex-col gap-2">
                     {filteredProblems.map((prob) => {
                       const completed = isCompleted(topic, prob.name);
                       const key = `${topic}-${prob.name}`;
@@ -230,27 +246,27 @@ const DsaPractice = () => {
                       return (
                         <div
                           key={prob.id}
-                          className="flex items-center justify-between p-3 rounded-2xl bg-white dark:bg-dark-900 border border-slate-100 dark:border-dark-850"
+                          className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50/50 dark:bg-bg-dark/40 border border-slate-100 dark:border-white/5 hover:border-indigo-500/10 transition-colors"
                         >
                           <button
                             onClick={() =>
                               handleToggle(topic, prob.name, prob.difficulty, completed)
                             }
                             disabled={toggling !== null}
-                            className="flex items-center gap-2 text-slate-700 dark:text-slate-200"
+                            className="flex items-center gap-2.5 text-slate-700 dark:text-slate-300"
                           >
                             {isToggling ? (
-                              <Loader2 className="w-4 h-4 animate-spin text-indigo-500" />
+                              <Loader2 className="w-3.5 h-3.5 animate-spin text-primary" />
                             ) : completed ? (
-                              <CheckSquare className="w-4.5 h-4.5 text-indigo-500 flex-shrink-0" />
+                              <CheckSquare className="w-4 h-4 text-indigo-500 flex-shrink-0" />
                             ) : (
-                              <Square className="w-4.5 h-4.5 text-slate-300 dark:text-dark-700 flex-shrink-0" />
+                              <Square className="w-4 h-4 text-slate-300 dark:text-slate-700 flex-shrink-0" />
                             )}
-                            <span className="text-xs font-medium text-left line-clamp-1">{prob.name}</span>
+                            <span className="text-[11px] font-medium text-left line-clamp-1">{prob.name}</span>
                           </button>
 
                           <span
-                            className={`text-[9px] font-bold px-2 py-0.5 rounded-full ${getDiffColor(
+                            className={`text-[8px] font-extrabold px-1.5 py-0.5 rounded ${getDiffColor(
                               prob.difficulty
                             )}`}
                           >
@@ -263,16 +279,18 @@ const DsaPractice = () => {
                 </div>
 
                 {/* Progress bar */}
-                <div className="w-full bg-slate-100 dark:bg-dark-800 h-1.5 rounded-full overflow-hidden mt-2">
-                  <div
-                    className="bg-emerald-500 h-full rounded-full transition-all duration-500"
-                    style={{ width: `${completionRate}%` }}
-                  ></div>
+                <div className="mt-4">
+                  <div className="w-full bg-slate-150 dark:bg-bg-dark/50 h-1.5 rounded-full overflow-hidden">
+                    <div
+                      className="bg-emerald-500 h-full rounded-full transition-all duration-500"
+                      style={{ width: `${completionRate}%` }}
+                    ></div>
+                  </div>
                 </div>
-              </div>
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
       )}
     </div>
   );

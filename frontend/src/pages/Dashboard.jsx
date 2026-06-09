@@ -11,9 +11,13 @@ import {
   TrendingUp,
   Brain,
   Calendar,
-  Loader,
+  Loader2,
+  Sparkles,
+  ArrowUpRight,
+  Zap,
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import {
   AreaChart,
   Area,
@@ -84,7 +88,6 @@ const Dashboard = () => {
         });
 
         // Format charts data
-        // Interview score trends
         const scoreTrends = completedSessions
           .slice()
           .reverse()
@@ -93,14 +96,12 @@ const Dashboard = () => {
             score: s.overallScore.overall,
           }));
 
-        // Fill empty scores with default guidelines if none completed
         setChartData(scoreTrends.length > 0 ? scoreTrends : [
           { name: 'Mock 1', score: 0 },
           { name: 'Mock 2', score: 0 },
           { name: 'Mock 3', score: 0 }
         ]);
 
-        // DSA progress grouped by topic categories
         const dsaCategories = [
           { name: 'Arrays', count: 0 },
           { name: 'Strings', count: 0 },
@@ -133,186 +134,246 @@ const Dashboard = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-dark-950">
-        <Loader className="w-8 h-8 text-indigo-500 animate-spin" />
+      <div className="min-h-[70vh] flex items-center justify-center">
+        <Loader2 className="w-8 h-8 text-primary animate-spin" />
       </div>
     );
   }
 
-  return (
-    <div className="space-y-6">
-      {/* Welcome Greeting */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-3xl font-extrabold tracking-tight">
-            Welcome back, <span className="text-gradient">{user?.name}</span> 👋
-          </h1>
-          <p className="text-slate-500 dark:text-slate-400 text-sm font-light mt-1">
-            Analyze your preparation metrics, attempt daily coding intervals, and check rankings.
-          </p>
-        </div>
+  const containerVariants = {
+    hidden: { opacity: 0, y: 15 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5, staggerChildren: 0.08 } }
+  };
 
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-1.5 px-4 py-2 rounded-2xl glass-panel border">
-            <Flame className="w-5 h-5 text-orange-500 animate-pulse" />
-            <span className="font-bold text-sm">{stats.streak} Day Streak</span>
+  const cardVariants = {
+    hidden: { opacity: 0, y: 10 },
+    visible: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 100 } }
+  };
+
+  return (
+    <motion.div 
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      className="space-y-6 max-w-7xl mx-auto pb-12"
+    >
+      {/* Welcome Greeting Header Card */}
+      <div className="relative overflow-hidden rounded-2xl border border-slate-200/50 dark:border-white/5 bg-white dark:bg-card-dark p-6 sm:p-8 shadow-[0_4px_30px_rgba(0,0,0,0.02)]">
+        <div className="absolute top-0 right-0 w-80 h-80 bg-gradient-to-br from-indigo-500/10 via-purple-500/5 to-transparent blur-3xl pointer-events-none"></div>
+        
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
+          <div className="space-y-2">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-500/10 dark:bg-indigo-500/15 text-[10px] font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-widest">
+              <Sparkles className="w-3 h-3" /> Candidate Dashboard
+            </div>
+            <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+              Welcome back, <span className="text-gradient font-black">{user?.name}</span> 👋
+            </h1>
+            <p className="text-slate-400 text-xs font-light max-w-xl">
+              Track your daily intervals, audit resume matrices, solve challenges, and trace mock session progress.
+            </p>
           </div>
-          <div className="flex items-center gap-1.5 px-4 py-2 rounded-2xl glass-panel border bg-indigo-500/5 border-indigo-500/20">
-            <Award className="w-5 h-5 text-indigo-500" />
-            <span className="font-bold text-sm text-indigo-600 dark:text-indigo-400">
-              {stats.points} Points
-            </span>
+
+          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-bg-dark border border-slate-200/60 dark:border-white/5 shadow-inner">
+              <Flame className="w-4 h-4 text-orange-500 animate-pulse" />
+              <span className="font-bold text-xs text-slate-700 dark:text-slate-250">{stats.streak} Day Streak</span>
+            </div>
+            <div className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-500/10 dark:bg-indigo-500/15 border border-indigo-500/20 shadow-sm">
+              <Award className="w-4 h-4 text-indigo-500" />
+              <span className="font-bold text-xs text-indigo-600 dark:text-indigo-400">
+                {stats.points} XP Points
+              </span>
+            </div>
           </div>
         </div>
       </div>
 
       {/* Stats Widgets Grid */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="glass-panel border p-5 rounded-3xl relative overflow-hidden group">
-          <div className="w-10 h-10 rounded-2xl bg-indigo-500/10 flex items-center justify-center text-indigo-500 mb-3">
-            <Video className="w-5 h-5" />
+        <motion.div variants={cardVariants} className="glass-card p-5 relative overflow-hidden group">
+          <div className="w-9 h-9 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-500 mb-4">
+            <Video className="w-4.5 h-4.5" />
           </div>
-          <p className="text-xs font-semibold text-slate-400 uppercase">Mock Interviews</p>
-          <h3 className="text-2xl font-extrabold mt-1">{stats.mocksCount}</h3>
-          <p className="text-xs text-slate-400 mt-2">Best Score: {stats.bestScore}%</p>
-        </div>
+          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Interviews Mocked</p>
+          <h3 className="text-2xl font-black text-slate-900 dark:text-white mt-1.5">{stats.mocksCount}</h3>
+          <div className="flex items-center justify-between text-[10px] text-slate-400 mt-3 border-t border-slate-100 dark:border-white/5 pt-2">
+            <span>High Score</span>
+            <span className="font-semibold text-indigo-500">{stats.bestScore}%</span>
+          </div>
+        </motion.div>
 
-        <div className="glass-panel border p-5 rounded-3xl relative overflow-hidden group">
-          <div className="w-10 h-10 rounded-2xl bg-pink-500/10 flex items-center justify-center text-pink-500 mb-3">
-            <FileText className="w-5 h-5" />
+        <motion.div variants={cardVariants} className="glass-card p-5 relative overflow-hidden group">
+          <div className="w-9 h-9 rounded-xl bg-cyan-500/10 flex items-center justify-center text-cyan-500 mb-4">
+            <FileText className="w-4.5 h-4.5" />
           </div>
-          <p className="text-xs font-semibold text-slate-400 uppercase">ATS Resume Score</p>
-          <h3 className="text-2xl font-extrabold mt-1">{stats.resumeScore}%</h3>
-          <p className="text-xs text-slate-400 mt-2">Latest scanned results</p>
-        </div>
+          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">ATS Resume Audit</p>
+          <h3 className="text-2xl font-black text-slate-900 dark:text-white mt-1.5">{stats.resumeScore}%</h3>
+          <div className="flex items-center justify-between text-[10px] text-slate-400 mt-3 border-t border-slate-100 dark:border-white/5 pt-2">
+            <span>Scan History</span>
+            <Link to="/resume-upload" className="font-semibold text-cyan-500 flex items-center gap-0.5 hover:underline">
+              View <ArrowUpRight className="w-2.5 h-2.5" />
+            </Link>
+          </div>
+        </motion.div>
 
-        <div className="glass-panel border p-5 rounded-3xl relative overflow-hidden group">
-          <div className="w-10 h-10 rounded-2xl bg-emerald-500/10 flex items-center justify-center text-emerald-500 mb-3">
-            <Code className="w-5 h-5" />
+        <motion.div variants={cardVariants} className="glass-card p-5 relative overflow-hidden group">
+          <div className="w-9 h-9 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-500 mb-4">
+            <Code className="w-4.5 h-4.5" />
           </div>
-          <p className="text-xs font-semibold text-slate-400 uppercase">DSA Problems</p>
-          <h3 className="text-2xl font-extrabold mt-1">{stats.dsaSolved}</h3>
-          <p className="text-xs text-slate-400 mt-2">Completed questions</p>
-        </div>
+          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">DSA Progress</p>
+          <h3 className="text-2xl font-black text-slate-900 dark:text-white mt-1.5">{stats.dsaSolved}</h3>
+          <div className="flex items-center justify-between text-[10px] text-slate-400 mt-3 border-t border-slate-100 dark:border-white/5 pt-2">
+            <span>Concept Hub</span>
+            <Link to="/dsa-practice" className="font-semibold text-emerald-500 flex items-center gap-0.5 hover:underline">
+              Solve <ArrowUpRight className="w-2.5 h-2.5" />
+            </Link>
+          </div>
+        </motion.div>
 
-        <div className="glass-panel border p-5 rounded-3xl relative overflow-hidden group">
-          <div className="w-10 h-10 rounded-2xl bg-orange-500/10 flex items-center justify-center text-orange-500 mb-3">
-            <Flame className="w-5 h-5" />
+        <motion.div variants={cardVariants} className="glass-card p-5 relative overflow-hidden group">
+          <div className="w-9 h-9 rounded-xl bg-orange-500/10 flex items-center justify-center text-orange-500 mb-4">
+            <Zap className="w-4.5 h-4.5" />
           </div>
-          <p className="text-xs font-semibold text-slate-400 uppercase">Study Streak</p>
-          <h3 className="text-2xl font-extrabold mt-1">{stats.streak} Days</h3>
-          <p className="text-xs text-slate-400 mt-2">Active daily tracking</p>
-        </div>
+          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Performance Rating</p>
+          <h3 className="text-2xl font-black text-slate-900 dark:text-white mt-1.5">{stats.bestScore > 0 ? `${stats.bestScore}%` : 'N/A'}</h3>
+          <div className="flex items-center justify-between text-[10px] text-slate-400 mt-3 border-t border-slate-100 dark:border-white/5 pt-2">
+            <span>Overall rating</span>
+            <span className="font-semibold text-orange-500">
+              {stats.bestScore >= 80 ? 'Excellent' : stats.bestScore >= 60 ? 'Above Avg' : stats.bestScore > 0 ? 'Needs Practice' : 'None'}
+            </span>
+          </div>
+        </motion.div>
       </div>
 
       {/* Main Charts & Daily Widget Layout */}
       <div className="grid lg:grid-cols-3 gap-6">
         {/* Score Trends Chart */}
-        <div className="glass-panel border p-6 rounded-3xl lg:col-span-2 space-y-6">
+        <motion.div variants={cardVariants} className="glass-card p-6 lg:col-span-2 space-y-6 bg-white dark:bg-card-dark">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <TrendingUp className="w-5 h-5 text-indigo-500" />
-              <h3 className="font-bold text-lg">Interview Score Trends</h3>
+              <TrendingUp className="w-4.5 h-4.5 text-indigo-500" />
+              <h3 className="font-bold text-sm text-slate-800 dark:text-slate-100">Mock Performance Curve</h3>
             </div>
-            <span className="text-xs text-slate-400 font-semibold uppercase">Overall evaluation</span>
+            <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Overall Grade Metrics</span>
           </div>
 
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+              <AreaChart data={chartData} margin={{ top: 10, right: 10, left: -25, bottom: 0 }}>
                 <defs>
                   <linearGradient id="colorScore" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#6366f1" stopOpacity={0.2} />
+                    <stop offset="5%" stopColor="#6366f1" stopOpacity={0.15} />
                     <stop offset="95%" stopColor="#6366f1" stopOpacity={0} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" className="dark:stroke-dark-800" />
-                <XAxis dataKey="name" stroke="#94a3b8" fontSize={11} tickLine={false} />
-                <YAxis stroke="#94a3b8" fontSize={11} domain={[0, 100]} tickLine={false} />
-                <Tooltip />
-                <Area type="monotone" dataKey="score" stroke="#6366f1" strokeWidth={3} fillOpacity={1} fill="url(#colorScore)" />
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(255,255,255,0.03)" className="stroke-slate-100 dark:stroke-white/5" />
+                <XAxis dataKey="name" stroke="#94a3b8" fontSize={10} tickLine={false} axisLine={false} />
+                <YAxis stroke="#94a3b8" fontSize={10} domain={[0, 100]} tickLine={false} axisLine={false} />
+                <Tooltip 
+                  contentStyle={{ 
+                    backgroundColor: 'rgba(22, 31, 51, 0.8)', 
+                    borderColor: 'rgba(255, 255, 255, 0.08)',
+                    borderRadius: '12px',
+                    color: '#fff',
+                    fontSize: '11px',
+                    backdropFilter: 'blur(10px)'
+                  }} 
+                />
+                <Area type="monotone" dataKey="score" stroke="#6366f1" strokeWidth={2} fillOpacity={1} fill="url(#colorScore)" />
               </AreaChart>
             </ResponsiveContainer>
           </div>
-        </div>
+        </motion.div>
 
         {/* Daily Challenge Widget */}
-        <div className="glass-panel border p-6 rounded-3xl flex flex-col justify-between gap-6">
+        <motion.div variants={cardVariants} className="glass-card p-6 flex flex-col justify-between gap-6 bg-white dark:bg-card-dark">
           <div className="space-y-4">
-            <div className="flex items-center justify-between border-b pb-3 border-slate-100 dark:border-dark-800">
+            <div className="flex items-center justify-between border-b pb-3 border-slate-100 dark:border-white/5">
               <div className="flex items-center gap-2">
-                <Calendar className="w-5 h-5 text-orange-500" />
-                <h3 className="font-bold text-base">Daily Challenge</h3>
+                <Calendar className="w-4.5 h-4.5 text-orange-500" />
+                <h3 className="font-bold text-sm text-slate-800 dark:text-slate-100">Daily Challenge</h3>
               </div>
-              <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-orange-500/10 text-orange-500">
+              <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-orange-500/10 text-orange-500 tracking-wider uppercase">
                 Active
               </span>
             </div>
 
             {dailyChallenge ? (
               <div className="space-y-2">
-                <p className="text-xs text-slate-400 font-bold uppercase">{dailyChallenge.type} CHALLENGE</p>
-                <h4 className="font-extrabold text-lg">{dailyChallenge.title}</h4>
-                <p className="text-sm text-slate-500 dark:text-slate-400 line-clamp-3 leading-relaxed">
+                <span className="inline-block px-2 py-0.5 rounded-md bg-indigo-500/10 text-indigo-500 text-[9px] font-bold uppercase tracking-wider">
+                  {dailyChallenge.difficulty || 'Medium'}
+                </span>
+                <h4 className="font-bold text-base text-slate-800 dark:text-slate-100">{dailyChallenge.title}</h4>
+                <p className="text-xs text-slate-500 dark:text-text-secondary-dark line-clamp-3 leading-relaxed font-light">
                   {dailyChallenge.description}
                 </p>
               </div>
             ) : (
-              <p className="text-sm text-slate-400">Loading daily challenges...</p>
+              <p className="text-xs text-slate-400 font-light">Retrieving today's code intervals...</p>
             )}
           </div>
 
           <Link
             to="/daily-challenge"
-            className="w-full py-3.5 rounded-2xl bg-slate-900 text-white hover:bg-slate-800 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-100 transition-colors font-bold text-center text-sm flex items-center justify-center gap-1.5"
+            className="w-full py-3 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-650 hover:to-purple-650 text-white font-bold transition-all text-xs text-center flex items-center justify-center gap-1.5 shadow-md shadow-indigo-500/15"
           >
-            Solve Today's Challenge <ChevronRight className="w-4 h-4" />
+            Solve Challenge <ChevronRight className="w-3.5 h-3.5" />
           </Link>
-        </div>
+        </motion.div>
       </div>
 
       {/* DSA Progress bar chart & Recent Activity */}
       <div className="grid lg:grid-cols-3 gap-6">
         {/* DSA Chart */}
-        <div className="glass-panel border p-6 rounded-3xl space-y-6">
+        <motion.div variants={cardVariants} className="glass-card p-6 space-y-6 bg-white dark:bg-card-dark">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Code className="w-5 h-5 text-emerald-500" />
-              <h3 className="font-bold text-lg">DSA Progress Breakdown</h3>
+              <Code className="w-4.5 h-4.5 text-emerald-500" />
+              <h3 className="font-bold text-sm text-slate-800 dark:text-slate-100">DSA Coverage</h3>
             </div>
-            <span className="text-xs text-slate-400 font-semibold">Completed problems</span>
+            <span className="text-[10px] text-slate-400 font-bold uppercase">Topics</span>
           </div>
 
           <div className="h-60">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={dsaChartData}>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" className="dark:stroke-dark-800" />
-                <XAxis dataKey="name" stroke="#94a3b8" fontSize={11} tickLine={false} />
-                <YAxis stroke="#94a3b8" fontSize={11} allowDecimals={false} tickLine={false} />
-                <Tooltip />
-                <Bar dataKey="count" fill="#10b981" radius={[4, 4, 0, 0]} />
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(255,255,255,0.03)" className="stroke-slate-100 dark:stroke-white/5" />
+                <XAxis dataKey="name" stroke="#94a3b8" fontSize={10} tickLine={false} axisLine={false} />
+                <YAxis stroke="#94a3b8" fontSize={10} allowDecimals={false} tickLine={false} axisLine={false} />
+                <Tooltip 
+                  contentStyle={{ 
+                    backgroundColor: 'rgba(22, 31, 51, 0.8)', 
+                    borderColor: 'rgba(255, 255, 255, 0.08)',
+                    borderRadius: '12px',
+                    color: '#fff',
+                    fontSize: '11px',
+                    backdropFilter: 'blur(10px)'
+                  }} 
+                />
+                <Bar dataKey="count" fill="#10b981" radius={[4, 4, 0, 0]} barSize={24} />
               </BarChart>
             </ResponsiveContainer>
           </div>
-        </div>
+        </motion.div>
 
         {/* Recent Activity List */}
-        <div className="glass-panel border p-6 rounded-3xl lg:col-span-2 space-y-4">
-          <h3 className="font-bold text-lg">Recent Interview Sessions</h3>
+        <motion.div variants={cardVariants} className="glass-card p-6 lg:col-span-2 space-y-4 bg-white dark:bg-card-dark">
+          <h3 className="font-bold text-sm text-slate-800 dark:text-slate-100">Recent Interview Rounds</h3>
           <div className="flex flex-col gap-3">
             {recentSessions.length > 0 ? (
               recentSessions.map((session) => (
                 <div
                   key={session._id}
-                  className="flex items-center justify-between p-4 rounded-2xl bg-white dark:bg-dark-900 border border-slate-100 dark:border-dark-850 hover:border-indigo-500/25 transition-all"
+                  className="flex items-center justify-between p-4 rounded-xl bg-slate-50/50 dark:bg-bg-dark/40 border border-slate-150 dark:border-white/5 hover:border-indigo-500/25 transition-all"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-500">
-                      <Brain className="w-5 h-5" />
+                    <div className="w-9 h-9 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-500">
+                      <Brain className="w-4.5 h-4.5" />
                     </div>
                     <div>
-                      <h4 className="font-bold text-sm">{session.jobRole}</h4>
-                      <p className="text-xs text-slate-400 mt-0.5">
+                      <h4 className="font-bold text-xs text-slate-850 dark:text-slate-200">{session.jobRole}</h4>
+                      <p className="text-[10px] text-slate-450 dark:text-slate-400 mt-0.5">
                         {session.techStack} • {session.difficulty}
                       </p>
                     </div>
@@ -321,14 +382,14 @@ const Dashboard = () => {
                   <div className="flex items-center gap-4">
                     {session.status === 'completed' ? (
                       <div className="text-right">
-                        <span className="text-sm font-extrabold text-indigo-500">
+                        <span className="text-xs font-bold text-indigo-500">
                           {session.overallScore.overall}%
                         </span>
-                        <p className="text-[10px] text-slate-400 uppercase">SCORE</p>
+                        <p className="text-[8px] text-slate-400 font-bold uppercase tracking-wider">Score</p>
                       </div>
                     ) : (
-                      <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-yellow-500/10 text-yellow-500">
-                        In Progress
+                      <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-yellow-500/10 text-yellow-500 uppercase tracking-wider">
+                        Active
                       </span>
                     )}
 
@@ -336,18 +397,18 @@ const Dashboard = () => {
                       to={
                         session.status === 'completed'
                           ? `/evaluation/${session._id}`
-                          : `/mock-interview` // continue/resume session
+                          : `/mock-interview`
                       }
-                      className="p-2 bg-slate-50 dark:bg-dark-800 hover:bg-slate-100 dark:hover:bg-dark-700 rounded-xl text-slate-500 dark:text-slate-300 transition-colors"
+                      className="p-1.5 bg-white dark:bg-white/5 hover:bg-slate-100 dark:hover:bg-white/10 rounded-lg text-slate-500 dark:text-slate-350 transition-colors border border-slate-200/50 dark:border-white/5"
                     >
-                      <ChevronRight className="w-4 h-4" />
+                      <ChevronRight className="w-3.5 h-3.5" />
                     </Link>
                   </div>
                 </div>
               ))
             ) : (
               <div className="text-center py-12 text-slate-400 space-y-4">
-                <p className="text-sm">You haven't completed any mock interviews yet.</p>
+                <p className="text-xs font-light">You have no interview sessions yet.</p>
                 <Link
                   to="/mock-interview"
                   className="inline-flex items-center gap-1.5 px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl text-xs shadow-md shadow-indigo-650/15"
@@ -357,9 +418,9 @@ const Dashboard = () => {
               </div>
             )}
           </div>
-        </div>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

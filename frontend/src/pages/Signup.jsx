@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { GoogleLogin } from '@react-oauth/google';
-import { User, Mail, Lock, ArrowRight, AlertCircle, Loader } from 'lucide-react';
+import { User, Mail, Lock, ArrowRight, AlertCircle, Loader2, Sparkles, Trophy } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 const Signup = () => {
@@ -63,138 +63,191 @@ const Signup = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6 bg-slate-50 dark:bg-dark-950 transition-colors duration-300 relative overflow-hidden">
-      {/* Decorative Glow */}
-      <div className="absolute top-[10%] left-[10%] w-72 h-72 rounded-full bg-indigo-500/10 dark:bg-indigo-500/5 blur-3xl animate-glow-1"></div>
-      <div className="absolute bottom-[10%] right-[10%] w-72 h-72 rounded-full bg-pink-500/10 dark:bg-pink-500/5 blur-3xl animate-glow-2"></div>
-
-      <div className="w-full max-w-md relative z-10">
-        {/* Logo banner */}
-        <div className="text-center mb-8">
-          <Link to="/" className="inline-flex items-center gap-2 mb-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center shadow-lg shadow-indigo-500/25">
-              <span className="font-extrabold text-white text-lg">T</span>
+    <div className="min-h-screen grid lg:grid-cols-12 bg-white dark:bg-bg-dark text-slate-800 dark:text-slate-100 transition-colors duration-300">
+      
+      {/* Left Pane: Signup Form */}
+      <div className="lg:col-span-5 flex flex-col justify-between p-8 sm:p-12 relative z-10 bg-white dark:bg-bg-dark-sec/20">
+        
+        {/* Brand Banner */}
+        <div className="mb-6 flex items-center justify-between">
+          <Link to="/" className="inline-flex items-center gap-2.5">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center shadow-lg shadow-indigo-500/25">
+              <span className="font-black text-white text-base">T</span>
             </div>
-            <span className="text-2xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-700 dark:from-white dark:to-slate-300">
+            <span className="text-lg font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-700 dark:from-white dark:to-slate-350">
               TalentForge
             </span>
           </Link>
-          <h2 className="text-xl text-slate-500 dark:text-slate-400 font-light">
-            Create an account to start preparing
-          </h2>
         </div>
 
-        {/* Signup form card */}
-        <div className="glass-panel border p-8 rounded-3xl shadow-xl flex flex-col gap-6">
-          {error && (
-            <div className="flex items-center gap-2 p-3 rounded-xl bg-pink-500/10 border border-pink-500/20 text-pink-500 text-sm">
-              <AlertCircle className="w-4 h-4 flex-shrink-0" />
-              <span>{error}</span>
-            </div>
-          )}
-
-          <form onSubmit={handleEmailSignup} className="flex flex-col gap-4">
-            <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-semibold text-slate-400">FULL NAME</label>
-              <div className="relative">
-                <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-                <input
-                  type="text"
-                  placeholder="John Doe"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 dark:border-dark-800 bg-white dark:bg-dark-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 text-sm transition-all"
-                />
-              </div>
-            </div>
-
-            <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-semibold text-slate-400">EMAIL ADDRESS</label>
-              <div className="relative">
-                <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-                <input
-                  type="email"
-                  placeholder="name@company.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 dark:border-dark-800 bg-white dark:bg-dark-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 text-sm transition-all"
-                />
-              </div>
-            </div>
-
-            <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-semibold text-slate-400">PASSWORD</label>
-              <div className="relative">
-                <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-                <input
-                  type="password"
-                  placeholder="••••••••"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 dark:border-dark-800 bg-white dark:bg-dark-900 focus:outline-none focus:ring-2 focus:ring-indigo-500/30 text-sm transition-all"
-                />
-              </div>
-            </div>
-
-            <button
-              type="submit"
-              disabled={loading}
-              className="mt-2 w-full py-3 rounded-xl bg-indigo-650 hover:bg-indigo-600 text-white font-bold transition-all shadow-lg shadow-indigo-600/20 flex items-center justify-center gap-2"
-            >
-              {loading ? (
-                <Loader className="w-5 h-5 animate-spin" />
-              ) : (
-                <>
-                  Create Account <ArrowRight className="w-4 h-4" />
-                </>
-              )}
-            </button>
-          </form>
-
-          {/* Divider */}
-          <div className="relative flex items-center justify-center my-1">
-            <div className="absolute w-full border-t border-slate-200 dark:border-dark-800"></div>
-            <span className="relative z-10 px-3 text-xs bg-slate-50 dark:bg-dark-900 text-slate-400 font-semibold">
-              OR CONTINUE WITH
-            </span>
+        {/* Center Card */}
+        <div className="w-full max-w-sm mx-auto my-auto py-6">
+          <div className="space-y-2 mb-6">
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
+              Create an account
+            </h2>
+            <p className="text-xs text-slate-450 dark:text-text-secondary-dark font-light">
+              Get started for free. No credit card required.
+            </p>
           </div>
 
-          {/* Social Signups */}
-          <div className="flex flex-col gap-3">
-            <div className="w-full flex justify-center">
-              <GoogleLogin
-                onSuccess={handleGoogleSuccess}
-                onError={() => {
-                  toast.error('Google Sign-Up failed');
-                }}
-                theme="filled_blue"
-                shape="rectangular"
-                width="380"
-              />
+          <div className="space-y-5">
+            {error && (
+              <div className="flex items-center gap-2.5 p-3 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-500 text-xs">
+                <AlertCircle className="w-4 h-4 flex-shrink-0" />
+                <span>{error}</span>
+              </div>
+            )}
+
+            {/* Email Form */}
+            <form onSubmit={handleEmailSignup} className="space-y-3.5">
+              <div className="space-y-1.5">
+                <label className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Full Name</label>
+                <div className="relative">
+                  <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 dark:text-dark-400" />
+                  <input
+                    type="text"
+                    placeholder="John Doe"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/5 bg-slate-50/50 dark:bg-bg-dark/40 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 transition-all placeholder:text-slate-400"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Email Address</label>
+                <div className="relative">
+                  <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 dark:text-dark-400" />
+                  <input
+                    type="email"
+                    placeholder="name@company.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/5 bg-slate-50/50 dark:bg-bg-dark/40 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 transition-all placeholder:text-slate-400"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Password</label>
+                <div className="relative">
+                  <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 dark:text-dark-400" />
+                  <input
+                    type="password"
+                    placeholder="Min. 6 characters"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/5 bg-slate-50/50 dark:bg-bg-dark/40 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 transition-all placeholder:text-slate-400"
+                  />
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full py-2.5 rounded-xl bg-indigo-650 hover:bg-indigo-600 text-white font-bold transition-all shadow-md shadow-indigo-600/20 flex items-center justify-center gap-2 text-xs"
+              >
+                {loading ? (
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                ) : (
+                  <>
+                    Create Account <ArrowRight className="w-3.5 h-3.5" />
+                  </>
+                )}
+              </button>
+            </form>
+
+            {/* Divider */}
+            <div className="relative flex items-center justify-center my-3">
+              <div className="absolute w-full border-t border-slate-200/60 dark:border-white/5"></div>
+              <span className="relative z-10 px-3 text-[10px] bg-white dark:bg-bg-dark text-slate-400 dark:text-dark-400 font-bold uppercase tracking-widest">
+                Or Continue With
+              </span>
             </div>
-            <button
-              onClick={handleMockGoogleSignup}
-              disabled={loading}
-              className="flex items-center justify-center gap-2 py-2.5 rounded-lg border border-slate-205 dark:border-dark-800 hover:bg-slate-100 dark:hover:bg-dark-800 transition-colors font-semibold text-xs text-slate-700 dark:text-slate-300 w-full"
-            >
-              <svg className="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
-                <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
-                <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"/>
-                <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"/>
-              </svg>
-              Mock Google
-            </button>
+
+            {/* Social / Google Buttons */}
+            <div className="space-y-2.5">
+              <div className="w-full flex justify-center">
+                <GoogleLogin
+                  onSuccess={handleGoogleSuccess}
+                  onError={() => {
+                    toast.error('Google Sign-Up failed');
+                  }}
+                  theme="filled_blue"
+                  shape="rectangular"
+                  width="384"
+                />
+              </div>
+              <button
+                onClick={handleMockGoogleSignup}
+                disabled={loading}
+                className="flex items-center justify-center gap-2 py-2.5 rounded-lg border border-slate-200 dark:border-white/5 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors font-semibold text-xs text-slate-700 dark:text-slate-300 w-full"
+              >
+                <svg className="w-3.5 h-3.5 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                  <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                  <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"/>
+                  <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"/>
+                </svg>
+                Mock Google Account
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* Redirect toggle link */}
-        <p className="text-center text-sm text-slate-500 dark:text-slate-400 mt-6 font-light">
+        {/* Redirect Footer */}
+        <p className="text-center text-xs text-slate-500 dark:text-slate-400 font-light">
           Already have an account?{' '}
           <Link to="/login" className="font-semibold text-indigo-500 hover:underline">
-            Sign in
+            Sign In
           </Link>
         </p>
+      </div>
+
+      {/* Right Pane: Illustration / Features Info */}
+      <div className="hidden lg:col-span-7 lg:flex flex-col justify-center items-center p-12 bg-slate-950 relative overflow-hidden">
+        {/* Glow */}
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-indigo-500/10 blur-[100px] pointer-events-none"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full bg-cyan-500/10 blur-[100px] pointer-events-none"></div>
+        
+        {/* Grid Overlay */}
+        <div className="absolute inset-0 grid-bg-dark opacity-10 pointer-events-none"></div>
+
+        <div className="relative z-10 w-full max-w-lg space-y-8 text-center">
+          <div className="space-y-4">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-indigo-500/15 border border-indigo-500/30 text-[10px] font-bold text-indigo-300 uppercase tracking-widest">
+              <Sparkles className="w-3.5 h-3.5 text-indigo-400" /> Start Preparing Today
+            </div>
+            <h3 className="text-3xl md:text-4xl font-extrabold text-white tracking-tight">
+              Unlock your interview potential.
+            </h3>
+            <p className="text-slate-400 text-xs font-light max-w-md mx-auto leading-relaxed">
+              Experience dynamic AI mock rounds in structured topics. Obtain interactive metrics, radar evaluations, and keep your studies on a hot streak.
+            </p>
+          </div>
+
+          <div className="rounded-2xl border border-white/5 bg-slate-900/60 p-2 backdrop-blur-xl shadow-2xl relative overflow-hidden">
+            <div className="absolute top-3 left-3 flex items-center gap-1.5">
+              <div className="w-2.5 h-2.5 rounded-full bg-red-500/60"></div>
+              <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/60"></div>
+              <div className="w-2.5 h-2.5 rounded-full bg-green-500/60"></div>
+            </div>
+            <img
+              src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80"
+              alt="TalentForge App Preview"
+              className="w-full h-auto rounded-xl border border-white/5 opacity-80"
+            />
+          </div>
+
+          <div className="flex items-center justify-center gap-6 text-[10px] font-semibold text-slate-500 uppercase tracking-wider">
+            <span className="flex items-center gap-1"><Trophy className="w-3.5 h-3.5" /> Platform Streak Metrics</span>
+            <span>•</span>
+            <span>AI Resume Auditing</span>
+            <span>•</span>
+            <span>Placement Guidance</span>
+          </div>
+        </div>
       </div>
     </div>
   );
