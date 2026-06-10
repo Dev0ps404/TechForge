@@ -203,11 +203,11 @@ exports.googleAuth = async (req, res, next) => {
       }
     }
 
-    const token = generateToken(user._id);
+    const jwtToken = generateToken(user._id);
 
     return res.status(200).json({
       success: true,
-      token,
+      token: jwtToken,
       user: {
         id: user._id,
         name: user.name,
