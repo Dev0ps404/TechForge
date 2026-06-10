@@ -145,9 +145,160 @@ Be encouraging, structured, and give actionable code snippets or bullet points w
     return response.choices[0].message.content;
   } catch (error) {
     console.error('Chat Assistant error:', error);
-    return 'I encountered an error. Please try again or check server logs.';
+    // If the API call fails, fallback to a robust local rule-based helper
+    return getMockChatResponse(messages);
   }
 };
+
+/**
+ * Local fallback chat responses for Career Mentor when OpenAI API fails or has quota issues
+ */
+function getMockChatResponse(messages) {
+  const lastUserMessage = messages[messages.length - 1]?.content || '';
+  const query = lastUserMessage.toLowerCase();
+
+  const header = `*(Note: Live AI Advisor is currently offline due to API quota limits. Here is curated expert guidance based on your query:)*\n\n`;
+
+  // 1. MERN / Frontend / Backend / JavaScript
+  if (
+    query.includes('mern') ||
+    query.includes('react') ||
+    query.includes('node') ||
+    query.includes('mongodb') ||
+    query.includes('express') ||
+    query.includes('fullstack') ||
+    query.includes('full stack') ||
+    query.includes('javascript') ||
+    query.includes('web')
+  ) {
+    return header + `### 🚀 Placement Guidance for the MERN Stack
+
+To prepare effectively for MERN stack roles, focus on the following core domains:
+
+1. **React.js (Frontend)**:
+   - **Concepts**: Virtual DOM, reconciliation, React Fiber, lifecycle methods vs functional hooks.
+   - **Hooks**: Deep dive into custom hooks, and optimizations using \`useMemo\`, \`useCallback\`, and \`useRef\`.
+   - **State Management**: Master **Redux Toolkit** and the **Context API** (know when to use which).
+
+2. **Node.js & Express (Backend)**:
+   - **Architecture**: Event loop, non-blocking I/O model, and middleware design patterns.
+   - **API Best Practices**: RESTful route structures, payload validation (e.g., Joi/Zod), and robust error handling middleware.
+   - **Authentication**: Stateful sessions vs stateless **JWT (JSON Web Tokens)**.
+
+3. **MongoDB (Database)**:
+   - **Modeling**: Embedding vs referencing documents.
+   - **Queries**: Aggregation pipelines for complex data processing.
+   - **Performance**: Indexing fields to optimize search queries.
+
+4. **System Integration & Deployment**:
+   - Understand **CORS** configuration, rate-limiting, and headers for basic API security.
+   - Deploy frontend to Vercel/Netlify and backend to Render/Railway/AWS.`;
+  }
+
+  // 2. Resume / ATS / CV / Profile / Portfolio
+  if (
+    query.includes('resume') ||
+    query.includes('ats') ||
+    query.includes('cv') ||
+    query.includes('profile') ||
+    query.includes('portfolio') ||
+    query.includes('projects')
+  ) {
+    return header + `### 📄 Resume & ATS Optimization Guide
+
+To ensure your resume passes both automated screening (ATS) and recruiter reviews, implement these strategies:
+
+1. **Quantify Achievements (Google's X-Y-Z Formula)**:
+   - Instead of writing: *"Created a chat app using Socket.io"*
+   - Write: *"Developed a real-time chat service using **Socket.io** and **Redis**, reducing messaging latency by **30%** and supporting over **500+ concurrent user connections**."*
+
+2. **ATS Keyword Matching**:
+   - Carefully read the job description and extract key skills (e.g., *TypeScript*, *Docker*, *CI/CD*, *Jest*).
+   - Ensure these keywords are naturally integrated into your professional experience and skills section.
+
+3. **Format & Layout**:
+   - Use a clean, single-column design.
+   - Avoid tables, charts, or images which can confuse older ATS parser engines.
+   - Export your final copy as a structured PDF.`;
+  }
+
+  // 3. DSA / Algorithms / Leetcode / Data Structures
+  if (
+    query.includes('dsa') ||
+    query.includes('algorithm') ||
+    query.includes('leetcode') ||
+    query.includes('data structure') ||
+    query.includes('array') ||
+    query.includes('string') ||
+    query.includes('tree') ||
+    query.includes('graph') ||
+    query.includes('stack') ||
+    query.includes('queue') ||
+    query.includes('dp') ||
+    query.includes('greedy')
+  ) {
+    return header + `### 💻 Data Structures & Algorithms (DSA) Roadmap
+
+For FAANG and high-growth product companies, follow this systematic preparation roadmap:
+
+1. **High-Frequency Topics**:
+   - **Arrays & Strings**: Sliding Window, Two Pointers, Prefix Sum.
+   - **Linked Lists**: Fast/Slow pointer (cycle detection), reversing.
+   - **Trees & Graphs**: Recursion, DFS/BFS traversal, Shortest Path (Dijkstra's).
+   - **DP & Greedy**: Memoization, classic problems (0-1 Knapsack, Coin Change, LIS).
+
+2. **Consistency Over Intensity**:
+   - Solve 2-3 problems daily instead of cramming 15 on weekends.
+   - Complete exactly **30 questions** per category in our practice sheets to build conceptual muscle memory.
+
+3. **Optimizing Solutions**:
+   - Always analyze the **Time** and **Space Complexity** (Big O) of your code.
+   - Be ready to optimize brute force $O(N^2)$ solutions to $O(N)$ or $O(N \log N)$.`;
+  }
+
+  // 4. Interview Preparation / Behavioral / HR / Scenario
+  if (
+    query.includes('interview') ||
+    query.includes('behavioral') ||
+    query.includes('hr') ||
+    query.includes('scenario') ||
+    query.includes('conflict') ||
+    query.includes('project')
+  ) {
+    return header + `### 🤝 Behavioral & HR Interview Preparation
+
+Technical skills get you the interview, but behavioral alignment gets you the offer. Prepare using the **STAR Method**:
+
+1. **STAR Response Structure**:
+   - **S - Situation**: Set the context of the problem you faced.
+   - **T - Task**: Identify your responsibility or the goal.
+   - **A - Action**: Explain the exact steps you took (emphasize *your* contribution).
+   - **R - Result**: Deliver the outcome with numbers/metrics.
+
+2. **Prepare Core Stories**:
+   - A time you resolved a conflict with a teammate.
+   - A time you took ownership or lead a project.
+   - A time you failed and what you learned from it.
+   - How you handled a tight deadline or shifting priorities.`;
+  }
+
+  // 5. General Placement & Career Advice (Default)
+  return header + `### 💡 Placement Preparation Strategy
+
+Here is a structured overview of what you should prioritize right now:
+
+1. **DSA Core Mastery**:
+   - Work through the curated sheets on our platform (aim for 30 questions in Arrays, Linked Lists, Stack, and Graphs).
+   
+2. **Project Portfolio**:
+   - Build 2 high-quality projects. Focus on solving a real-world problem and integrate features like caching (Redis), authentication (JWT/OAuth), or APIs.
+
+3. **Resume Score**:
+   - Scan your resume using our ATS Scanner and bring the score above **80%** by adding metrics and removing vague terms.
+
+4. **Mock Interviews**:
+   - Schedule and practice with our AI Interview Rounds to build confidence answering live questions.`;
+}
 
 /**
  * Mock Fallback Data Generator
