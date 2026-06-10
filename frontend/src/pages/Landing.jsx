@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import Logo from '../components/Logo';
 import {
   Cpu,
   Video,
@@ -102,9 +103,7 @@ const Landing = () => {
       {/* Header navbar */}
       <nav className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between border-b border-white/5 relative z-10">
         <div className="flex items-center gap-2.5">
-          <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center shadow-lg shadow-indigo-500/20">
-            <span className="font-black text-white text-lg">T</span>
-          </div>
+          <Logo className="w-10 h-10 flex-shrink-0" />
           <span className="text-xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400">
             TalentForge
           </span>

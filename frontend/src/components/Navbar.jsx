@@ -4,6 +4,7 @@ import { useTheme } from '../context/ThemeContext';
 import { Sun, Moon, Menu, LogOut, User, Bell, ChevronDown, Search, X, ArrowRight } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
+import Logo from './Logo';
 
 const Navbar = ({ onMenuToggle }) => {
   const { user, logout } = useAuth();
@@ -98,9 +99,7 @@ const Navbar = ({ onMenuToggle }) => {
         </button>
         
         <Link to="/dashboard" className="flex items-center gap-2">
-          <div className="w-8.5 h-8.5 rounded-xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center shadow-lg shadow-indigo-500/25">
-            <span className="font-black text-white text-base">T</span>
-          </div>
+          <Logo className="w-8 h-8 flex-shrink-0" />
           <span className="text-lg font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-700 dark:from-white dark:to-slate-300">
             TalentForge
           </span>

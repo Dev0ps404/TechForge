@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import Logo from '../components/Logo';
 import { GoogleLogin } from '@react-oauth/google';
 import { Mail, Lock, ArrowRight, AlertCircle, Loader2, Sparkles, Code2 } from 'lucide-react';
 import toast from 'react-hot-toast';
@@ -67,9 +68,7 @@ const Login = () => {
         {/* Brand Banner */}
         <div className="mb-8 flex items-center justify-between">
           <Link to="/" className="inline-flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center shadow-lg shadow-indigo-500/25">
-              <span className="font-black text-white text-base">T</span>
-            </div>
+            <Logo className="w-9 h-9 flex-shrink-0" />
             <span className="text-lg font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-700 dark:from-white dark:to-slate-350">
               TalentForge
             </span>
