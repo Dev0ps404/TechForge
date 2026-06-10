@@ -1,29 +1,39 @@
-const openai = require('../config/openai');
+const genAI = require('../config/openai');
+
+const GEMINI_MODEL = 'gemini-2.0-flash';
 
 /**
- * Helper to call OpenAI API in JSON mode
+ * Helper to check if API key is configured
+ */
+const isApiKeyConfigured = () => {
+  const key = process.env.GEMINI_API_KEY || process.env.OPENAI_API_KEY;
+  return key && !key.includes('placeholder');
+};
+
+/**
+ * Helper to call Gemini API and parse JSON response
  */
 const callJsonApi = async (systemPrompt, userPrompt) => {
   try {
-    // If API key is placeholder, return mockup data to prevent crashes during initial setups
-    if (!process.env.OPENAI_API_KEY || process.env.OPENAI_API_KEY.includes('placeholder')) {
-      console.warn('OPENAI_API_KEY is not configured or is a placeholder. Using mock AI data.');
+    if (!isApiKeyConfigured()) {
+      console.warn('API key is not configured or is a placeholder. Using mock AI data.');
       return getMockData(systemPrompt, userPrompt);
     }
 
-    const response = await openai.chat.completions.create({
-      model: 'gpt-4o-mini',
-      messages: [
-        { role: 'system', content: systemPrompt },
-        { role: 'user', content: userPrompt }
-      ],
-      response_format: { type: 'json_object' },
-      temperature: 0.7,
+    const model = genAI.getGenerativeModel({
+      model: GEMINI_MODEL,
+      systemInstruction: systemPrompt,
+      generationConfig: {
+        responseMimeType: 'application/json',
+        temperature: 0.7,
+      },
     });
 
-    return JSON.parse(response.choices[0].message.content);
+    const result = await model.generateContent(userPrompt);
+    const responseText = result.response.text();
+    return JSON.parse(responseText);
   } catch (error) {
-    console.error('OpenAI API call failed:', error);
+    console.error('Gemini API call failed:', error.message || error);
     // Return mock data fallback rather than failing entirely, for solid robustness
     return getMockData(systemPrompt, userPrompt);
   }
@@ -124,27 +134,39 @@ Evaluate and score the response.`;
  */
 const chatAssistant = async (messages) => {
   try {
-    if (!process.env.OPENAI_API_KEY || process.env.OPENAI_API_KEY.includes('placeholder')) {
+    if (!isApiKeyConfigured()) {
       const lastMsg = messages[messages.length - 1].content;
-      return `[Mock AI Assistant]: Hello! I see you asked about "${lastMsg}". To get real AI career guidance, please configure your OpenAI API Key in the backend .env file. For now, remember to review DSA topics like Arrays, Stack, and Dynamic Programming, and keep your resume optimized with metrics!`;
+      return `[Mock AI Assistant]: Hello! I see you asked about "${lastMsg}". To get real AI career guidance, please configure your Gemini API Key in the backend .env file. For now, remember to review DSA topics like Arrays, Stack, and Dynamic Programming, and keep your resume optimized with metrics!`;
     }
 
-    const sysMessage = {
-      role: 'system',
-      content: `You are the TalentForge AI Placement & Career Mentor. 
+    const systemInstruction = `You are the TalentForge AI Placement & Career Mentor. 
 Provide expert guidance on resume building, DSA practice, interview preparation, tech stack selection, and general career advice. 
-Be encouraging, structured, and give actionable code snippets or bullet points where helpful.`
-    };
+Be encouraging, structured, and give actionable code snippets or bullet points where helpful.`;
 
-    const response = await openai.chat.completions.create({
-      model: 'gpt-4o-mini',
-      messages: [sysMessage, ...messages],
-      temperature: 0.7,
+    const model = genAI.getGenerativeModel({
+      model: GEMINI_MODEL,
+      systemInstruction,
+      generationConfig: { temperature: 0.7 },
     });
 
-    return response.choices[0].message.content;
+    // Convert OpenAI-style messages to Gemini chat history
+    const history = [];
+    for (let i = 0; i < messages.length - 1; i++) {
+      const msg = messages[i];
+      if (msg.role === 'user') {
+        history.push({ role: 'user', parts: [{ text: msg.content }] });
+      } else if (msg.role === 'assistant') {
+        history.push({ role: 'model', parts: [{ text: msg.content }] });
+      }
+    }
+
+    const chat = model.startChat({ history });
+    const lastMsg = messages[messages.length - 1].content;
+    const result = await chat.sendMessage(lastMsg);
+
+    return result.response.text();
   } catch (error) {
-    console.error('Chat Assistant error:', error);
+    console.error('Chat Assistant error:', error.message || error);
     // If the API call fails, fallback to a robust local rule-based helper
     return getMockChatResponse(messages);
   }

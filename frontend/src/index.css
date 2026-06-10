@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&family=Geist+Mono:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Geist+Mono:wght@300;400;500;600;700&display=swap');
 
 @import "tailwindcss";
 
@@ -67,7 +67,7 @@
   --color-purple-650: #2563eb;
   --color-purple-705: #1d4ed8;
 
-  --font-sans: "Geist", "Plus Jakarta Sans", "Inter", sans-serif;
+  --font-sans: "Inter", sans-serif;
   --font-mono: "Geist Mono", monospace;
   --radius-2xl: 20px;
 }
