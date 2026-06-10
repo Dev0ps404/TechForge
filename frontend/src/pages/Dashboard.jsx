@@ -172,7 +172,7 @@ const Dashboard = () => {
     >
       {/* Welcome Greeting Header Card */}
       <div className="relative overflow-hidden rounded-2xl border border-slate-200/50 dark:border-white/5 bg-white dark:bg-card-dark p-6 sm:p-8 shadow-[0_4px_30px_rgba(0,0,0,0.02)]">
-        <div className="absolute top-0 right-0 w-80 h-80 bg-gradient-to-br from-indigo-500/10 via-purple-500/5 to-transparent blur-3xl pointer-events-none"></div>
+        <div className="absolute top-0 right-0 w-80 h-80 bg-gradient-to-br from-blue-500/10 via-blue-500/5 to-transparent blur-3xl pointer-events-none"></div>
         
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
           <div className="space-y-2">
@@ -329,7 +329,7 @@ const Dashboard = () => {
 
           <Link
             to="/daily-challenge"
-            className="w-full py-3 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-650 hover:to-purple-650 text-white font-bold transition-all text-xs text-center flex items-center justify-center gap-1.5 shadow-md shadow-indigo-500/15"
+            className="w-full py-3 rounded-xl bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-50 hover:to-blue-700 text-white font-bold transition-all text-xs text-center flex items-center justify-center gap-1.5 shadow-md shadow-blue-500/15"
           >
             Solve Challenge <ChevronRight className="w-3.5 h-3.5" />
           </Link>

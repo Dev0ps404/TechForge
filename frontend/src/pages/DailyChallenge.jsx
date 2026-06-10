@@ -204,7 +204,7 @@ const DailyChallenge = () => {
               <button
                 type="submit"
                 disabled={submitting}
-                className="flex-grow py-2.5 bg-gradient-to-r from-indigo-500 to-purple-650 hover:from-indigo-600 hover:to-purple-700 text-white font-bold rounded-xl text-xs transition-colors shadow-lg shadow-indigo-500/20 flex items-center justify-center gap-1.5"
+                className="flex-grow py-2.5 bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-500 hover:to-blue-700 text-white font-bold rounded-xl text-xs transition-colors shadow-lg shadow-blue-500/20 flex items-center justify-center gap-1.5"
               >
                 {submitting ? (
                   <Loader2 className="w-3.5 h-3.5 animate-spin" />

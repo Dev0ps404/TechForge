@@ -265,7 +265,7 @@ const Navbar = ({ onMenuToggle }) => {
                           <span className={`text-xs font-bold ${isSelected ? 'text-white' : 'text-slate-800 dark:text-slate-200'}`}>
                             {item.name}
                           </span>
-                          <span className={`text-[10px] ${isSelected ? 'text-purple-100' : 'text-slate-400 dark:text-slate-500'}`}>
+                          <span className={`text-[10px] ${isSelected ? 'text-blue-100' : 'text-slate-400 dark:text-slate-500'}`}>
                             {item.desc}
                           </span>
                         </div>

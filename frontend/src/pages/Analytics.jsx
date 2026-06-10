@@ -126,7 +126,7 @@ const Analytics = () => {
             </div>
             <div className="glass-card p-5">
               <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Technical Accuracy</span>
-              <h2 className="text-2xl font-black text-purple-500 mt-1.5">{summary.avgTech}%</h2>
+              <h2 className="text-2xl font-black text-blue-500 mt-1.5">{summary.avgTech}%</h2>
             </div>
             <div className="glass-card p-5">
               <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Avg Communication</span>
