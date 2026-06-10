@@ -154,14 +154,14 @@ const Dashboard = () => {
   const treesCount = dsaChartData[3]?.count || 0;
   const graphsCount = dsaChartData[4]?.count || 0;
 
-  const arraysPercent = Math.min(100, Math.round((arraysCount / 4) * 100));
-  const stringsPercent = Math.min(100, Math.round((stringsCount / 4) * 100));
-  const listsPercent = Math.min(100, Math.round((listsCount / 4) * 100));
-  const treesPercent = Math.min(100, Math.round((treesCount / 7) * 100));
-  const graphsPercent = Math.min(100, Math.round((graphsCount / 4) * 100));
+  const arraysPercent = Math.min(100, Math.round((arraysCount / 30) * 100));
+  const stringsPercent = Math.min(100, Math.round((stringsCount / 30) * 100));
+  const listsPercent = Math.min(100, Math.round((listsCount / 30) * 100));
+  const treesPercent = Math.min(100, Math.round((treesCount / 90) * 100));
+  const graphsPercent = Math.min(100, Math.round((graphsCount / 30) * 100));
 
   const totalSolved = arraysCount + stringsCount + listsCount + treesCount + graphsCount;
-  const overallPercent = Math.min(100, Math.round((totalSolved / 23) * 100));
+  const overallPercent = Math.min(100, Math.round((totalSolved / 210) * 100));
 
   return (
     <motion.div 
