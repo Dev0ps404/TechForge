@@ -16,7 +16,8 @@ import {
   Sun,
   Moon,
   CheckCircle2,
-  ChevronDown
+  ChevronDown,
+  Cpu
 } from 'lucide-react';
 
 const Landing = () => {
@@ -149,54 +150,70 @@ const Landing = () => {
           {/* Right Terminal Mockup */}
           <div className="lg:col-span-5 relative mt-8 lg:mt-0">
             <div className="absolute inset-0 bg-blue-600/5 blur-3xl rounded-3xl pointer-events-none"></div>
-            {/* Terminal Card */}
-            <div className="glass-panel border bg-card-dark/65 border-white/10 p-5 rounded-2xl shadow-2xl relative overflow-hidden font-mono text-left leading-relaxed">
-              {/* Window controls */}
-              <div className="flex items-center gap-1.5 mb-5 border-b border-white/5 pb-3">
-                <span className="w-3 h-3 rounded-full bg-[#EF4444]"></span>
-                <span className="w-3 h-3 rounded-full bg-[#F59E0B]"></span>
-                <span className="w-3 h-3 rounded-full bg-[#22C55E]"></span>
-                <span className="ml-auto text-[10px] text-slate-500">ai-evaluation-terminal.sh</span>
-              </div>
-              
-              {/* Terminal code outputs */}
-              <div className="space-y-4 text-xs font-light">
-                <div className="space-y-1">
-                  <p className="text-[#06B6D4] font-medium">$ run analyze-resume --file resume.pdf</p>
-                  <p className="text-[#22C55E] flex items-center gap-1.5">✓ Extracted Skills: React, Express, MongoDB</p>
-                  <p className="text-[#3B82F6] flex items-center gap-1.5">★ ATS Score computed: 88%</p>
-                </div>
-                
-                <div className="space-y-1">
-                  <p className="text-[#06B6D4] font-medium">$ start mock-interview --role "Frontend"</p>
-                  <p className="text-[#F59E0B] flex items-start gap-1">
-                    <span>🤖 Question:</span>
-                    <span>What is the React Event Loop?</span>
-                  </p>
-                  <p className="text-slate-400 flex items-center gap-1.5">
-                    <span className="inline-block w-2.5 h-2.5 rounded-full bg-rose-500 animate-pulse"></span>
-                    Recording user voice answer...
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Overlapping ATS success rate badge */}
+            
+            {/* Animated Gradient Border Wrapper */}
             <motion.div
-              animate={{ y: [0, -8, 0] }}
+              animate={{ y: [0, 10, 0] }}
               transition={{
-                duration: 3,
+                duration: 6,
                 repeat: Infinity,
                 ease: "easeInOut"
               }}
-              className="absolute -bottom-6 -left-6 glass-panel border bg-[#0B1220]/95 dark:bg-card-dark/95 border-white/35 px-5.5 py-4 rounded-xl flex items-center gap-3.5 shadow-2xl z-20"
+              className="p-[2.5px] rounded-2xl bg-gradient-to-tr from-[#3b82f6] via-[#06b6d4] to-[#7c3aed] animate-border-flow relative shadow-2xl"
             >
-              <div className="w-9 h-9 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center border border-emerald-500/20">
-                <CheckCircle2 className="w-5.5 h-5.5" />
+              {/* Terminal Card */}
+              <div className="bg-[#0E131F]/90 backdrop-blur-2xl p-5 rounded-[14px] relative overflow-hidden font-mono text-left leading-relaxed">
+                {/* Window controls */}
+                <div className="flex items-center gap-1.5 mb-5 border-b border-white/5 pb-3">
+                  <span className="w-3 h-3 rounded-full bg-[#EF4444]"></span>
+                  <span className="w-3 h-3 rounded-full bg-[#F59E0B]"></span>
+                  <span className="w-3 h-3 rounded-full bg-[#22C55E]"></span>
+                  <span className="ml-auto text-[10px] text-slate-500">ai-evaluation-terminal.sh</span>
+                </div>
+                
+                {/* Terminal code outputs */}
+                <div className="space-y-4 text-xs font-light">
+                  <div className="space-y-1">
+                    <p className="text-[#06B6D4] font-medium">$ run analyze-resume --file resume.pdf</p>
+                    <p className="text-[#22C55E] flex items-center gap-1.5">✓ Extracted Skills: React, Express, MongoDB</p>
+                    <p className="text-[#a78bfa] flex items-center gap-1.5">★ ATS Score computed: 88%</p>
+                  </div>
+                  
+                  <div className="space-y-1">
+                    <p className="text-[#06B6D4] font-medium">$ start mock-interview --role "Frontend"</p>
+                    <p className="text-[#F59E0B] flex items-center gap-1.5">
+                      <span>🤖</span>
+                      <span>Question: What is the React Event Loop?</span>
+                    </p>
+                    <p className="text-slate-400 flex items-center gap-1.5">
+                      <span>🎤</span>
+                      <span>Recording user voice answer...</span>
+                    </p>
+                  </div>
+
+                  <div className="pt-3 border-t border-white/5 text-[11px] text-sky-400/50">
+                    // Platform loading completed. Ready to deploy!
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Overlapping ATS success rate badge */}
+            <motion.div
+              animate={{ y: [12, -12, 12] }}
+              transition={{
+                duration: 3.5,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+              className="absolute -bottom-8 -left-8 bg-[#0E131F]/90 backdrop-blur-xl border border-white/20 px-5.5 py-4.5 rounded-2xl flex items-center gap-3.5 shadow-2xl z-20"
+            >
+              <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center border border-emerald-500/20">
+                <Cpu className="w-5.5 h-5.5" />
               </div>
               <div>
-                <p className="text-[11px] text-slate-400 font-medium">ATS Success Rate</p>
-                <p className="text-sm font-extrabold text-emerald-500">+42% Higher</p>
+                <p className="text-[11px] text-slate-450 font-medium">ATS Success Rate</p>
+                <p className="text-sm font-extrabold text-white">+42% Higher</p>
               </div>
             </motion.div>
           </div>

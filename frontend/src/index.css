@@ -196,3 +196,15 @@
 .page-transition-wrapper {
   width: 100%;
 }
+
+/* Border gradient flow animation */
+@keyframes border-flow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-border-flow {
+  background-size: 200% 200%;
+  animation: border-flow 6s ease infinite;
+}
