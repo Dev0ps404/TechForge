@@ -2,60 +2,31 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Logo from '../components/Logo';
-import {
-  Cpu,
-  Video,
-  FileText,
-  Code,
-  CheckCircle,
-  MessageSquare,
-  Trophy,
-  ChevronRight,
-  ChevronDown,
-  Sparkles,
-} from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { useTheme } from '../context/ThemeContext';
+import {
+  Terminal,
+  Mic,
+  Shield,
+  BarChart3,
+  Code2,
+  Brain,
+  Star,
+  ChevronRight,
+  Sun,
+  Moon,
+  CheckCircle2,
+  ChevronDown
+} from 'lucide-react';
 
 const Landing = () => {
   const { user } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const [activeFaq, setActiveFaq] = useState(null);
 
   const toggleFaq = (index) => {
     setActiveFaq(activeFaq === index ? null : index);
   };
-
-  const features = [
-    {
-      icon: Cpu,
-      title: 'AI Question Generation',
-      description: 'Instantly generate role-specific questions for MERN, Java, Python, System Design, and behavioral criteria.',
-    },
-    {
-      icon: Video,
-      title: 'Video Mock Interviews',
-      description: 'Practice with a live camera overlay and timer. Record and transcribe your answers in real time.',
-    },
-    {
-      icon: FileText,
-      title: 'ATS Resume Scanners',
-      description: 'Upload your PDF resume to receive ATS scores, missing keywords detection, and optimization advice.',
-    },
-    {
-      icon: Code,
-      title: 'DSA Practice & Tracking',
-      description: 'Maintain study streaks across 13 major computer science concepts. Track completion rates visually.',
-    },
-    {
-      icon: MessageSquare,
-      title: 'AI Career Mentor',
-      description: 'Engage with our career chatbot for placement tips, salary talks, code reviews, and resume updates.',
-    },
-    {
-      icon: Trophy,
-      title: 'Rankings Leaderboard',
-      description: 'Earn platform points by completing mocks and challenges. Compare progress against global candidate logs.',
-    },
-  ];
 
   const faqs = [
     {
@@ -72,29 +43,14 @@ const Landing = () => {
     },
     {
       q: 'How does the DSA Progress and Streak count work?',
-      a: 'When you mark a data structure or algorithm problem as completed in the DSA Practice dashboard, you earn points and trigger consecutive streak counters. Missing challenges for more than 48 hours resets your active study streak.',
+      a: 'When you mark a data structure or algorithm problem as completed in the DSA Practice dashboard, you earn points and trigger consecutive streak counters. Missing challenges resets your active study streak.',
     },
   ];
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
-    visible: { y: 0, opacity: 1 },
-  };
 
   return (
     <div className="min-h-screen bg-[#0B1220] text-slate-100 selection:bg-indigo-500 selection:text-white overflow-hidden relative">
       {/* Mesh/Grid Background */}
-      <div className="absolute inset-0 grid-bg-dark opacity-40 pointer-events-none"></div>
+      <div className="absolute inset-0 grid-bg-dark opacity-30 pointer-events-none"></div>
 
       {/* Decorative Glow Elements */}
       <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[50%] rounded-full bg-indigo-500/10 blur-[130px] animate-glow-1"></div>
@@ -103,27 +59,51 @@ const Landing = () => {
       {/* Header navbar */}
       <nav className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between border-b border-white/5 relative z-10">
         <div className="flex items-center gap-2.5">
-          <Logo className="w-10 h-10 flex-shrink-0" />
+          <Logo className="w-8 h-8 flex-shrink-0" />
           <span className="text-xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400">
             TalentForge
           </span>
         </div>
+
+        {/* Navigation Middle Links */}
+        <div className="hidden md:flex items-center gap-8">
+          <a href="#features" className="text-xs text-slate-400 hover:text-white font-medium transition-colors">
+            Features
+          </a>
+          <a href="#testimonials" className="text-xs text-slate-400 hover:text-white font-medium transition-colors">
+            Testimonials
+          </a>
+        </div>
+
         <div className="flex items-center gap-4">
+          {/* Theme Toggle icon */}
+          <button
+            onClick={toggleTheme}
+            className="p-2 text-slate-400 hover:text-white hover:bg-white/5 rounded-xl transition-all"
+            aria-label="Toggle Theme"
+          >
+            {theme === 'dark' ? (
+              <Sun className="w-4.5 h-4.5 text-indigo-400" />
+            ) : (
+              <Moon className="w-4.5 h-4.5 text-slate-650" />
+            )}
+          </button>
+
           {user ? (
             <Link
               to="/dashboard"
-              className="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-550 text-white font-semibold transition-all border border-indigo-500/30 flex items-center gap-1.5 shadow-[0_0_20px_rgba(99,102,241,0.2)]"
+              className="px-5 py-2 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-650 hover:from-indigo-600 hover:to-purple-700 text-white font-semibold transition-all border border-indigo-500/30 flex items-center gap-1 text-xs shadow-md shadow-indigo-500/10"
             >
-              Go to Dashboard <ChevronRight className="w-4 h-4" />
+              Dashboard
             </Link>
           ) : (
             <>
-              <Link to="/login" className="text-slate-400 hover:text-white font-medium transition-colors text-sm">
-                Sign In
+              <Link to="/login" className="text-slate-400 hover:text-white transition-colors text-xs font-semibold px-2">
+                Login
               </Link>
               <Link
                 to="/signup"
-                className="px-5 py-2.5 rounded-xl bg-white text-slate-900 hover:bg-slate-100 font-bold transition-all text-sm shadow-md"
+                className="px-4 py-2 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-650 hover:from-indigo-600 hover:to-purple-700 text-white text-xs font-bold transition-all shadow-md shadow-indigo-500/15"
               >
                 Get Started
               </Link>
@@ -133,180 +113,284 @@ const Landing = () => {
       </nav>
 
       {/* Hero Section */}
-      <section className="max-w-7xl mx-auto px-6 pt-24 pb-28 text-center relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="space-y-8"
-        >
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-xs font-semibold text-indigo-300">
-            <Sparkles className="w-3.5 h-3.5 text-indigo-400 animate-pulse" /> AI-Powered Interview Prep
-          </div>
-          <h1 className="text-5xl md:text-8xl font-black tracking-tight max-w-4xl mx-auto leading-none text-white">
-            Ace Your Next Tech Interview with{' '}
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-400 to-cyan-400">AI Mentorship</span>
-          </h1>
-          <p className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto font-light leading-relaxed">
-            Generate custom mock interviews, get instant grading on verbal answers, audit your resume against ATS systems, and trace your DSA progress.
-          </p>
+      <section className="max-w-7xl mx-auto px-6 pt-16 lg:pt-24 pb-28 relative z-10">
+        <div className="grid lg:grid-cols-12 gap-12 items-center">
+          {/* Left Text Block */}
+          <div className="lg:col-span-7 space-y-6 text-left">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-[10px] font-bold text-indigo-300 uppercase tracking-wider">
+              ✨ Powered by OpenAI GPT-4o-Mini
+            </div>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black tracking-tight text-white leading-none">
+              Nail Your Tech Interviews with{' '}
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-400 to-cyan-400">
+                TalentForge
+              </span>
+            </h1>
+            <p className="text-base sm:text-lg text-slate-400 font-light leading-relaxed max-w-xl">
+              The ultimate AI-powered preparation platform. Generate tailor-made questions, record speech-to-text answers, analyze your resume for ATS optimization, and master DSA tracking in one single premium platform.
+            </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-            <Link
-              to={user ? '/dashboard' : '/signup'}
-              className="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 font-bold shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 transition-all flex items-center justify-center gap-2 text-sm text-white"
-            >
-              Start Free Trial <ChevronRight className="w-4 h-4" />
-            </Link>
-            <a
-              href="#features"
-              className="w-full sm:w-auto px-8 py-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 font-bold transition-all flex items-center justify-center text-sm"
-            >
-              Explore Features
-            </a>
+            <div className="flex flex-row items-center gap-4 pt-2">
+              <Link
+                to={user ? '/dashboard' : '/signup'}
+                className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-650 hover:from-indigo-600 hover:to-purple-700 font-bold shadow-lg shadow-indigo-500/25 transition-all text-xs text-white flex items-center gap-1.5 hover:shadow-indigo-500/40"
+              >
+                Start Free Trial <ChevronRight className="w-4 h-4" />
+              </Link>
+              <Link
+                to={user ? '/dashboard' : '/login'}
+                className="px-6 py-3.5 rounded-xl bg-slate-900/40 border border-white/5 hover:bg-slate-850/40 font-bold transition-all text-xs text-slate-350 flex items-center justify-center"
+              >
+                Try Demo Interview
+              </Link>
+            </div>
           </div>
-        </motion.div>
 
-        {/* Dashboard Mockup Preview */}
-        <motion.div
-          initial={{ opacity: 0, y: 60 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.2 }}
-          className="mt-20 rounded-3xl border border-white/5 bg-slate-900/40 p-2.5 backdrop-blur-xl shadow-2xl relative max-w-5xl mx-auto"
-        >
-          <div className="absolute inset-0 bg-indigo-500/5 blur-3xl rounded-3xl pointer-events-none"></div>
-          <img
-            src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80"
-            alt="TalentForge Dashboard Mockup"
-            className="w-full h-auto rounded-2xl border border-white/5 shadow-inner"
-          />
-        </motion.div>
+          {/* Right Terminal Mockup */}
+          <div className="lg:col-span-5 relative mt-8 lg:mt-0">
+            <div className="absolute inset-0 bg-indigo-500/5 blur-3xl rounded-3xl pointer-events-none"></div>
+            {/* Terminal Card */}
+            <div className="glass-panel border bg-card-dark/65 border-white/10 p-5 rounded-2xl shadow-2xl relative overflow-hidden font-mono text-left leading-relaxed">
+              {/* Window controls */}
+              <div className="flex items-center gap-1.5 mb-5 border-b border-white/5 pb-3">
+                <span className="w-3 h-3 rounded-full bg-[#EF4444]"></span>
+                <span className="w-3 h-3 rounded-full bg-[#F59E0B]"></span>
+                <span className="w-3 h-3 rounded-full bg-[#22C55E]"></span>
+                <span className="ml-auto text-[10px] text-slate-500">ai-evaluation-terminal.sh</span>
+              </div>
+              
+              {/* Terminal code outputs */}
+              <div className="space-y-4 text-xs font-light">
+                <div className="space-y-1">
+                  <p className="text-[#06B6D4] font-medium">$ run analyze-resume --file resume.pdf</p>
+                  <p className="text-[#22C55E] flex items-center gap-1.5">✓ Extracted Skills: React, Express, MongoDB</p>
+                  <p className="text-[#8B5CF6] flex items-center gap-1.5">★ ATS Score computed: 88%</p>
+                </div>
+                
+                <div className="space-y-1">
+                  <p className="text-[#06B6D4] font-medium">$ start mock-interview --role "Frontend"</p>
+                  <p className="text-[#F59E0B] flex items-start gap-1">
+                    <span>🤖 Question:</span>
+                    <span>What is the React Event Loop?</span>
+                  </p>
+                  <p className="text-slate-400 flex items-center gap-1.5">
+                    <span className="inline-block w-2.5 h-2.5 rounded-full bg-rose-500 animate-pulse"></span>
+                    Recording user voice answer...
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Overlapping ATS success rate badge */}
+            <div className="absolute -bottom-4 -left-4 glass-panel border bg-[#0B1220]/90 dark:bg-card-dark/85 border-white/10 px-4 py-3 rounded-xl flex items-center gap-2.5 shadow-xl">
+              <div className="w-7 h-7 rounded-lg bg-emerald-500/10 text-emerald-500 flex items-center justify-center border border-emerald-500/10">
+                <CheckCircle2 className="w-4 h-4" />
+              </div>
+              <div>
+                <p className="text-[10px] text-slate-400">ATS Success Rate</p>
+                <p className="text-xs font-extrabold text-emerald-500">+42% Higher</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
 
-      {/* Features Grid */}
-      <section id="features" className="max-w-7xl mx-auto px-6 py-28 border-t border-white/5 relative z-10">
-        <div className="text-center space-y-4 mb-20">
-          <h2 className="text-3xl md:text-5xl font-extrabold text-white tracking-tight">Unmatched AI Prep Features</h2>
-          <p className="text-slate-400 max-w-xl mx-auto font-light text-sm">
-            Everything you need to build confidence and excel in technical and behavioral interviews.
+      {/* Features Section */}
+      <section id="features" className="max-w-7xl mx-auto px-6 py-24 border-t border-white/5 relative z-10">
+        <div className="text-center space-y-4 mb-16">
+          <h2 className="text-3xl md:text-5xl font-black text-white tracking-tight">
+            Engineered for{' '}
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-400 to-cyan-400">
+              Interview Mastery
+            </span>
+          </h2>
+          <p className="text-slate-400 max-w-xl mx-auto font-light text-sm leading-relaxed">
+            Everything you need to transform your technical preparation from unstructured cramming to a data-backed career booster.
           </p>
         </div>
 
-        <motion.div 
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
-        >
-          {features.map((feat, index) => (
-            <motion.div
-              key={feat.title}
-              variants={itemVariants}
-              className="glass-card p-8 bg-card-dark/40 hover:bg-card-dark/70 hover:border-indigo-500/30 group relative overflow-hidden"
-            >
-              <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-indigo-500/5 to-transparent blur-xl pointer-events-none"></div>
-              <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-indigo-400 group-hover:bg-indigo-500 group-hover:text-white transition-all duration-300 mb-6">
-                <feat.icon className="w-5 h-5" />
-              </div>
-              <h3 className="text-lg font-bold mb-3 text-white">{feat.title}</h3>
-              <p className="text-slate-400 text-xs leading-relaxed font-light">{feat.description}</p>
-            </motion.div>
-          ))}
-        </motion.div>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Card 1 */}
+          <div className="glass-card p-6 bg-card-dark/40 border-white/5 relative overflow-hidden flex flex-col justify-between min-h-[180px]">
+            <div className="w-9 h-9 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center mb-5 border border-indigo-500/10">
+              <Terminal className="w-4.5 h-4.5" />
+            </div>
+            <div>
+              <h3 className="text-sm font-bold text-white mb-2">AI Question Generator</h3>
+              <p className="text-slate-400 text-xs leading-relaxed font-light">
+                Get highly tailored technical interview questions based on role, stack, and difficulty level.
+              </p>
+            </div>
+          </div>
+
+          {/* Card 2 */}
+          <div className="glass-card p-6 bg-card-dark/40 border-white/5 relative overflow-hidden flex flex-col justify-between min-h-[180px]">
+            <div className="w-9 h-9 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center mb-5 border border-indigo-500/10">
+              <Mic className="w-4.5 h-4.5" />
+            </div>
+            <div>
+              <h3 className="text-sm font-bold text-white mb-2">Speech-to-Text Answers</h3>
+              <p className="text-slate-400 text-xs leading-relaxed font-light">
+                Answer questions naturally using Web Speech recognition. Practice oral clarity.
+              </p>
+            </div>
+          </div>
+
+          {/* Card 3 */}
+          <div className="glass-card p-6 bg-card-dark/40 border-white/5 relative overflow-hidden flex flex-col justify-between min-h-[180px]">
+            <div className="w-9 h-9 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center mb-5 border border-indigo-500/10">
+              <Shield className="w-4.5 h-4.5" />
+            </div>
+            <div>
+              <h3 className="text-sm font-bold text-white mb-2">ATS Resume Reviewer</h3>
+              <p className="text-slate-400 text-xs leading-relaxed font-light">
+                Upload your PDF resume to receive ATS scores, skill extractions, and actionable optimization feedback.
+              </p>
+            </div>
+          </div>
+
+          {/* Card 4 */}
+          <div className="glass-card p-6 bg-card-dark/40 border-white/5 relative overflow-hidden flex flex-col justify-between min-h-[180px]">
+            <div className="w-9 h-9 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center mb-5 border border-indigo-500/10">
+              <BarChart3 className="w-4.5 h-4.5" />
+            </div>
+            <div>
+              <h3 className="text-sm font-bold text-white mb-2">Granular AI Evaluation</h3>
+              <p className="text-slate-400 text-xs leading-relaxed font-light">
+                Get precise scores, communication review, technical feedback, and suggestions for improvement.
+              </p>
+            </div>
+          </div>
+
+          {/* Card 5 */}
+          <div className="glass-card p-6 bg-card-dark/40 border-white/5 relative overflow-hidden flex flex-col justify-between min-h-[180px]">
+            <div className="w-9 h-9 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center mb-5 border border-indigo-500/10">
+              <Code2 className="w-4.5 h-4.5" />
+            </div>
+            <div>
+              <h3 className="text-sm font-bold text-white mb-2">DSA Practice Sheets</h3>
+              <p className="text-slate-400 text-xs leading-relaxed font-light">
+                Track Arrays, Strings, Linked Lists, Trees, and Graphs completion percentages in real-time.
+              </p>
+            </div>
+          </div>
+
+          {/* Card 6 */}
+          <div className="glass-card p-6 bg-card-dark/40 border-white/5 relative overflow-hidden flex flex-col justify-between min-h-[180px]">
+            <div className="w-9 h-9 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center mb-5 border border-indigo-500/10">
+              <Brain className="w-4.5 h-4.5" />
+            </div>
+            <div>
+              <h3 className="text-sm font-bold text-white mb-2">AI Chatbot Assistant</h3>
+              <p className="text-slate-400 text-xs leading-relaxed font-light">
+                Interact with an intelligent, conversational agent to clarify computer science concepts on the fly.
+              </p>
+            </div>
+          </div>
+        </div>
       </section>
 
-      {/* Pricing Section */}
-      <section className="max-w-7xl mx-auto px-6 py-28 border-t border-white/5 relative z-10">
-        <div className="text-center space-y-4 mb-20">
-          <h2 className="text-3xl md:text-5xl font-extrabold text-white tracking-tight">Simple, Transparent Pricing</h2>
-          <p className="text-slate-400 max-w-xl mx-auto font-light text-sm">
-            Choose a timeline that works for you. Get started in minutes.
+      {/* Testimonials Section */}
+      <section id="testimonials" className="max-w-7xl mx-auto px-6 py-24 border-t border-white/5 relative z-10">
+        <div className="text-center space-y-4 mb-16">
+          <h2 className="text-3xl md:text-5xl font-black text-white tracking-tight">
+            Success Stories from{' '}
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-400 to-cyan-400">
+              Real Students
+            </span>
+          </h2>
+          <p className="text-slate-400 max-w-xl mx-auto font-light text-sm leading-relaxed">
+            Hundreds of software development students and professionals have landed roles using TalentForge.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-          {/* Free Tier */}
-          <div className="glass-panel p-8 bg-card-dark/20 border-white/5 flex flex-col justify-between hover:border-white/10 transition-all rounded-2xl">
+        <div className="grid md:grid-cols-3 gap-6">
+          {/* Rohan Testimonial */}
+          <div className="glass-card p-6 bg-card-dark/40 border-white/5 relative overflow-hidden flex flex-col justify-between min-h-[220px]">
             <div>
-              <h3 className="text-sm font-semibold tracking-wider uppercase text-slate-400">Basic Tier</h3>
-              <div className="flex items-baseline gap-1 mt-5">
-                <span className="text-4xl font-black text-white">$0</span>
-                <span className="text-slate-500 text-xs font-semibold">/ month</span>
+              {/* Stars */}
+              <div className="flex items-center gap-1.5 mb-4 text-[#F59E0B]">
+                <Star className="w-4 h-4 fill-current" />
+                <Star className="w-4 h-4 fill-current" />
+                <Star className="w-4 h-4 fill-current" />
+                <Star className="w-4 h-4 fill-current" />
+                <Star className="w-4 h-4 fill-current" />
               </div>
-              <p className="text-slate-400 text-xs font-light mt-3">Great for exploring the platform features.</p>
-              <ul className="mt-8 space-y-4 text-xs font-light text-slate-300">
-                <li className="flex items-center gap-2.5"><CheckCircle className="w-4 h-4 text-indigo-400" /> 3 AI Mock Mocks</li>
-                <li className="flex items-center gap-2.5"><CheckCircle className="w-4 h-4 text-indigo-400" /> 5 ATS Resume Scans</li>
-                <li className="flex items-center gap-2.5"><CheckCircle className="w-4 h-4 text-indigo-400" /> Basic DSA trackers</li>
-                <li className="flex items-center gap-2.5"><CheckCircle className="w-4 h-4 text-indigo-400" /> Limited Chat Advisor</li>
-              </ul>
+              <p className="text-slate-350 text-xs leading-relaxed font-light italic">
+                "The speech recognition is highly accurate. Talking aloud while answering technical questions boosted my confidence before the final rounds."
+              </p>
             </div>
-            <Link
-              to="/signup"
-              className="mt-8 w-full py-3 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 text-white font-bold transition-all text-center text-xs block"
-            >
-              Sign Up Free
-            </Link>
+            
+            <div className="flex items-center gap-3 mt-6 pt-4 border-t border-white/5">
+              <div className="w-9 h-9 rounded-full bg-[#7C3AED]/20 text-[#7C3AED] flex items-center justify-center font-bold text-xs">
+                RS
+              </div>
+              <div>
+                <p className="text-xs font-bold text-white">Rohan Sharma</p>
+                <p className="text-[10px] text-slate-500">Frontend Engineer @ Google</p>
+              </div>
+            </div>
           </div>
 
-          {/* Premium Tier */}
-          <div className="glass-panel p-8 bg-card-dark/60 border-2 border-indigo-500 flex flex-col justify-between relative shadow-indigo-500/10 shadow-2xl rounded-2xl">
-            <div className="absolute top-0 right-6 -translate-y-1/2 px-3 py-1 rounded-full bg-indigo-500 text-white text-[10px] font-bold uppercase tracking-wider">
-              Most Popular
-            </div>
+          {/* Aishwarya Testimonial */}
+          <div className="glass-card p-6 bg-card-dark/40 border-white/5 relative overflow-hidden flex flex-col justify-between min-h-[220px]">
             <div>
-              <h3 className="text-sm font-semibold tracking-wider uppercase text-indigo-300">Premium Pro</h3>
-              <div className="flex items-baseline gap-1 mt-5">
-                <span className="text-4xl font-black text-white">$19</span>
-                <span className="text-slate-500 text-xs font-semibold">/ month</span>
+              {/* Stars */}
+              <div className="flex items-center gap-1.5 mb-4 text-[#F59E0B]">
+                <Star className="w-4 h-4 fill-current" />
+                <Star className="w-4 h-4 fill-current" />
+                <Star className="w-4 h-4 fill-current" />
+                <Star className="w-4 h-4 fill-current" />
+                <Star className="w-4 h-4 fill-current" />
               </div>
-              <p className="text-slate-400 text-xs font-light mt-3">Perfect for active job seekers.</p>
-              <ul className="mt-8 space-y-4 text-xs font-light text-slate-200">
-                <li className="flex items-center gap-2.5"><CheckCircle className="w-4 h-4 text-indigo-400" /> Unlimited AI Mock Mocks</li>
-                <li className="flex items-center gap-2.5"><CheckCircle className="w-4 h-4 text-indigo-400" /> Unlimited ATS Resume Scans</li>
-                <li className="flex items-center gap-2.5"><CheckCircle className="w-4 h-4 text-indigo-400" /> Speech-to-text Transcription</li>
-                <li className="flex items-center gap-2.5"><CheckCircle className="w-4 h-4 text-indigo-400" /> Full DSA Streak & Leaderboards</li>
-                <li className="flex items-center gap-2.5"><CheckCircle className="w-4 h-4 text-indigo-400" /> Unlimited AI Chat Advisor</li>
-              </ul>
+              <p className="text-slate-350 text-xs leading-relaxed font-light italic">
+                "The resume ATS analyzer gave me concrete pointers. I updated my key experience sections and got shortlists within 2 weeks!"
+              </p>
             </div>
-            <Link
-              to="/signup"
-              className="mt-8 w-full py-3 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white font-bold transition-all text-center text-xs block shadow-md shadow-indigo-500/20"
-            >
-              Get Premium Access
-            </Link>
+            
+            <div className="flex items-center gap-3 mt-6 pt-4 border-t border-white/5">
+              <div className="w-9 h-9 rounded-full bg-[#6366F1]/20 text-[#6366F1] flex items-center justify-center font-bold text-xs">
+                AP
+              </div>
+              <div>
+                <p className="text-xs font-bold text-white">Aishwarya Patel</p>
+                <p className="text-[10px] text-slate-500">Full Stack Dev @ Cred</p>
+              </div>
+            </div>
           </div>
 
-          {/* Enterprise Tier */}
-          <div className="glass-panel p-8 bg-card-dark/20 border-white/5 flex flex-col justify-between hover:border-white/10 transition-all rounded-2xl">
+          {/* Michael Testimonial */}
+          <div className="glass-card p-6 bg-card-dark/40 border-white/5 relative overflow-hidden flex flex-col justify-between min-h-[220px]">
             <div>
-              <h3 className="text-sm font-semibold tracking-wider uppercase text-slate-400">Institutional</h3>
-              <div className="flex items-baseline gap-1 mt-5">
-                <span className="text-4xl font-black text-white">$79</span>
-                <span className="text-slate-500 text-xs font-semibold">/ month</span>
+              {/* Stars */}
+              <div className="flex items-center gap-1.5 mb-4 text-[#F59E0B]">
+                <Star className="w-4 h-4 fill-current" />
+                <Star className="w-4 h-4 fill-current" />
+                <Star className="w-4 h-4 fill-current" />
+                <Star className="w-4 h-4 fill-current" />
+                <Star className="w-4 h-4 fill-current" />
               </div>
-              <p className="text-slate-400 text-xs font-light mt-3">Designed for colleges and bootcamps.</p>
-              <ul className="mt-8 space-y-4 text-xs font-light text-slate-300">
-                <li className="flex items-center gap-2.5"><CheckCircle className="w-4 h-4 text-indigo-400" /> Up to 50 active students</li>
-                <li className="flex items-center gap-2.5"><CheckCircle className="w-4 h-4 text-indigo-400" /> Custom Admin reports panel</li>
-                <li className="flex items-center gap-2.5"><CheckCircle className="w-4 h-4 text-indigo-400" /> API key integration options</li>
-                <li className="flex items-center gap-2.5"><CheckCircle className="w-4 h-4 text-indigo-400" /> 24/7 dedicated support</li>
-              </ul>
+              <p className="text-slate-350 text-xs leading-relaxed font-light italic">
+                "Saved questions and the DSA sheets are extremely handy. I could trace my progress and focus on weaker topics like Graphs and Trees."
+              </p>
             </div>
-            <Link
-              to="/signup"
-              className="mt-8 w-full py-3 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 text-white font-bold transition-all text-center text-xs block"
-            >
-              Contact Sales
-            </Link>
+            
+            <div className="flex items-center gap-3 mt-6 pt-4 border-t border-white/5">
+              <div className="w-9 h-9 rounded-full bg-[#06B6D4]/20 text-[#06B6D4] flex items-center justify-center font-bold text-xs">
+                MC
+              </div>
+              <div>
+                <p className="text-xs font-bold text-white">Michael Chen</p>
+                <p className="text-[10px] text-slate-500">Java Developer @ Amazon</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* FAQ Section */}
-      <section className="max-w-4xl mx-auto px-6 py-28 border-t border-white/5 relative z-10">
-        <h2 className="text-3xl md:text-5xl font-extrabold text-white text-center tracking-tight mb-20">Frequently Asked Questions</h2>
+      <section className="max-w-4xl mx-auto px-6 py-24 border-t border-white/5 relative z-10">
+        <h2 className="text-3xl md:text-5xl font-black text-white text-center tracking-tight mb-16">Frequently Asked Questions</h2>
 
         <div className="space-y-4">
           {faqs.map((faq, index) => (
@@ -326,7 +410,7 @@ const Landing = () => {
                 />
               </button>
               {activeFaq === index && (
-                <div className="px-6 pb-5 pt-1 text-slate-400 leading-relaxed text-xs font-light">
+                <div className="px-6 pb-5 pt-1 text-slate-450 leading-relaxed text-xs font-light">
                   {faq.a}
                 </div>
               )}
@@ -335,28 +419,39 @@ const Landing = () => {
         </div>
       </section>
 
-      {/* CTA Footer */}
-      <section className="max-w-7xl mx-auto px-6 py-24 text-center relative z-10 border-t border-white/5">
-        <div className="glass-panel p-12 bg-card-dark/40 border-white/5 max-w-4xl mx-auto relative overflow-hidden rounded-3xl">
-          <div className="absolute top-0 left-0 w-full h-full bg-indigo-500/5 blur-3xl pointer-events-none"></div>
-          <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight text-white mb-4">
-            Ready to Forge Your Career?
+      {/* Ready to Accelerate Your Prep? CTA section */}
+      <section className="max-w-7xl mx-auto px-6 py-24 relative z-10 border-t border-white/5">
+        <div className="glass-panel p-10 sm:p-14 bg-gradient-to-r from-card-dark via-indigo-950/20 to-card-dark border-white/10 rounded-3xl relative overflow-hidden text-center max-w-4xl mx-auto">
+          {/* Subtle glow backdrop overlay */}
+          <div className="absolute top-0 left-0 w-full h-full bg-[#7C3AED]/5 blur-3xl pointer-events-none"></div>
+          
+          <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-4 leading-tight">
+            Ready to Accelerate Your Prep?
           </h2>
-          <p className="text-slate-450 max-w-md mx-auto mb-8 font-light text-sm leading-relaxed">
-            Create an account today and experience how our AI evaluations help you stand out. No credit card required.
+          <p className="text-slate-400 text-xs sm:text-sm font-light max-w-md mx-auto mb-8 leading-relaxed">
+            Create an account in minutes and get access to custom mock interviews, live voice evaluation, and ATS feedback.
           </p>
-          <Link
-            to="/signup"
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-indigo-600 hover:bg-indigo-550 text-white font-bold transition-all shadow-lg shadow-indigo-650/20"
-          >
-            Get Started For Free <ChevronRight className="w-4.5 h-4.5" />
-          </Link>
+
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Link
+              to={user ? '/dashboard' : '/signup'}
+              className="w-full sm:w-auto px-7 py-3 rounded-xl bg-white hover:bg-slate-100 text-slate-900 font-bold transition-all text-xs shadow-lg"
+            >
+              Get Started for Free
+            </Link>
+            <Link
+              to={user ? '/dashboard' : '/login'}
+              className="w-full sm:w-auto px-7 py-3 rounded-xl border border-white/10 hover:bg-white/5 text-white font-bold transition-all text-xs"
+            >
+              Login to Account
+            </Link>
+          </div>
         </div>
       </section>
 
       {/* Footer */}
       <footer className="max-w-7xl mx-auto px-6 py-12 text-center border-t border-white/5 text-slate-500 text-xs font-light relative z-10">
-        <p>© {new Date().getFullYear()} TalentForge Inc. All rights reserved. Google and OpenAI are trademarks of their respective owners.</p>
+        <p>© {new Date().getFullYear()} TalentForge Inc. All rights reserved. Google and OpenAI are trademarks of their respective companies.</p>
       </footer>
     </div>
   );
