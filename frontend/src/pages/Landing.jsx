@@ -182,15 +182,23 @@ const Landing = () => {
             </div>
 
             {/* Overlapping ATS success rate badge */}
-            <div className="absolute -bottom-4 -left-4 glass-panel border bg-[#0B1220]/90 dark:bg-card-dark/85 border-white/10 px-4 py-3 rounded-xl flex items-center gap-2.5 shadow-xl">
-              <div className="w-7 h-7 rounded-lg bg-emerald-500/10 text-emerald-500 flex items-center justify-center border border-emerald-500/10">
-                <CheckCircle2 className="w-4 h-4" />
+            <motion.div
+              animate={{ y: [0, -8, 0] }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+              className="absolute -bottom-6 -left-6 glass-panel border bg-[#0B1220]/95 dark:bg-card-dark/95 border-white/35 px-5.5 py-4 rounded-xl flex items-center gap-3.5 shadow-2xl z-20"
+            >
+              <div className="w-9 h-9 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center border border-emerald-500/20">
+                <CheckCircle2 className="w-5.5 h-5.5" />
               </div>
               <div>
-                <p className="text-[10px] text-slate-400">ATS Success Rate</p>
-                <p className="text-xs font-extrabold text-emerald-500">+42% Higher</p>
+                <p className="text-[11px] text-slate-400 font-medium">ATS Success Rate</p>
+                <p className="text-sm font-extrabold text-emerald-500">+42% Higher</p>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
