@@ -10,9 +10,40 @@ const createTransporter = () => {
     !process.env.EMAIL_USER ||
     process.env.EMAIL_USER.includes('placeholder')
   ) {
-    console.warn('Email SMTP credentials not fully configured. Email service will run in sandbox/logger mode.');
+    let etherealTransporter = null;
     return {
       sendMail: async (options) => {
+        if (!etherealTransporter) {
+          try {
+            console.log('Generating temporary Ethereal SMTP test account for email previews...');
+            const testAccount = await nodemailer.createTestAccount();
+            etherealTransporter = nodemailer.createTransport({
+              host: 'smtp.ethereal.email',
+              port: 587,
+              secure: false,
+              auth: {
+                user: testAccount.user,
+                pass: testAccount.pass,
+              },
+            });
+            console.log('Ethereal SMTP test account successfully generated.');
+          } catch (err) {
+            console.error('Failed to create Ethereal test account, using console logger:', err);
+          }
+        }
+
+        if (etherealTransporter) {
+          const info = await etherealTransporter.sendMail(options);
+          const previewUrl = nodemailer.getTestMessageUrl(info);
+          console.log('===================================================');
+          console.log('✉️  [Ethereal Email Sent]');
+          console.log(`   To:      ${options.to}`);
+          console.log(`   Subject: ${options.subject}`);
+          console.log(`   Preview: ${previewUrl}`);
+          console.log('===================================================');
+          return info;
+        }
+
         console.log('--- Sandbox Email Sent ---');
         console.log(`To: ${options.to}`);
         console.log(`Subject: ${options.subject}`);
