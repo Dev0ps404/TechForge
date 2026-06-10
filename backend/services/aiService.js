@@ -1,39 +1,38 @@
-const genAI = require('../config/openai');
+const groq = require('../config/openai');
 
-const GEMINI_MODEL = 'gemini-2.0-flash';
+const GROQ_MODEL = 'llama-3.3-70b-versatile';
 
 /**
  * Helper to check if API key is configured
  */
 const isApiKeyConfigured = () => {
-  const key = process.env.GEMINI_API_KEY || process.env.OPENAI_API_KEY;
+  const key = process.env.GROQ_API_KEY;
   return key && !key.includes('placeholder');
 };
 
 /**
- * Helper to call Gemini API and parse JSON response
+ * Helper to call Groq API in JSON mode and parse response
  */
 const callJsonApi = async (systemPrompt, userPrompt) => {
   try {
     if (!isApiKeyConfigured()) {
-      console.warn('API key is not configured or is a placeholder. Using mock AI data.');
+      console.warn('GROQ_API_KEY is not configured or is a placeholder. Using mock AI data.');
       return getMockData(systemPrompt, userPrompt);
     }
 
-    const model = genAI.getGenerativeModel({
-      model: GEMINI_MODEL,
-      systemInstruction: systemPrompt,
-      generationConfig: {
-        responseMimeType: 'application/json',
-        temperature: 0.7,
-      },
+    const response = await groq.chat.completions.create({
+      model: GROQ_MODEL,
+      messages: [
+        { role: 'system', content: systemPrompt },
+        { role: 'user', content: userPrompt }
+      ],
+      response_format: { type: 'json_object' },
+      temperature: 0.7,
     });
 
-    const result = await model.generateContent(userPrompt);
-    const responseText = result.response.text();
-    return JSON.parse(responseText);
+    return JSON.parse(response.choices[0].message.content);
   } catch (error) {
-    console.error('Gemini API call failed:', error.message || error);
+    console.error('Groq API call failed:', error.message || error);
     // Return mock data fallback rather than failing entirely, for solid robustness
     return getMockData(systemPrompt, userPrompt);
   }
@@ -136,35 +135,23 @@ const chatAssistant = async (messages) => {
   try {
     if (!isApiKeyConfigured()) {
       const lastMsg = messages[messages.length - 1].content;
-      return `[Mock AI Assistant]: Hello! I see you asked about "${lastMsg}". To get real AI career guidance, please configure your Gemini API Key in the backend .env file. For now, remember to review DSA topics like Arrays, Stack, and Dynamic Programming, and keep your resume optimized with metrics!`;
+      return `[Mock AI Assistant]: Hello! I see you asked about "${lastMsg}". To get real AI career guidance, please configure your Groq API Key in the backend .env file. For now, remember to review DSA topics like Arrays, Stack, and Dynamic Programming, and keep your resume optimized with metrics!`;
     }
 
-    const systemInstruction = `You are the TalentForge AI Placement & Career Mentor. 
+    const sysMessage = {
+      role: 'system',
+      content: `You are the TalentForge AI Placement & Career Mentor. 
 Provide expert guidance on resume building, DSA practice, interview preparation, tech stack selection, and general career advice. 
-Be encouraging, structured, and give actionable code snippets or bullet points where helpful.`;
+Be encouraging, structured, and give actionable code snippets or bullet points where helpful.`
+    };
 
-    const model = genAI.getGenerativeModel({
-      model: GEMINI_MODEL,
-      systemInstruction,
-      generationConfig: { temperature: 0.7 },
+    const response = await groq.chat.completions.create({
+      model: GROQ_MODEL,
+      messages: [sysMessage, ...messages],
+      temperature: 0.7,
     });
 
-    // Convert OpenAI-style messages to Gemini chat history
-    const history = [];
-    for (let i = 0; i < messages.length - 1; i++) {
-      const msg = messages[i];
-      if (msg.role === 'user') {
-        history.push({ role: 'user', parts: [{ text: msg.content }] });
-      } else if (msg.role === 'assistant') {
-        history.push({ role: 'model', parts: [{ text: msg.content }] });
-      }
-    }
-
-    const chat = model.startChat({ history });
-    const lastMsg = messages[messages.length - 1].content;
-    const result = await chat.sendMessage(lastMsg);
-
-    return result.response.text();
+    return response.choices[0].message.content;
   } catch (error) {
     console.error('Chat Assistant error:', error.message || error);
     // If the API call fails, fallback to a robust local rule-based helper
