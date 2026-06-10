@@ -586,7 +586,7 @@ const DsaPractice = () => {
                   </div>
 
                   {/* Problems list */}
-                  <div className="flex flex-col gap-2">
+                  <div className="flex flex-col gap-2 max-h-[320px] overflow-y-auto pr-1">
                     {filteredProblems.map((prob) => {
                       const completed = isCompleted(topic, prob.name);
                       const key = `${topic}-${prob.name}`;
