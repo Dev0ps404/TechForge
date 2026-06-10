@@ -48,7 +48,7 @@ const Landing = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#0B1220] text-slate-100 selection:bg-indigo-500 selection:text-white overflow-hidden relative">
+    <div className="min-h-screen bg-[#030712] text-slate-100 selection:bg-indigo-500 selection:text-white overflow-hidden relative">
       {/* Mesh/Grid Background */}
       <div className="absolute inset-0 grid-bg-dark opacity-30 pointer-events-none"></div>
 

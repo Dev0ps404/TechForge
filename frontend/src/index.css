@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&family=Geist+Mono:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 
 @import "tailwindcss";
 
@@ -14,12 +14,12 @@
   --color-warning: #f59e0b;
   --color-danger: #ef4444;
 
-  --color-bg-dark: #0b1220;
-  --color-bg-dark-sec: #111827;
-  --color-card-dark: #161f33;
+  --color-bg-dark: #030712;
+  --color-bg-dark-sec: #080c14;
+  --color-card-dark: #0e131f;
   --color-text-primary-dark: #f8fafc;
   --color-text-secondary-dark: #94a3b8;
-  --color-border-dark: rgba(255, 255, 255, 0.12); /* Increased contrast border */
+  --color-border-dark: rgba(255, 255, 255, 0.08); /* Increased contrast border */
 
   --color-bg-light: #f8fafc;
   --color-card-light: #ffffff;
@@ -27,10 +27,10 @@
   --color-border-light: #e5e7eb;
 
   /* Standard dark-xxx color overrides for layout templates using them */
-  --color-dark-950: #0b1220;
-  --color-dark-900: #0b1220;
-  --color-dark-800: #111827;
-  --color-dark-700: #161f33;
+  --color-dark-950: #030712;
+  --color-dark-900: #050811;
+  --color-dark-800: #080c14;
+  --color-dark-700: #0e131f;
   --color-dark-400: #94a3b8;
   --color-dark-300: #cbd5e1;
   --color-dark-200: #e2e8f0;
@@ -67,7 +67,8 @@
   --color-purple-650: #6d28d9;
   --color-purple-705: #5b21b6;
 
-  --font-sans: "Plus Jakarta Sans", "Inter", sans-serif;
+  --font-sans: "Geist", "Plus Jakarta Sans", "Inter", sans-serif;
+  --font-mono: "Geist Mono", monospace;
   --radius-2xl: 20px;
 }
 
