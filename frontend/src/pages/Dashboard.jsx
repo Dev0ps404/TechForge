@@ -339,7 +339,7 @@ const Dashboard = () => {
       {/* DSA Progress bar chart & Recent Activity */}
       <div className="grid lg:grid-cols-3 gap-6">
         {/* DSA Progress Checklist Card */}
-        <motion.div variants={cardVariants} className="glass-card p-6 space-y-6 bg-white dark:bg-card-dark flex flex-col justify-between">
+        <motion.div variants={cardVariants} className="glass-card p-6 lg:col-span-2 space-y-6 bg-white dark:bg-card-dark flex flex-col justify-between">
           <div className="space-y-4">
             {/* Header */}
             <div className="flex items-center justify-between">
@@ -440,7 +440,7 @@ const Dashboard = () => {
         </motion.div>
 
         {/* Recent Activity List */}
-        <motion.div variants={cardVariants} className="glass-card p-6 lg:col-span-2 space-y-4 bg-white dark:bg-card-dark">
+        <motion.div variants={cardVariants} className="glass-card p-6 space-y-4 bg-white dark:bg-card-dark flex flex-col justify-between">
           <h3 className="font-bold text-sm text-slate-800 dark:text-slate-100">Recent Interview Rounds</h3>
           <div className="flex flex-col gap-3">
             {recentSessions.length > 0 ? (
