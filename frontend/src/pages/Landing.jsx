@@ -48,12 +48,12 @@ const Landing = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#030712] text-slate-100 selection:bg-indigo-500 selection:text-white overflow-hidden relative">
+    <div className="min-h-screen bg-[#030712] text-slate-100 selection:bg-blue-600 selection:text-white overflow-hidden relative">
       {/* Mesh/Grid Background */}
       <div className="absolute inset-0 grid-bg-dark opacity-30 pointer-events-none"></div>
 
       {/* Decorative Glow Elements */}
-      <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[50%] rounded-full bg-indigo-500/10 blur-[130px] animate-glow-1"></div>
+      <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[50%] rounded-full bg-blue-600/10 blur-[130px] animate-glow-1"></div>
       <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[50%] rounded-full bg-cyan-500/10 blur-[130px] animate-glow-2"></div>
 
       {/* Header navbar */}
@@ -83,7 +83,7 @@ const Landing = () => {
             aria-label="Toggle Theme"
           >
             {theme === 'dark' ? (
-              <Sun className="w-4.5 h-4.5 text-indigo-400" />
+              <Sun className="w-4.5 h-4.5 text-blue-400" />
             ) : (
               <Moon className="w-4.5 h-4.5 text-slate-650" />
             )}
@@ -92,7 +92,7 @@ const Landing = () => {
           {user ? (
             <Link
               to="/dashboard"
-              className="px-5 py-2 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-650 hover:from-indigo-600 hover:to-purple-700 text-white font-semibold transition-all border border-indigo-500/30 flex items-center gap-1 text-xs shadow-md shadow-indigo-500/10"
+              className="px-5 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-50 hover:to-blue-700 text-white font-semibold transition-all border border-blue-500/30 flex items-center gap-1 text-xs shadow-md shadow-blue-500/10"
             >
               Dashboard
             </Link>
@@ -103,7 +103,7 @@ const Landing = () => {
               </Link>
               <Link
                 to="/signup"
-                className="px-4 py-2 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-650 hover:from-indigo-600 hover:to-purple-700 text-white text-xs font-bold transition-all shadow-md shadow-indigo-500/15"
+                className="px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-50 hover:to-blue-700 text-white text-xs font-bold transition-all shadow-md shadow-blue-500/15"
               >
                 Get Started
               </Link>
@@ -117,12 +117,12 @@ const Landing = () => {
         <div className="grid lg:grid-cols-12 gap-12 items-center">
           {/* Left Text Block */}
           <div className="lg:col-span-7 space-y-6 text-left">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-[10px] font-bold text-indigo-300 uppercase tracking-wider">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-[10px] font-bold text-blue-300 uppercase tracking-wider">
               ✨ Powered by OpenAI GPT-4o-Mini
             </div>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black tracking-tight text-white leading-none">
               Nail Your Tech Interviews with{' '}
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-400 to-cyan-400">
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-sky-400 to-cyan-400">
                 TalentForge
               </span>
             </h1>
@@ -133,7 +133,7 @@ const Landing = () => {
             <div className="flex flex-row items-center gap-4 pt-2">
               <Link
                 to={user ? '/dashboard' : '/signup'}
-                className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-650 hover:from-indigo-600 hover:to-purple-700 font-bold shadow-lg shadow-indigo-500/25 transition-all text-xs text-white flex items-center gap-1.5 hover:shadow-indigo-500/40"
+                className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-50 hover:to-blue-700 font-bold shadow-lg shadow-blue-500/25 transition-all text-xs text-white flex items-center gap-1.5 hover:shadow-blue-500/40"
               >
                 Start Free Trial <ChevronRight className="w-4 h-4" />
               </Link>
@@ -148,7 +148,7 @@ const Landing = () => {
 
           {/* Right Terminal Mockup */}
           <div className="lg:col-span-5 relative mt-8 lg:mt-0">
-            <div className="absolute inset-0 bg-indigo-500/5 blur-3xl rounded-3xl pointer-events-none"></div>
+            <div className="absolute inset-0 bg-blue-600/5 blur-3xl rounded-3xl pointer-events-none"></div>
             {/* Terminal Card */}
             <div className="glass-panel border bg-card-dark/65 border-white/10 p-5 rounded-2xl shadow-2xl relative overflow-hidden font-mono text-left leading-relaxed">
               {/* Window controls */}
@@ -164,7 +164,7 @@ const Landing = () => {
                 <div className="space-y-1">
                   <p className="text-[#06B6D4] font-medium">$ run analyze-resume --file resume.pdf</p>
                   <p className="text-[#22C55E] flex items-center gap-1.5">✓ Extracted Skills: React, Express, MongoDB</p>
-                  <p className="text-[#8B5CF6] flex items-center gap-1.5">★ ATS Score computed: 88%</p>
+                  <p className="text-[#3B82F6] flex items-center gap-1.5">★ ATS Score computed: 88%</p>
                 </div>
                 
                 <div className="space-y-1">
@@ -200,7 +200,7 @@ const Landing = () => {
         <div className="text-center space-y-4 mb-16">
           <h2 className="text-3xl md:text-5xl font-black text-white tracking-tight">
             Engineered for{' '}
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-400 to-cyan-400">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-sky-400 to-cyan-400">
               Interview Mastery
             </span>
           </h2>
@@ -212,7 +212,7 @@ const Landing = () => {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Card 1 */}
           <div className="glass-card p-6 bg-card-dark/40 border-white/5 relative overflow-hidden flex flex-col justify-between min-h-[180px]">
-            <div className="w-9 h-9 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center mb-5 border border-indigo-500/10">
+            <div className="w-9 h-9 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center mb-5 border border-blue-500/10">
               <Terminal className="w-4.5 h-4.5" />
             </div>
             <div>
@@ -225,7 +225,7 @@ const Landing = () => {
 
           {/* Card 2 */}
           <div className="glass-card p-6 bg-card-dark/40 border-white/5 relative overflow-hidden flex flex-col justify-between min-h-[180px]">
-            <div className="w-9 h-9 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center mb-5 border border-indigo-500/10">
+            <div className="w-9 h-9 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center mb-5 border border-blue-500/10">
               <Mic className="w-4.5 h-4.5" />
             </div>
             <div>
@@ -238,7 +238,7 @@ const Landing = () => {
 
           {/* Card 3 */}
           <div className="glass-card p-6 bg-card-dark/40 border-white/5 relative overflow-hidden flex flex-col justify-between min-h-[180px]">
-            <div className="w-9 h-9 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center mb-5 border border-indigo-500/10">
+            <div className="w-9 h-9 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center mb-5 border border-blue-500/10">
               <Shield className="w-4.5 h-4.5" />
             </div>
             <div>
@@ -251,7 +251,7 @@ const Landing = () => {
 
           {/* Card 4 */}
           <div className="glass-card p-6 bg-card-dark/40 border-white/5 relative overflow-hidden flex flex-col justify-between min-h-[180px]">
-            <div className="w-9 h-9 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center mb-5 border border-indigo-500/10">
+            <div className="w-9 h-9 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center mb-5 border border-blue-500/10">
               <BarChart3 className="w-4.5 h-4.5" />
             </div>
             <div>
@@ -264,7 +264,7 @@ const Landing = () => {
 
           {/* Card 5 */}
           <div className="glass-card p-6 bg-card-dark/40 border-white/5 relative overflow-hidden flex flex-col justify-between min-h-[180px]">
-            <div className="w-9 h-9 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center mb-5 border border-indigo-500/10">
+            <div className="w-9 h-9 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center mb-5 border border-blue-500/10">
               <Code2 className="w-4.5 h-4.5" />
             </div>
             <div>
@@ -277,7 +277,7 @@ const Landing = () => {
 
           {/* Card 6 */}
           <div className="glass-card p-6 bg-card-dark/40 border-white/5 relative overflow-hidden flex flex-col justify-between min-h-[180px]">
-            <div className="w-9 h-9 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center mb-5 border border-indigo-500/10">
+            <div className="w-9 h-9 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center mb-5 border border-blue-500/10">
               <Brain className="w-4.5 h-4.5" />
             </div>
             <div>
@@ -295,7 +295,7 @@ const Landing = () => {
         <div className="text-center space-y-4 mb-16">
           <h2 className="text-3xl md:text-5xl font-black text-white tracking-tight">
             Success Stories from{' '}
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-400 to-cyan-400">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-sky-400 to-cyan-400">
               Real Students
             </span>
           </h2>
@@ -322,7 +322,7 @@ const Landing = () => {
             </div>
             
             <div className="flex items-center gap-3 mt-6 pt-4 border-t border-white/5">
-              <div className="w-9 h-9 rounded-full bg-[#7C3AED]/20 text-[#7C3AED] flex items-center justify-center font-bold text-xs">
+              <div className="w-9 h-9 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold text-xs">
                 RS
               </div>
               <div>
@@ -349,7 +349,7 @@ const Landing = () => {
             </div>
             
             <div className="flex items-center gap-3 mt-6 pt-4 border-t border-white/5">
-              <div className="w-9 h-9 rounded-full bg-[#6366F1]/20 text-[#6366F1] flex items-center justify-center font-bold text-xs">
+              <div className="w-9 h-9 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold text-xs">
                 AP
               </div>
               <div>
@@ -421,9 +421,9 @@ const Landing = () => {
 
       {/* Ready to Accelerate Your Prep? CTA section */}
       <section className="max-w-7xl mx-auto px-6 py-24 relative z-10 border-t border-white/5">
-        <div className="glass-panel p-10 sm:p-14 bg-gradient-to-r from-card-dark via-indigo-950/20 to-card-dark border-white/10 rounded-3xl relative overflow-hidden text-center max-w-4xl mx-auto">
+        <div className="glass-panel p-10 sm:p-14 bg-gradient-to-r from-card-dark via-blue-950/20 to-card-dark border-white/10 rounded-3xl relative overflow-hidden text-center max-w-4xl mx-auto">
           {/* Subtle glow backdrop overlay */}
-          <div className="absolute top-0 left-0 w-full h-full bg-[#7C3AED]/5 blur-3xl pointer-events-none"></div>
+          <div className="absolute top-0 left-0 w-full h-full bg-blue-600/5 blur-3xl pointer-events-none"></div>
           
           <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-4 leading-tight">
             Ready to Accelerate Your Prep?
