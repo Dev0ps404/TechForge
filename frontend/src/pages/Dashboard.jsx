@@ -26,8 +26,6 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  BarChart,
-  Bar,
 } from 'recharts';
 
 const Dashboard = () => {
@@ -149,6 +147,21 @@ const Dashboard = () => {
     hidden: { opacity: 0, y: 10 },
     visible: { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 100 } }
   };
+
+  const arraysCount = dsaChartData[0]?.count || 0;
+  const stringsCount = dsaChartData[1]?.count || 0;
+  const listsCount = dsaChartData[2]?.count || 0;
+  const treesCount = dsaChartData[3]?.count || 0;
+  const graphsCount = dsaChartData[4]?.count || 0;
+
+  const arraysPercent = Math.min(100, Math.round((arraysCount / 4) * 100));
+  const stringsPercent = Math.min(100, Math.round((stringsCount / 4) * 100));
+  const listsPercent = Math.min(100, Math.round((listsCount / 4) * 100));
+  const treesPercent = Math.min(100, Math.round((treesCount / 7) * 100));
+  const graphsPercent = Math.min(100, Math.round((graphsCount / 4) * 100));
+
+  const totalSolved = arraysCount + stringsCount + listsCount + treesCount + graphsCount;
+  const overallPercent = Math.min(100, Math.round((totalSolved / 23) * 100));
 
   return (
     <motion.div 
@@ -325,36 +338,105 @@ const Dashboard = () => {
 
       {/* DSA Progress bar chart & Recent Activity */}
       <div className="grid lg:grid-cols-3 gap-6">
-        {/* DSA Chart */}
-        <motion.div variants={cardVariants} className="glass-card p-6 space-y-6 bg-white dark:bg-card-dark">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <Code className="w-4.5 h-4.5 text-emerald-500" />
-              <h3 className="font-bold text-sm text-slate-800 dark:text-slate-100">DSA Coverage</h3>
+        {/* DSA Progress Checklist Card */}
+        <motion.div variants={cardVariants} className="glass-card p-6 space-y-6 bg-white dark:bg-card-dark flex flex-col justify-between">
+          <div className="space-y-4">
+            {/* Header */}
+            <div className="flex items-center justify-between">
+              <h3 className="font-extrabold text-sm text-slate-800 dark:text-slate-100 tracking-tight">
+                DSA Progress Checklist
+              </h3>
+              <span className="px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-500 dark:text-emerald-400 text-[9px] font-bold border border-emerald-500/10">
+                Overall: {overallPercent}% Completed
+              </span>
             </div>
-            <span className="text-[10px] text-slate-400 font-bold uppercase">Topics</span>
+
+            {/* Description */}
+            <p className="text-[11px] text-slate-500 dark:text-slate-400 font-light leading-relaxed">
+              Prepare step-by-step for FAANG/SaaS technical coding rounds. Review core concepts across basic and advanced structural topics:
+            </p>
+
+            {/* Progress Checklist Rows */}
+            <div className="space-y-3.5 pt-1">
+              {/* Row 1: Arrays */}
+              <div className="space-y-1.5">
+                <div className="flex justify-between items-center text-xs">
+                  <span className="font-medium text-slate-700 dark:text-slate-350">Arrays Sheet</span>
+                  <span className="text-[10px] text-slate-400 dark:text-slate-500">Mastery Level</span>
+                </div>
+                <div className="w-full h-1 bg-slate-100 dark:bg-slate-800/80 rounded-full overflow-hidden">
+                  <div 
+                    className="h-full bg-emerald-500 rounded-full transition-all duration-500" 
+                    style={{ width: `${arraysPercent}%` }}
+                  ></div>
+                </div>
+              </div>
+
+              {/* Row 2: Strings */}
+              <div className="space-y-1.5">
+                <div className="flex justify-between items-center text-xs">
+                  <span className="font-medium text-slate-700 dark:text-slate-350">Strings Sheet</span>
+                  <span className="text-[10px] text-slate-400 dark:text-slate-500">Mastery Level</span>
+                </div>
+                <div className="w-full h-1 bg-slate-100 dark:bg-slate-800/80 rounded-full overflow-hidden">
+                  <div 
+                    className="h-full bg-emerald-500 rounded-full transition-all duration-500" 
+                    style={{ width: `${stringsPercent}%` }}
+                  ></div>
+                </div>
+              </div>
+
+              {/* Row 3: Linked List */}
+              <div className="space-y-1.5">
+                <div className="flex justify-between items-center text-xs">
+                  <span className="font-medium text-slate-700 dark:text-slate-350">Linked List Sheet</span>
+                  <span className="text-[10px] text-slate-400 dark:text-slate-500">Mastery Level</span>
+                </div>
+                <div className="w-full h-1 bg-slate-100 dark:bg-slate-800/80 rounded-full overflow-hidden">
+                  <div 
+                    className="h-full bg-emerald-500 rounded-full transition-all duration-500" 
+                    style={{ width: `${listsPercent}%` }}
+                  ></div>
+                </div>
+              </div>
+
+              {/* Row 4: Trees */}
+              <div className="space-y-1.5">
+                <div className="flex justify-between items-center text-xs">
+                  <span className="font-medium text-slate-700 dark:text-slate-350">Trees Sheet</span>
+                  <span className="text-[10px] text-slate-400 dark:text-slate-500">Mastery Level</span>
+                </div>
+                <div className="w-full h-1 bg-slate-100 dark:bg-slate-800/80 rounded-full overflow-hidden">
+                  <div 
+                    className="h-full bg-emerald-500 rounded-full transition-all duration-500" 
+                    style={{ width: `${treesPercent}%` }}
+                  ></div>
+                </div>
+              </div>
+
+              {/* Row 5: Graphs */}
+              <div className="space-y-1.5">
+                <div className="flex justify-between items-center text-xs">
+                  <span className="font-medium text-slate-700 dark:text-slate-350">Graphs Sheet</span>
+                  <span className="text-[10px] text-slate-400 dark:text-slate-500">Mastery Level</span>
+                </div>
+                <div className="w-full h-1 bg-slate-100 dark:bg-slate-800/80 rounded-full overflow-hidden">
+                  <div 
+                    className="h-full bg-emerald-500 rounded-full transition-all duration-500" 
+                    style={{ width: `${graphsPercent}%` }}
+                  ></div>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <div className="h-60">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={dsaChartData}>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(255,255,255,0.03)" className="stroke-slate-100 dark:stroke-white/5" />
-                <XAxis dataKey="name" stroke="#94a3b8" fontSize={10} tickLine={false} axisLine={false} />
-                <YAxis stroke="#94a3b8" fontSize={10} allowDecimals={false} tickLine={false} axisLine={false} />
-                <Tooltip 
-                  contentStyle={{ 
-                    backgroundColor: 'rgba(22, 31, 51, 0.8)', 
-                    borderColor: 'rgba(255, 255, 255, 0.08)',
-                    borderRadius: '12px',
-                    color: '#fff',
-                    fontSize: '11px',
-                    backdropFilter: 'blur(10px)'
-                  }} 
-                />
-                <Bar dataKey="count" fill="#10b981" radius={[4, 4, 0, 0]} barSize={24} />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
+          {/* Action Link Button */}
+          <Link
+            to="/dsa-practice"
+            className="w-full py-2.5 rounded-xl border border-dashed border-slate-200 dark:border-white/10 hover:border-slate-300 dark:hover:border-white/20 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5 font-semibold transition-all text-xs text-center flex items-center justify-center gap-1"
+          >
+            Open Topic Sheets & Mark Problems →
+          </Link>
         </motion.div>
 
         {/* Recent Activity List */}
