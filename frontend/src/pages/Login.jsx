@@ -196,28 +196,28 @@ const Login = () => {
       </div>
 
       {/* Right Pane: Illustration / Dashboard Mockup Preview */}
-      <div className="hidden lg:col-span-7 lg:flex flex-col justify-center items-center p-12 bg-slate-950 relative overflow-hidden">
+      <div className="hidden lg:col-span-7 lg:flex flex-col justify-center items-center p-12 bg-slate-100 dark:bg-slate-950 relative overflow-hidden">
         {/* Glow */}
         <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-indigo-500/10 blur-[100px] pointer-events-none"></div>
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full bg-cyan-500/10 blur-[100px] pointer-events-none"></div>
         
         {/* Grid Overlay */}
-        <div className="absolute inset-0 grid-bg-dark opacity-10 pointer-events-none"></div>
+        <div className="absolute inset-0 grid-bg-light dark:grid-bg-dark opacity-10 pointer-events-none"></div>
 
         <div className="relative z-10 w-full max-w-lg space-y-8 text-center">
           <div className="space-y-4">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-indigo-500/15 border border-indigo-500/30 text-[10px] font-bold text-indigo-300 uppercase tracking-widest">
-              <Sparkles className="w-3.5 h-3.5 text-indigo-400" /> Premium Career Platform
+            <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-blue-500/10 dark:bg-indigo-500/15 border border-blue-500/20 dark:border-indigo-500/30 text-[10px] font-bold text-blue-600 dark:text-indigo-300 uppercase tracking-widest">
+              <Sparkles className="w-3.5 h-3.5 text-blue-500 dark:text-indigo-400" /> Premium Career Platform
             </div>
-            <h3 className="text-3xl md:text-4xl font-extrabold text-white tracking-tight">
+            <h3 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
               Acing mock interviews has never been easier.
             </h3>
-            <p className="text-slate-400 text-xs font-light max-w-md mx-auto leading-relaxed">
+            <p className="text-slate-500 dark:text-slate-400 text-xs font-light max-w-md mx-auto leading-relaxed">
               Get real-time feedback on your speech delivery, resume structure, and data structure solutions instantly.
             </p>
           </div>
 
-          <div className="rounded-2xl border border-white/5 bg-slate-900/60 p-2 backdrop-blur-xl shadow-2xl relative overflow-hidden">
+          <div className="rounded-2xl border border-slate-200 dark:border-white/5 bg-white/60 dark:bg-slate-900/60 p-2 backdrop-blur-xl shadow-2xl relative overflow-hidden">
             <div className="absolute top-3 left-3 flex items-center gap-1.5">
               <div className="w-2.5 h-2.5 rounded-full bg-red-500/60"></div>
               <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/60"></div>
@@ -230,7 +230,7 @@ const Login = () => {
             />
           </div>
 
-          <div className="flex items-center justify-center gap-6 text-[10px] font-semibold text-slate-500 uppercase tracking-wider">
+          <div className="flex items-center justify-center gap-6 text-[10px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
             <span className="flex items-center gap-1"><Code2 className="w-3.5 h-3.5" /> 13+ DSA Topics</span>
             <span>•</span>
             <span>ATS Resume Scan</span>

@@ -49,29 +49,31 @@ const Landing = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#030712] text-slate-100 selection:bg-blue-600 selection:text-white overflow-hidden relative">
+    <div className="min-h-screen bg-white dark:bg-[#030712] text-slate-800 dark:text-slate-100 selection:bg-blue-600 selection:text-white overflow-hidden relative transition-colors duration-300">
       {/* Mesh/Grid Background */}
-      <div className="absolute inset-0 grid-bg-dark opacity-30 pointer-events-none"></div>
+      <div className="absolute inset-0 opacity-30 pointer-events-none">
+        <div className="w-full h-full grid-bg-light dark:grid-bg-dark"></div>
+      </div>
 
       {/* Decorative Glow Elements */}
-      <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[50%] rounded-full bg-blue-600/10 blur-[130px] animate-glow-1"></div>
-      <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[50%] rounded-full bg-cyan-500/10 blur-[130px] animate-glow-2"></div>
+      <div className="absolute top-[-10%] left-[-10%] w-[60%] h-[50%] rounded-full bg-blue-400/10 dark:bg-blue-600/10 blur-[130px] animate-glow-1"></div>
+      <div className="absolute bottom-[-10%] right-[-10%] w-[60%] h-[50%] rounded-full bg-cyan-400/10 dark:bg-cyan-500/10 blur-[130px] animate-glow-2"></div>
 
       {/* Header navbar */}
-      <nav className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between border-b border-white/5 relative z-10">
+      <nav className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between border-b border-slate-200/60 dark:border-white/5 relative z-10">
         <div className="flex items-center gap-2.5">
           <Logo className="w-8 h-8 flex-shrink-0" />
-          <span className="text-xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-slate-400">
+          <span className="text-xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-600 dark:from-white dark:to-slate-400">
             TalentForge
           </span>
         </div>
 
         {/* Navigation Middle Links */}
         <div className="hidden md:flex items-center gap-8">
-          <a href="#features" className="text-xs text-slate-400 hover:text-white font-medium transition-colors">
+          <a href="#features" className="text-xs text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white font-medium transition-colors">
             Features
           </a>
-          <a href="#testimonials" className="text-xs text-slate-400 hover:text-white font-medium transition-colors">
+          <a href="#testimonials" className="text-xs text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white font-medium transition-colors">
             Testimonials
           </a>
         </div>
@@ -80,31 +82,31 @@ const Landing = () => {
           {/* Theme Toggle icon */}
           <button
             onClick={toggleTheme}
-            className="p-2 text-slate-400 hover:text-white hover:bg-white/5 rounded-xl transition-all"
+            className="p-2 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5 rounded-xl transition-all"
             aria-label="Toggle Theme"
           >
             {theme === 'dark' ? (
               <Sun className="w-4.5 h-4.5 text-blue-400" />
             ) : (
-              <Moon className="w-4.5 h-4.5 text-slate-650" />
+              <Moon className="w-4.5 h-4.5 text-slate-600" />
             )}
           </button>
 
           {user ? (
             <Link
               to="/dashboard"
-              className="px-5 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-50 hover:to-blue-700 text-white font-semibold transition-all border border-blue-500/30 flex items-center gap-1 text-xs shadow-md shadow-blue-500/10"
+              className="px-5 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-500 hover:to-blue-700 text-white font-semibold transition-all border border-blue-500/30 flex items-center gap-1 text-xs shadow-md shadow-blue-500/10"
             >
               Dashboard
             </Link>
           ) : (
             <>
-              <Link to="/login" className="text-slate-400 hover:text-white transition-colors text-xs font-semibold px-2">
+              <Link to="/login" className="text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors text-xs font-semibold px-2">
                 Login
               </Link>
               <Link
                 to="/signup"
-                className="px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-50 hover:to-blue-700 text-white text-xs font-bold transition-all shadow-md shadow-blue-500/15"
+                className="px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-500 hover:to-blue-700 text-white text-xs font-bold transition-all shadow-md shadow-blue-500/15"
               >
                 Get Started
               </Link>
@@ -118,36 +120,36 @@ const Landing = () => {
         <div className="grid lg:grid-cols-12 gap-12 items-center">
           {/* Left Text Block */}
           <div className="lg:col-span-7 space-y-6 text-left">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-[10px] font-bold text-blue-300 uppercase tracking-wider">
-              ✨ Powered by OpenAI GPT-4o-Mini
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-[10px] font-bold text-blue-600 dark:text-blue-300 uppercase tracking-wider">
+              ✨ Powered by Groq Llama 3.3
             </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black tracking-tight text-white leading-none">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black tracking-tight text-slate-900 dark:text-white leading-none">
               Nail Your Tech Interviews with{' '}
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-sky-400 to-cyan-400">
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 via-sky-500 to-cyan-500 dark:from-blue-400 dark:via-sky-400 dark:to-cyan-400">
                 TalentForge
               </span>
             </h1>
-            <p className="text-base sm:text-lg text-slate-400 font-light leading-relaxed max-w-xl">
+            <p className="text-base sm:text-lg text-slate-500 dark:text-slate-400 font-light leading-relaxed max-w-xl">
               The ultimate AI-powered preparation platform. Generate tailor-made questions, record speech-to-text answers, analyze your resume for ATS optimization, and master DSA tracking in one single premium platform.
             </p>
 
             <div className="flex flex-row items-center gap-4 pt-2">
               <Link
                 to={user ? '/dashboard' : '/signup'}
-                className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-50 hover:to-blue-700 font-bold shadow-lg shadow-blue-500/25 transition-all text-xs text-white flex items-center gap-1.5 hover:shadow-blue-500/40"
+                className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-500 hover:to-blue-700 font-bold shadow-lg shadow-blue-500/25 transition-all text-xs text-white flex items-center gap-1.5 hover:shadow-blue-500/40"
               >
                 Start Free Trial <ChevronRight className="w-4 h-4" />
               </Link>
               <Link
                 to={user ? '/dashboard' : '/login'}
-                className="px-6 py-3.5 rounded-xl bg-slate-900/40 border border-white/5 hover:bg-slate-850/40 font-bold transition-all text-xs text-slate-350 flex items-center justify-center"
+                className="px-6 py-3.5 rounded-xl bg-slate-100 dark:bg-slate-900/40 border border-slate-200 dark:border-white/5 hover:bg-slate-200 dark:hover:bg-slate-850/40 font-bold transition-all text-xs text-slate-600 dark:text-slate-350 flex items-center justify-center"
               >
                 Try Demo Interview
               </Link>
             </div>
           </div>
 
-          {/* Right Terminal Mockup */}
+          {/* Right Terminal Mockup — stays dark always (design element) */}
           <div className="lg:col-span-5 relative mt-8 lg:mt-0">
             <div className="absolute inset-0 bg-blue-600/5 blur-3xl rounded-3xl pointer-events-none"></div>
             
@@ -201,13 +203,13 @@ const Landing = () => {
               </div>
 
               {/* Overlapping ATS success rate badge */}
-              <div className="absolute -bottom-8 -left-8 bg-[#0E131F]/90 backdrop-blur-xl border border-white/20 px-5.5 py-4.5 rounded-2xl flex items-center gap-3.5 shadow-2xl z-20">
+              <div className="absolute -bottom-8 -left-8 bg-white dark:bg-[#0E131F]/90 backdrop-blur-xl border border-slate-200 dark:border-white/20 px-5.5 py-4.5 rounded-2xl flex items-center gap-3.5 shadow-2xl z-20">
                 <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center border border-emerald-500/20">
                   <Cpu className="w-5.5 h-5.5" />
                 </div>
                 <div>
-                  <p className="text-[11px] text-slate-450 font-medium">ATS Success Rate</p>
-                  <p className="text-sm font-extrabold text-white">+42% Higher</p>
+                  <p className="text-[11px] text-slate-500 dark:text-slate-450 font-medium">ATS Success Rate</p>
+                  <p className="text-sm font-extrabold text-slate-900 dark:text-white">+42% Higher</p>
                 </div>
               </div>
             </motion.div>
@@ -216,93 +218,93 @@ const Landing = () => {
       </section>
 
       {/* Features Section */}
-      <section id="features" className="max-w-7xl mx-auto px-6 py-24 border-t border-white/5 relative z-10">
+      <section id="features" className="max-w-7xl mx-auto px-6 py-24 border-t border-slate-200/60 dark:border-white/5 relative z-10">
         <div className="text-center space-y-4 mb-16">
-          <h2 className="text-3xl md:text-5xl font-black text-white tracking-tight">
+          <h2 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight">
             Engineered for{' '}
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-sky-400 to-cyan-400">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 via-sky-500 to-cyan-500 dark:from-blue-400 dark:via-sky-400 dark:to-cyan-400">
               Interview Mastery
             </span>
           </h2>
-          <p className="text-slate-400 max-w-xl mx-auto font-light text-sm leading-relaxed">
+          <p className="text-slate-500 dark:text-slate-400 max-w-xl mx-auto font-light text-sm leading-relaxed">
             Everything you need to transform your technical preparation from unstructured cramming to a data-backed career booster.
           </p>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Card 1 */}
-          <div className="glass-card p-6 bg-card-dark/40 border-white/5 relative overflow-hidden flex flex-col justify-between min-h-[180px]">
-            <div className="w-9 h-9 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center mb-5 border border-blue-500/10">
+          <div className="glass-card p-6 relative overflow-hidden flex flex-col justify-between min-h-[180px]">
+            <div className="w-9 h-9 rounded-xl bg-blue-500/10 text-blue-500 dark:text-blue-400 flex items-center justify-center mb-5 border border-blue-500/10">
               <Terminal className="w-4.5 h-4.5" />
             </div>
             <div>
-              <h3 className="text-sm font-bold text-white mb-2">AI Question Generator</h3>
-              <p className="text-slate-400 text-xs leading-relaxed font-light">
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white mb-2">AI Question Generator</h3>
+              <p className="text-slate-500 dark:text-slate-400 text-xs leading-relaxed font-light">
                 Get highly tailored technical interview questions based on role, stack, and difficulty level.
               </p>
             </div>
           </div>
 
           {/* Card 2 */}
-          <div className="glass-card p-6 bg-card-dark/40 border-white/5 relative overflow-hidden flex flex-col justify-between min-h-[180px]">
-            <div className="w-9 h-9 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center mb-5 border border-blue-500/10">
+          <div className="glass-card p-6 relative overflow-hidden flex flex-col justify-between min-h-[180px]">
+            <div className="w-9 h-9 rounded-xl bg-blue-500/10 text-blue-500 dark:text-blue-400 flex items-center justify-center mb-5 border border-blue-500/10">
               <Mic className="w-4.5 h-4.5" />
             </div>
             <div>
-              <h3 className="text-sm font-bold text-white mb-2">Speech-to-Text Answers</h3>
-              <p className="text-slate-400 text-xs leading-relaxed font-light">
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white mb-2">Speech-to-Text Answers</h3>
+              <p className="text-slate-500 dark:text-slate-400 text-xs leading-relaxed font-light">
                 Answer questions naturally using Web Speech recognition. Practice oral clarity.
               </p>
             </div>
           </div>
 
           {/* Card 3 */}
-          <div className="glass-card p-6 bg-card-dark/40 border-white/5 relative overflow-hidden flex flex-col justify-between min-h-[180px]">
-            <div className="w-9 h-9 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center mb-5 border border-blue-500/10">
+          <div className="glass-card p-6 relative overflow-hidden flex flex-col justify-between min-h-[180px]">
+            <div className="w-9 h-9 rounded-xl bg-blue-500/10 text-blue-500 dark:text-blue-400 flex items-center justify-center mb-5 border border-blue-500/10">
               <Shield className="w-4.5 h-4.5" />
             </div>
             <div>
-              <h3 className="text-sm font-bold text-white mb-2">ATS Resume Reviewer</h3>
-              <p className="text-slate-400 text-xs leading-relaxed font-light">
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white mb-2">ATS Resume Reviewer</h3>
+              <p className="text-slate-500 dark:text-slate-400 text-xs leading-relaxed font-light">
                 Upload your PDF resume to receive ATS scores, skill extractions, and actionable optimization feedback.
               </p>
             </div>
           </div>
 
           {/* Card 4 */}
-          <div className="glass-card p-6 bg-card-dark/40 border-white/5 relative overflow-hidden flex flex-col justify-between min-h-[180px]">
-            <div className="w-9 h-9 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center mb-5 border border-blue-500/10">
+          <div className="glass-card p-6 relative overflow-hidden flex flex-col justify-between min-h-[180px]">
+            <div className="w-9 h-9 rounded-xl bg-blue-500/10 text-blue-500 dark:text-blue-400 flex items-center justify-center mb-5 border border-blue-500/10">
               <BarChart3 className="w-4.5 h-4.5" />
             </div>
             <div>
-              <h3 className="text-sm font-bold text-white mb-2">Granular AI Evaluation</h3>
-              <p className="text-slate-400 text-xs leading-relaxed font-light">
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white mb-2">Granular AI Evaluation</h3>
+              <p className="text-slate-500 dark:text-slate-400 text-xs leading-relaxed font-light">
                 Get precise scores, communication review, technical feedback, and suggestions for improvement.
               </p>
             </div>
           </div>
 
           {/* Card 5 */}
-          <div className="glass-card p-6 bg-card-dark/40 border-white/5 relative overflow-hidden flex flex-col justify-between min-h-[180px]">
-            <div className="w-9 h-9 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center mb-5 border border-blue-500/10">
+          <div className="glass-card p-6 relative overflow-hidden flex flex-col justify-between min-h-[180px]">
+            <div className="w-9 h-9 rounded-xl bg-blue-500/10 text-blue-500 dark:text-blue-400 flex items-center justify-center mb-5 border border-blue-500/10">
               <Code2 className="w-4.5 h-4.5" />
             </div>
             <div>
-              <h3 className="text-sm font-bold text-white mb-2">DSA Practice Sheets</h3>
-              <p className="text-slate-400 text-xs leading-relaxed font-light">
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white mb-2">DSA Practice Sheets</h3>
+              <p className="text-slate-500 dark:text-slate-400 text-xs leading-relaxed font-light">
                 Track Arrays, Strings, Linked Lists, Trees, and Graphs completion percentages in real-time.
               </p>
             </div>
           </div>
 
           {/* Card 6 */}
-          <div className="glass-card p-6 bg-card-dark/40 border-white/5 relative overflow-hidden flex flex-col justify-between min-h-[180px]">
-            <div className="w-9 h-9 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center mb-5 border border-blue-500/10">
+          <div className="glass-card p-6 relative overflow-hidden flex flex-col justify-between min-h-[180px]">
+            <div className="w-9 h-9 rounded-xl bg-blue-500/10 text-blue-500 dark:text-blue-400 flex items-center justify-center mb-5 border border-blue-500/10">
               <Brain className="w-4.5 h-4.5" />
             </div>
             <div>
-              <h3 className="text-sm font-bold text-white mb-2">AI Chatbot Assistant</h3>
-              <p className="text-slate-400 text-xs leading-relaxed font-light">
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white mb-2">AI Chatbot Assistant</h3>
+              <p className="text-slate-500 dark:text-slate-400 text-xs leading-relaxed font-light">
                 Interact with an intelligent, conversational agent to clarify computer science concepts on the fly.
               </p>
             </div>
@@ -311,22 +313,22 @@ const Landing = () => {
       </section>
 
       {/* Testimonials Section */}
-      <section id="testimonials" className="max-w-7xl mx-auto px-6 py-24 border-t border-white/5 relative z-10">
+      <section id="testimonials" className="max-w-7xl mx-auto px-6 py-24 border-t border-slate-200/60 dark:border-white/5 relative z-10">
         <div className="text-center space-y-4 mb-16">
-          <h2 className="text-3xl md:text-5xl font-black text-white tracking-tight">
+          <h2 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tight">
             Success Stories from{' '}
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-sky-400 to-cyan-400">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 via-sky-500 to-cyan-500 dark:from-blue-400 dark:via-sky-400 dark:to-cyan-400">
               Real Students
             </span>
           </h2>
-          <p className="text-slate-400 max-w-xl mx-auto font-light text-sm leading-relaxed">
+          <p className="text-slate-500 dark:text-slate-400 max-w-xl mx-auto font-light text-sm leading-relaxed">
             Hundreds of software development students and professionals have landed roles using TalentForge.
           </p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-6">
           {/* Rohan Testimonial */}
-          <div className="glass-card p-6 bg-card-dark/40 border-white/5 relative overflow-hidden flex flex-col justify-between min-h-[220px]">
+          <div className="glass-card p-6 relative overflow-hidden flex flex-col justify-between min-h-[220px]">
             <div>
               {/* Stars */}
               <div className="flex items-center gap-1.5 mb-4 text-[#F59E0B]">
@@ -336,24 +338,24 @@ const Landing = () => {
                 <Star className="w-4 h-4 fill-current" />
                 <Star className="w-4 h-4 fill-current" />
               </div>
-              <p className="text-slate-350 text-xs leading-relaxed font-light italic">
+              <p className="text-slate-500 dark:text-slate-350 text-xs leading-relaxed font-light italic">
                 "The speech recognition is highly accurate. Talking aloud while answering technical questions boosted my confidence before the final rounds."
               </p>
             </div>
             
-            <div className="flex items-center gap-3 mt-6 pt-4 border-t border-white/5">
-              <div className="w-9 h-9 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold text-xs">
+            <div className="flex items-center gap-3 mt-6 pt-4 border-t border-slate-200 dark:border-white/5">
+              <div className="w-9 h-9 rounded-full bg-blue-500/20 text-blue-500 dark:text-blue-400 flex items-center justify-center font-bold text-xs">
                 RS
               </div>
               <div>
-                <p className="text-xs font-bold text-white">Rohan Sharma</p>
-                <p className="text-[10px] text-slate-500">Frontend Engineer @ Google</p>
+                <p className="text-xs font-bold text-slate-900 dark:text-white">Rohan Sharma</p>
+                <p className="text-[10px] text-slate-400 dark:text-slate-500">Frontend Engineer @ Google</p>
               </div>
             </div>
           </div>
 
           {/* Aishwarya Testimonial */}
-          <div className="glass-card p-6 bg-card-dark/40 border-white/5 relative overflow-hidden flex flex-col justify-between min-h-[220px]">
+          <div className="glass-card p-6 relative overflow-hidden flex flex-col justify-between min-h-[220px]">
             <div>
               {/* Stars */}
               <div className="flex items-center gap-1.5 mb-4 text-[#F59E0B]">
@@ -363,24 +365,24 @@ const Landing = () => {
                 <Star className="w-4 h-4 fill-current" />
                 <Star className="w-4 h-4 fill-current" />
               </div>
-              <p className="text-slate-350 text-xs leading-relaxed font-light italic">
+              <p className="text-slate-500 dark:text-slate-350 text-xs leading-relaxed font-light italic">
                 "The resume ATS analyzer gave me concrete pointers. I updated my key experience sections and got shortlists within 2 weeks!"
               </p>
             </div>
             
-            <div className="flex items-center gap-3 mt-6 pt-4 border-t border-white/5">
-              <div className="w-9 h-9 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold text-xs">
+            <div className="flex items-center gap-3 mt-6 pt-4 border-t border-slate-200 dark:border-white/5">
+              <div className="w-9 h-9 rounded-full bg-cyan-500/20 text-cyan-500 dark:text-cyan-400 flex items-center justify-center font-bold text-xs">
                 AP
               </div>
               <div>
-                <p className="text-xs font-bold text-white">Aishwarya Patel</p>
-                <p className="text-[10px] text-slate-500">Full Stack Dev @ Cred</p>
+                <p className="text-xs font-bold text-slate-900 dark:text-white">Aishwarya Patel</p>
+                <p className="text-[10px] text-slate-400 dark:text-slate-500">Full Stack Dev @ Cred</p>
               </div>
             </div>
           </div>
 
           {/* Michael Testimonial */}
-          <div className="glass-card p-6 bg-card-dark/40 border-white/5 relative overflow-hidden flex flex-col justify-between min-h-[220px]">
+          <div className="glass-card p-6 relative overflow-hidden flex flex-col justify-between min-h-[220px]">
             <div>
               {/* Stars */}
               <div className="flex items-center gap-1.5 mb-4 text-[#F59E0B]">
@@ -390,18 +392,18 @@ const Landing = () => {
                 <Star className="w-4 h-4 fill-current" />
                 <Star className="w-4 h-4 fill-current" />
               </div>
-              <p className="text-slate-350 text-xs leading-relaxed font-light italic">
+              <p className="text-slate-500 dark:text-slate-350 text-xs leading-relaxed font-light italic">
                 "Saved questions and the DSA sheets are extremely handy. I could trace my progress and focus on weaker topics like Graphs and Trees."
               </p>
             </div>
             
-            <div className="flex items-center gap-3 mt-6 pt-4 border-t border-white/5">
+            <div className="flex items-center gap-3 mt-6 pt-4 border-t border-slate-200 dark:border-white/5">
               <div className="w-9 h-9 rounded-full bg-[#06B6D4]/20 text-[#06B6D4] flex items-center justify-center font-bold text-xs">
                 MC
               </div>
               <div>
-                <p className="text-xs font-bold text-white">Michael Chen</p>
-                <p className="text-[10px] text-slate-500">Java Developer @ Amazon</p>
+                <p className="text-xs font-bold text-slate-900 dark:text-white">Michael Chen</p>
+                <p className="text-[10px] text-slate-400 dark:text-slate-500">Java Developer @ Amazon</p>
               </div>
             </div>
           </div>
@@ -409,18 +411,18 @@ const Landing = () => {
       </section>
 
       {/* FAQ Section */}
-      <section className="max-w-4xl mx-auto px-6 py-24 border-t border-white/5 relative z-10">
-        <h2 className="text-3xl md:text-5xl font-black text-white text-center tracking-tight mb-16">Frequently Asked Questions</h2>
+      <section className="max-w-4xl mx-auto px-6 py-24 border-t border-slate-200/60 dark:border-white/5 relative z-10">
+        <h2 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white text-center tracking-tight mb-16">Frequently Asked Questions</h2>
 
         <div className="space-y-4">
           {faqs.map((faq, index) => (
             <div
               key={index}
-              className="glass-panel bg-card-dark/20 border-white/5 overflow-hidden transition-all duration-300 rounded-2xl"
+              className="glass-panel overflow-hidden transition-all duration-300 rounded-2xl"
             >
               <button
                 onClick={() => toggleFaq(index)}
-                className="w-full text-left px-6 py-5 flex items-center justify-between font-bold text-sm md:text-base text-white hover:bg-white/5 transition-colors"
+                className="w-full text-left px-6 py-5 flex items-center justify-between font-bold text-sm md:text-base text-slate-900 dark:text-white hover:bg-slate-50 dark:hover:bg-white/5 transition-colors"
               >
                 <span>{faq.q}</span>
                 <ChevronDown
@@ -430,7 +432,7 @@ const Landing = () => {
                 />
               </button>
               {activeFaq === index && (
-                <div className="px-6 pb-5 pt-1 text-slate-450 leading-relaxed text-xs font-light">
+                <div className="px-6 pb-5 pt-1 text-slate-500 dark:text-slate-450 leading-relaxed text-xs font-light">
                   {faq.a}
                 </div>
               )}
@@ -440,28 +442,28 @@ const Landing = () => {
       </section>
 
       {/* Ready to Accelerate Your Prep? CTA section */}
-      <section className="max-w-7xl mx-auto px-6 py-24 relative z-10 border-t border-white/5">
-        <div className="glass-panel p-10 sm:p-14 bg-gradient-to-r from-card-dark via-blue-950/20 to-card-dark border-white/10 rounded-3xl relative overflow-hidden text-center max-w-4xl mx-auto">
+      <section className="max-w-7xl mx-auto px-6 py-24 relative z-10 border-t border-slate-200/60 dark:border-white/5">
+        <div className="glass-panel p-10 sm:p-14 bg-gradient-to-r from-slate-50 via-blue-50/30 to-slate-50 dark:from-card-dark dark:via-blue-950/20 dark:to-card-dark border-slate-200/60 dark:border-white/10 rounded-3xl relative overflow-hidden text-center max-w-4xl mx-auto">
           {/* Subtle glow backdrop overlay */}
           <div className="absolute top-0 left-0 w-full h-full bg-blue-600/5 blur-3xl pointer-events-none"></div>
           
-          <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mb-4 leading-tight">
+          <h2 className="text-3xl sm:text-5xl font-black text-slate-900 dark:text-white tracking-tight mb-4 leading-tight">
             Ready to Accelerate Your Prep?
           </h2>
-          <p className="text-slate-400 text-xs sm:text-sm font-light max-w-md mx-auto mb-8 leading-relaxed">
+          <p className="text-slate-500 dark:text-slate-400 text-xs sm:text-sm font-light max-w-md mx-auto mb-8 leading-relaxed">
             Create an account in minutes and get access to custom mock interviews, live voice evaluation, and ATS feedback.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               to={user ? '/dashboard' : '/signup'}
-              className="w-full sm:w-auto px-7 py-3 rounded-xl bg-white hover:bg-slate-100 text-slate-900 font-bold transition-all text-xs shadow-lg"
+              className="w-full sm:w-auto px-7 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-500 hover:to-blue-700 text-white font-bold transition-all text-xs shadow-lg shadow-blue-500/15"
             >
               Get Started for Free
             </Link>
             <Link
               to={user ? '/dashboard' : '/login'}
-              className="w-full sm:w-auto px-7 py-3 rounded-xl border border-white/10 hover:bg-white/5 text-white font-bold transition-all text-xs"
+              className="w-full sm:w-auto px-7 py-3 rounded-xl border border-slate-200 dark:border-white/10 hover:bg-slate-100 dark:hover:bg-white/5 text-slate-700 dark:text-white font-bold transition-all text-xs"
             >
               Login to Account
             </Link>
@@ -470,29 +472,29 @@ const Landing = () => {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-white/5 bg-[#0B1220] relative z-10 pt-16 pb-8 text-slate-400">
+      <footer className="border-t border-slate-200/60 dark:border-white/5 bg-slate-50 dark:bg-[#0B1220] relative z-10 pt-16 pb-8 text-slate-500 dark:text-slate-400 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-8 pb-10">
           {/* Brand & Slogan */}
           <div className="space-y-3 max-w-sm text-left">
             <div className="flex items-center gap-2">
               <Logo className="w-6 h-6 flex-shrink-0" />
-              <span className="text-base font-bold text-white tracking-tight">TalentForge</span>
+              <span className="text-base font-bold text-slate-900 dark:text-white tracking-tight">TalentForge</span>
             </div>
-            <p className="text-xs text-slate-500 leading-relaxed font-light">
+            <p className="text-xs text-slate-400 dark:text-slate-500 leading-relaxed font-light">
               AI-driven preparation platform for standard technical interviews and DSA sheets.
             </p>
           </div>
 
           {/* Links */}
-          <div className="flex flex-wrap items-center gap-6 text-xs text-slate-400 font-medium">
-            <a href="#" className="hover:text-white transition-colors">Home</a>
-            <a href="#features" className="hover:text-white transition-colors">Features</a>
-            <a href="#testimonials" className="hover:text-white transition-colors">Reviews</a>
+          <div className="flex flex-wrap items-center gap-6 text-xs text-slate-500 dark:text-slate-400 font-medium">
+            <a href="#" className="hover:text-slate-900 dark:hover:text-white transition-colors">Home</a>
+            <a href="#features" className="hover:text-slate-900 dark:hover:text-white transition-colors">Features</a>
+            <a href="#testimonials" className="hover:text-slate-900 dark:hover:text-white transition-colors">Reviews</a>
             <a 
               href="https://github.com/Dev0ps404/TechForge" 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="hover:text-white transition-colors"
+              className="hover:text-slate-900 dark:hover:text-white transition-colors"
             >
               GitHub
             </a>
@@ -504,7 +506,7 @@ const Landing = () => {
               href="https://github.com/Dev0ps404/TechForge" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="w-8 h-8 rounded-full bg-slate-900 border border-white/5 flex items-center justify-center text-slate-400 hover:text-white hover:border-white/10 hover:bg-slate-800 transition-all"
+              className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-white/5 flex items-center justify-center text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:border-slate-300 dark:hover:border-white/10 hover:bg-slate-200 dark:hover:bg-slate-800 transition-all"
               aria-label="GitHub"
             >
               <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -514,7 +516,7 @@ const Landing = () => {
             </a>
             <a 
               href="#" 
-              className="w-8 h-8 rounded-full bg-slate-900 border border-white/5 flex items-center justify-center text-slate-400 hover:text-white hover:border-white/10 hover:bg-slate-800 transition-all"
+              className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-white/5 flex items-center justify-center text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:border-slate-300 dark:hover:border-white/10 hover:bg-slate-200 dark:hover:bg-slate-800 transition-all"
               aria-label="LinkedIn"
             >
               <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -525,7 +527,7 @@ const Landing = () => {
             </a>
             <a 
               href="#" 
-              className="w-8 h-8 rounded-full bg-slate-900 border border-white/5 flex items-center justify-center text-slate-400 hover:text-white hover:border-white/10 hover:bg-slate-800 transition-all"
+              className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-white/5 flex items-center justify-center text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:border-slate-300 dark:hover:border-white/10 hover:bg-slate-200 dark:hover:bg-slate-800 transition-all"
               aria-label="Twitter"
             >
               <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -536,8 +538,8 @@ const Landing = () => {
         </div>
 
         {/* Divider & Copyright */}
-        <div className="max-w-7xl mx-auto px-6 pt-8 border-t border-white/5 flex flex-col items-center justify-center text-center">
-          <p className="text-[10px] text-slate-650 font-light">
+        <div className="max-w-7xl mx-auto px-6 pt-8 border-t border-slate-200/60 dark:border-white/5 flex flex-col items-center justify-center text-center">
+          <p className="text-[10px] text-slate-400 dark:text-slate-650 font-light">
             © 2026 TalentForge. All rights reserved. Built with passion for developers.
           </p>
         </div>
