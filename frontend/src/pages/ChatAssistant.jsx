@@ -9,7 +9,7 @@ const ChatAssistant = () => {
   const [messages, setMessages] = useState([
     {
       role: 'assistant',
-      content: `Hello ${user?.name || 'there'}! I am your TalentForge Career & Tech Interview Mentor. 
+      content: `Hello ${user?.name || 'there'}! I am your TechForge Career & Tech Interview Mentor. 
 How can I help you prepare today? You can ask me to review a concept, optimize a resume project, list common MERN questions, or explain system design trade-offs.`,
     },
   ]);
@@ -207,3 +207,4 @@ How can I help you prepare today? You can ask me to review a concept, optimize a
 };
 
 export default ChatAssistant;
+

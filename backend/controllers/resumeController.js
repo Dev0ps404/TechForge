@@ -62,7 +62,7 @@ exports.uploadResume = async (req, res, next) => {
         await new Promise((resolve, reject) => {
           const uploadStream = cloudinary.uploader.upload_stream(
             {
-              folder: 'talentforge/resumes',
+              folder: 'TechForge/resumes',
               resource_type: 'raw',
               public_id: `${Date.now()}-${fileName.replace(/\.[^/.]+$/, "")}`,
             },
@@ -159,3 +159,4 @@ exports.getResumeDetails = async (req, res, next) => {
     });
   }
 };
+

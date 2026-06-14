@@ -1,7 +1,7 @@
 {
-  "name": "talentforge-backend",
+  "name": "TechForge-backend",
   "version": "1.0.0",
-  "description": "TalentForge AI Interview Preparation Platform Backend",
+  "description": "TechForge AI Interview Preparation Platform Backend",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -33,3 +33,4 @@
   },
   "private": true
 }
+

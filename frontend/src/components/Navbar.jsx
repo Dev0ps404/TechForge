@@ -27,7 +27,7 @@ const Navbar = ({ onMenuToggle }) => {
     { name: 'Generate Questions', path: '/mock-interview', category: 'Prep Tools', desc: 'Create custom technical questions' },
     { name: 'Resume Scanning', path: '/resume-upload', category: 'Resume', desc: 'Analyze ATS score & feedback' },
     { name: 'DSA Progress', path: '/dsa-practice', category: 'DSA', desc: 'Track Leetcode-style coding prep' },
-    { name: 'AI Chat Assistant', path: '/ai-chat', category: 'AI Tools', desc: 'Chat with TalentForge AI advisor' },
+    { name: 'AI Chat Assistant', path: '/ai-chat', category: 'AI Tools', desc: 'Chat with TechForge AI advisor' },
     { name: 'Leaderboard', path: '/leaderboard', category: 'Community', desc: 'Check global ranks and scores' },
     { name: 'Daily Challenges', path: '/daily-challenge', category: 'Community', desc: 'Solve daily coding challenges' },
     { name: 'Analytics', path: '/analytics', category: 'Metrics', desc: 'Deep dive into performance history' },
@@ -101,7 +101,7 @@ const Navbar = ({ onMenuToggle }) => {
         <Link to="/dashboard" className="flex items-center gap-2">
           <Logo className="w-8 h-8 flex-shrink-0" />
           <span className="text-lg font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-700 dark:from-white dark:to-slate-300">
-            TalentForge
+            TechForge
           </span>
         </Link>
       </div>
@@ -293,7 +293,7 @@ const Navbar = ({ onMenuToggle }) => {
                   <span className="flex items-center gap-0.5"><kbd className="bg-slate-200/60 dark:bg-white/5 px-1 py-0.2 rounded border border-slate-300/20 dark:border-white/10">esc</kbd> close</span>
                 </div>
                 <div className="flex items-center gap-1 font-mono">
-                  <span className="text-[10px] font-bold">TalentForge</span> finder
+                  <span className="text-[10px] font-bold">TechForge</span> finder
                 </div>
               </div>
             </motion.div>
@@ -305,3 +305,4 @@ const Navbar = ({ onMenuToggle }) => {
 };
 
 export default Navbar;
+

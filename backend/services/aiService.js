@@ -140,7 +140,7 @@ const chatAssistant = async (messages) => {
 
     const sysMessage = {
       role: 'system',
-      content: `You are the TalentForge AI Placement & Career Mentor. 
+      content: `You are the TechForge AI Placement & Career Mentor. 
 Provide expert guidance on resume building, DSA practice, interview preparation, tech stack selection, and general career advice. 
 Be encouraging, structured, and give actionable code snippets or bullet points where helpful.`
     };
@@ -397,3 +397,4 @@ module.exports = {
   evaluateAnswer,
   chatAssistant,
 };
+

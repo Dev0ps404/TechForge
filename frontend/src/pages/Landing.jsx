@@ -64,7 +64,7 @@ const Landing = () => {
         <div className="flex items-center gap-2.5">
           <Logo className="w-8 h-8 flex-shrink-0" />
           <span className="text-xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-600 dark:from-white dark:to-slate-400">
-            TalentForge
+            TechForge
           </span>
         </div>
 
@@ -126,7 +126,7 @@ const Landing = () => {
             <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black tracking-tight text-slate-900 dark:text-white leading-none">
               Nail Your Tech Interviews with{' '}
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 via-sky-500 to-cyan-500 dark:from-blue-400 dark:via-sky-400 dark:to-cyan-400">
-                TalentForge
+                TechForge
               </span>
             </h1>
             <p className="text-base sm:text-lg text-slate-500 dark:text-slate-400 font-light leading-relaxed max-w-xl">
@@ -322,7 +322,7 @@ const Landing = () => {
             </span>
           </h2>
           <p className="text-slate-500 dark:text-slate-400 max-w-xl mx-auto font-light text-sm leading-relaxed">
-            Hundreds of software development students and professionals have landed roles using TalentForge.
+            Hundreds of software development students and professionals have landed roles using TechForge.
           </p>
         </div>
 
@@ -478,7 +478,7 @@ const Landing = () => {
           <div className="space-y-3 max-w-sm text-left">
             <div className="flex items-center gap-2">
               <Logo className="w-6 h-6 flex-shrink-0" />
-              <span className="text-base font-bold text-slate-900 dark:text-white tracking-tight">TalentForge</span>
+              <span className="text-base font-bold text-slate-900 dark:text-white tracking-tight">TechForge</span>
             </div>
             <p className="text-xs text-slate-400 dark:text-slate-500 leading-relaxed font-light">
               AI-driven preparation platform for standard technical interviews and DSA sheets.
@@ -540,7 +540,7 @@ const Landing = () => {
         {/* Divider & Copyright */}
         <div className="max-w-7xl mx-auto px-6 pt-8 border-t border-slate-200/60 dark:border-white/5 flex flex-col items-center justify-center text-center">
           <p className="text-[10px] text-slate-400 dark:text-slate-650 font-light">
-            © 2026 TalentForge. All rights reserved. Built with passion for developers.
+            © 2026 TechForge. All rights reserved. Built with passion for developers.
           </p>
         </div>
       </footer>
@@ -549,3 +549,4 @@ const Landing = () => {
 };
 
 export default Landing;
+

@@ -3,8 +3,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import Logo from '../components/Logo';
 import { GoogleLogin } from '@react-oauth/google';
-import { Mail, Lock, ArrowRight, AlertCircle, Loader2, Sparkles, Code2 } from 'lucide-react';
+import { Mail, Lock, ArrowRight, AlertCircle, Loader2, Sparkles, Eye, EyeOff, TrendingUp } from 'lucide-react';
 import toast from 'react-hot-toast';
+import { motion, AnimatePresence } from 'framer-motion';
+import './Auth.css';
 
 const Login = () => {
   const { login, googleLogin } = useAuth();
@@ -12,6 +14,7 @@ const Login = () => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -59,185 +62,264 @@ const Login = () => {
     }, 1200);
   };
 
+  // Framer Motion variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: { 
+      opacity: 1,
+      transition: { staggerChildren: 0.06, delayChildren: 0.1 }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 15 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { type: "spring", stiffness: 260, damping: 20 }
+    }
+  };
+
   return (
-    <div className="min-h-screen grid lg:grid-cols-12 bg-white dark:bg-bg-dark text-slate-800 dark:text-slate-100 transition-colors duration-300">
-      
-      {/* Left Pane: Login Form */}
-      <div className="lg:col-span-5 flex flex-col justify-between p-8 sm:p-12 relative z-10 bg-white dark:bg-bg-dark-sec/20">
-        
-        {/* Brand Banner */}
-        <div className="mb-8 flex items-center justify-between">
-          <Link to="/" className="inline-flex items-center gap-2.5">
-            <Logo className="w-9 h-9 flex-shrink-0" />
-            <span className="text-lg font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-700 dark:from-white dark:to-slate-350">
-              TalentForge
-            </span>
-          </Link>
-        </div>
+    <div className="auth-portal-container">
+      {/* Decorative Dark SaaS Background */}
+      <div className="auth-bg-grid"></div>
+      <div className="auth-bg-dots"></div>
+      <div className="auth-bg-noise"></div>
+      <div className="auth-glow-blob auth-glow-1"></div>
+      <div className="auth-glow-blob auth-glow-2"></div>
 
-        {/* Center Card */}
-        <div className="w-full max-w-sm mx-auto my-auto py-8">
-          <div className="space-y-2 mb-8">
-            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
-              Welcome back
-            </h2>
-            <p className="text-xs text-slate-405 dark:text-text-secondary-dark font-light">
-              Enter your details or continue with social provider profiles.
-            </p>
-          </div>
+      <div className="auth-split-layout">
+        {/* ==========================================
+            Left Side: Centered Card Form Panel
+            ========================================== */}
+        <section className="auth-form-panel">
+          <motion.div 
+            className="auth-card-wrapper"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+          >
+            {/* Header */}
+            <header className="auth-card-header">
+              <Link to="/" className="auth-logo-group">
+                <div className="auth-logo-box">
+                  <Logo className="w-5 h-5 text-white" />
+                </div>
+                <span className="auth-logo-text">
+                  Tech<span className="auth-logo-accent">Forge</span>
+                </span>
+              </Link>
+              <button 
+                type="button" 
+                className="auth-help-link"
+                onClick={() => toast('Support portal link can be requested via email.')}
+              >
+                NEED HELP?
+              </button>
+            </header>
 
-          <div className="space-y-6">
-            {error && (
-              <div className="flex items-center gap-2.5 p-3 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-500 text-xs">
-                <AlertCircle className="w-4 h-4 flex-shrink-0" />
-                <span>{error}</span>
-              </div>
-            )}
+            {/* Intro */}
+            <div className="auth-form-intro">
+              <h2 className="auth-card-title">Welcome Back!</h2>
+              <p className="auth-card-subtitle">
+                Enter your details or continue with social provider profiles.
+              </p>
+            </div>
 
-            {/* Email Form */}
-            <form onSubmit={handleEmailLogin} className="space-y-4">
-              <div className="space-y-1.5">
-                <label className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Email Address</label>
-                <div className="relative">
-                  <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 dark:text-dark-400" />
+            {/* Form */}
+            <form onSubmit={handleEmailLogin}>
+              <motion.div 
+                className="auth-inputs-stack"
+                variants={containerVariants}
+                initial="hidden"
+                animate="visible"
+              >
+                {error && (
+                  <motion.div className="auth-error-box" variants={itemVariants}>
+                    <AlertCircle className="w-4 h-4" />
+                    <span>{error}</span>
+                  </motion.div>
+                )}
+
+                {/* Email Address */}
+                <motion.div className="auth-input-wrapper" variants={itemVariants}>
+                  <span className="auth-input-icon-left">
+                    <Mail />
+                  </span>
                   <input
                     type="email"
                     placeholder="name@company.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/5 bg-slate-50/50 dark:bg-bg-dark/40 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 transition-all placeholder:text-slate-400"
+                    className="auth-input-field"
+                    required
+                    disabled={loading}
                   />
-                </div>
-              </div>
+                </motion.div>
 
-              <div className="space-y-1.5">
-                <div className="flex justify-between items-center">
-                  <label className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Password</label>
-                  <button
-                    type="button"
-                    onClick={() => toast('Standard account password resets can be requested via email support.')}
-                    className="text-[10px] font-semibold text-indigo-500 hover:underline"
-                  >
-                    Forgot?
-                  </button>
-                </div>
-                <div className="relative">
-                  <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 dark:text-dark-400" />
+                {/* Password Input */}
+                <motion.div className="auth-input-wrapper" variants={itemVariants}>
+                  <span className="auth-input-icon-left">
+                    <Lock />
+                  </span>
                   <input
-                    type="password"
+                    type={showPassword ? 'text' : 'password'}
                     placeholder="••••••••"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/5 bg-slate-50/50 dark:bg-bg-dark/40 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 transition-all placeholder:text-slate-400"
+                    className="auth-input-field"
+                    required
+                    disabled={loading}
                   />
-                </div>
-              </div>
+                  <button
+                    type="button"
+                    className="auth-password-toggle"
+                    onClick={() => setShowPassword(!showPassword)}
+                    aria-label="Toggle password visibility"
+                  >
+                    {showPassword ? <EyeOff /> : <Eye />}
+                  </button>
+                </motion.div>
 
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full py-2.5 rounded-xl bg-indigo-650 hover:bg-indigo-600 text-white font-bold transition-all shadow-md shadow-indigo-600/20 flex items-center justify-center gap-2 text-xs"
-              >
-                {loading ? (
-                  <Loader2 className="w-4 h-4 animate-spin" />
-                ) : (
-                  <>
-                    Sign In <ArrowRight className="w-3.5 h-3.5" />
-                  </>
-                )}
-              </button>
+                {/* Options Controls */}
+                <motion.div className="auth-control-row" variants={itemVariants}>
+                  <label className="remember-checkbox">
+                    <input type="checkbox" disabled={loading} />
+                    <span className="custom-checkbox"></span>
+                    <span className="checkbox-lbl">Remember Me</span>
+                  </label>
+                  <button
+                    type="button"
+                    onClick={() => toast('Account recovery links can be requested via email support.')}
+                    className="auth-forgot-btn"
+                  >
+                    Forgot Password?
+                  </button>
+                </motion.div>
+
+                {/* Submit Action */}
+                <motion.div variants={itemVariants}>
+                  <button
+                    type="submit"
+                    className="auth-submit-btn"
+                    disabled={loading}
+                  >
+                    {loading ? (
+                      <span className="auth-spinner"></span>
+                    ) : (
+                      <>
+                        <span>Sign In</span>
+                        <ArrowRight size={16} />
+                      </>
+                    )}
+                  </button>
+                </motion.div>
+
+                {/* Social Divider */}
+                <motion.div className="auth-social-divider" variants={itemVariants}>
+                  <span className="auth-social-divider-text">OR CONTINUE WITH</span>
+                </motion.div>
+
+                {/* Social Buttons */}
+                <motion.div className="auth-social-row" variants={itemVariants}>
+                  <div className="auth-social-btn-inner-google">
+                    <GoogleLogin
+                      onSuccess={handleGoogleSuccess}
+                      onError={() => {
+                        toast.error('Google Sign-In failed');
+                      }}
+                      theme="filled_blue"
+                      shape="rectangular"
+                      width="384"
+                    />
+                  </div>
+                  <button
+                    type="button"
+                    onClick={handleMockGoogleLogin}
+                    disabled={loading}
+                    className="auth-social-btn"
+                  >
+                    <svg className="social-icon-svg" viewBox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                      <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                      <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"/>
+                      <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"/>
+                    </svg>
+                    <span>Mock Google Account</span>
+                  </button>
+                </motion.div>
+              </motion.div>
             </form>
 
-            {/* Divider */}
-            <div className="relative flex items-center justify-center my-4">
-              <div className="absolute w-full border-t border-slate-200/60 dark:border-white/5"></div>
-              <span className="relative z-10 px-3 text-[10px] bg-white dark:bg-bg-dark text-slate-400 dark:text-dark-400 font-bold uppercase tracking-widest">
-                Or Continue With
-              </span>
+            {/* Toggle View Switch */}
+            <div className="auth-switch-footer">
+              <span>Don't have an account?</span>
+              <Link to="/signup" className="auth-switch-link">
+                Create Account
+              </Link>
             </div>
 
-            {/* Social / Google Buttons */}
-            <div className="space-y-2.5">
-              <div className="w-full flex justify-center">
-                <GoogleLogin
-                  onSuccess={handleGoogleSuccess}
-                  onError={() => {
-                    toast.error('Google Sign-In failed');
-                  }}
-                  theme="filled_blue"
-                  shape="rectangular"
-                  width="384"
-                />
+            {/* Legal */}
+            <footer className="auth-legal-footer">
+              <span>&copy; 2026 TECHFORGE.</span>
+              <div className="auth-legal-links">
+                <a href="#" onClick={() => toast('Opening Privacy Policy...')}>PRIVACY</a>
+                <a href="#" onClick={() => toast('Opening Terms of Service...')}>TERMS</a>
               </div>
-              <button
-                onClick={handleMockGoogleLogin}
-                disabled={loading}
-                className="flex items-center justify-center gap-2 py-2.5 rounded-lg border border-slate-200 dark:border-white/5 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors font-semibold text-xs text-slate-700 dark:text-slate-300 w-full"
-              >
-                <svg className="w-3.5 h-3.5 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
-                  <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
-                  <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"/>
-                  <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"/>
-                </svg>
-                Mock Google Account
-              </button>
+            </footer>
+          </motion.div>
+        </section>
+
+        {/* ==========================================
+            Right Side: Showcase View Display
+            ========================================== */}
+        <section className="auth-showcase-panel">
+          <div className="auth-showcase-grid"></div>
+
+          <div className="auth-showcase-art">
+            <div className="auth-art-orb"></div>
+            <div className="auth-art-orb-secondary"></div>
+          </div>
+
+          {/* Floating Glass Quote Card */}
+          <motion.div 
+            className="auth-glass-card"
+            animate={{ y: [0, -12, 0] }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <div className="auth-card-accent-line"></div>
+            <blockquote className="auth-showcase-quote">
+              &ldquo;Empowering your technical growth.&rdquo;
+            </blockquote>
+            <div className="auth-user-proof">
+              <div className="auth-avatar-stack">
+                <div className="auth-avatar-circle auth-av-1">JD</div>
+                <div className="auth-avatar-circle auth-av-2">MI</div>
+                <div className="auth-avatar-circle auth-av-3">+12k</div>
+              </div>
+              <span className="auth-proof-text">JOIN 12,000+ USERS TODAY</span>
             </div>
-          </div>
-        </div>
+          </motion.div>
 
-        {/* Redirect Footer */}
-        <p className="text-center text-xs text-slate-500 dark:text-slate-400 font-light">
-          Don't have an account?{' '}
-          <Link to="/signup" className="font-semibold text-indigo-500 hover:underline">
-            Create account
-          </Link>
-        </p>
-      </div>
-
-      {/* Right Pane: Illustration / Dashboard Mockup Preview */}
-      <div className="hidden lg:col-span-7 lg:flex flex-col justify-center items-center p-12 bg-slate-100 dark:bg-slate-950 relative overflow-hidden">
-        {/* Glow */}
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-indigo-500/10 blur-[100px] pointer-events-none"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full bg-cyan-500/10 blur-[100px] pointer-events-none"></div>
-        
-        {/* Grid Overlay */}
-        <div className="absolute inset-0 grid-bg-light dark:grid-bg-dark opacity-10 pointer-events-none"></div>
-
-        <div className="relative z-10 w-full max-w-lg space-y-8 text-center">
-          <div className="space-y-4">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-blue-500/10 dark:bg-indigo-500/15 border border-blue-500/20 dark:border-indigo-500/30 text-[10px] font-bold text-blue-600 dark:text-indigo-300 uppercase tracking-widest">
-              <Sparkles className="w-3.5 h-3.5 text-blue-500 dark:text-indigo-400" /> Premium Career Platform
+          {/* Floating Glass Stats card */}
+          <motion.div 
+            className="auth-glass-stats-card"
+            animate={{ y: [0, -8, 0] }}
+            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+          >
+            <div className="auth-stat-icon-box">
+              <TrendingUp />
             </div>
-            <h3 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-              Acing mock interviews has never been easier.
-            </h3>
-            <p className="text-slate-500 dark:text-slate-400 text-xs font-light max-w-md mx-auto leading-relaxed">
-              Get real-time feedback on your speech delivery, resume structure, and data structure solutions instantly.
-            </p>
-          </div>
-
-          <div className="rounded-2xl border border-slate-200 dark:border-white/5 bg-white/60 dark:bg-slate-900/60 p-2 backdrop-blur-xl shadow-2xl relative overflow-hidden">
-            <div className="absolute top-3 left-3 flex items-center gap-1.5">
-              <div className="w-2.5 h-2.5 rounded-full bg-red-500/60"></div>
-              <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/60"></div>
-              <div className="w-2.5 h-2.5 rounded-full bg-green-500/60"></div>
+            <div className="auth-stat-info">
+              <span className="auth-stat-lbl">PLACEMENT RATE</span>
+              <div className="auth-stat-val-flex">
+                <span className="auth-stat-val">94.8%</span>
+                <span className="auth-stat-change">+12%</span>
+              </div>
             </div>
-            <img
-              src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80"
-              alt="TalentForge App Preview"
-              className="w-full h-auto rounded-xl border border-white/5 opacity-80"
-            />
-          </div>
-
-          <div className="flex items-center justify-center gap-6 text-[10px] font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
-            <span className="flex items-center gap-1"><Code2 className="w-3.5 h-3.5" /> 13+ DSA Topics</span>
-            <span>•</span>
-            <span>ATS Resume Scan</span>
-            <span>•</span>
-            <span>AI Feedback</span>
-          </div>
-        </div>
+          </motion.div>
+        </section>
       </div>
     </div>
   );

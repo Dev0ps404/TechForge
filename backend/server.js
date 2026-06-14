@@ -92,7 +92,7 @@ app.use((err, req, res, next) => {
 const PORT = process.env.PORT || 5000;
 
 const server = app.listen(PORT, () => {
-  console.log(`TalentForge Server is running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
+  console.log(`TechForge Server is running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
 });
 
 // Handle unhandled promise rejections
@@ -101,3 +101,4 @@ process.on('unhandledRejection', (err, promise) => {
   // Close server & exit process
   server.close(() => process.exit(1));
 });
+

@@ -72,15 +72,15 @@ const transporter = createTransporter();
  */
 const sendWelcomeEmail = async (toEmail, userName) => {
   const mailOptions = {
-    from: `"TalentForge" <${process.env.EMAIL_FROM || 'no-reply@talentforge.com'}>`,
+    from: `"TechForge" <${process.env.EMAIL_FROM || 'no-reply@TechForge.com'}>`,
     to: toEmail,
-    subject: 'Welcome to TalentForge - Ready to Ace Your Interview?',
+    subject: 'Welcome to TechForge - Ready to Ace Your Interview?',
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px;">
-        <h2 style="color: #4f46e5; text-align: center;">Welcome to TalentForge!</h2>
+        <h2 style="color: #4f46e5; text-align: center;">Welcome to TechForge!</h2>
         <p>Hi ${userName},</p>
-        <p>Thank you for signing up for TalentForge, your ultimate AI-powered interview preparation platform.</p>
-        <p>With TalentForge, you can:</p>
+        <p>Thank you for signing up for TechForge, your ultimate AI-powered interview preparation platform.</p>
+        <p>With TechForge, you can:</p>
         <ul>
           <li>Upload your resume for instant **ATS Score Scanning** and enhancement tips.</li>
           <li>Practice realistic mock interviews using **AI Question Generators** customized to your stack.</li>
@@ -93,7 +93,7 @@ const sendWelcomeEmail = async (toEmail, userName) => {
         </div>
         <p>Happy coding and preparation!</p>
         <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 20px 0;" />
-        <p style="font-size: 12px; color: #64748b; text-align: center;">TalentForge Team. Ace your interviews, change your life.</p>
+        <p style="font-size: 12px; color: #64748b; text-align: center;">TechForge Team. Ace your interviews, change your life.</p>
       </div>
     `,
   };
@@ -114,9 +114,9 @@ const sendWelcomeEmail = async (toEmail, userName) => {
 const sendPerformanceReportEmail = async (toEmail, userName, sessionData) => {
   const { jobRole, overallScore, feedback } = sessionData;
   const mailOptions = {
-    from: `"TalentForge" <${process.env.EMAIL_FROM || 'no-reply@talentforge.com'}>`,
+    from: `"TechForge" <${process.env.EMAIL_FROM || 'no-reply@TechForge.com'}>`,
     to: toEmail,
-    subject: `TalentForge Mock Interview Report: ${jobRole}`,
+    subject: `TechForge Mock Interview Report: ${jobRole}`,
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px;">
         <h2 style="color: #4f46e5; text-align: center;">Mock Interview Performance Report</h2>
@@ -160,7 +160,7 @@ const sendPerformanceReportEmail = async (toEmail, userName, sessionData) => {
           <a href="${process.env.FRONTEND_URL || 'http://localhost:5173'}/evaluation/${sessionData._id}" style="background-color: #4f46e5; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold;">View Detailed Evaluation</a>
         </div>
         <hr style="border: 0; border-top: 1px solid #e2e8f0; margin: 20px 0;" />
-        <p style="font-size: 12px; color: #64748b; text-align: center;">TalentForge Team. Ace your interviews, change your life.</p>
+        <p style="font-size: 12px; color: #64748b; text-align: center;">TechForge Team. Ace your interviews, change your life.</p>
       </div>
     `,
   };
@@ -179,3 +179,4 @@ module.exports = {
   sendWelcomeEmail,
   sendPerformanceReportEmail,
 };
+

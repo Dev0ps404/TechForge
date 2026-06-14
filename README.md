@@ -1,6 +1,6 @@
-# TalentForge - AI Interview Preparation Platform
+# TechForge - AI Interview Preparation Platform
 
-TalentForge is a production-ready, full-stack AI-powered career and technical interview preparation platform. It helps students and job seekers prepare for technical roles through AI-generated questions, real-time verbal response transcription, resume ATS optimization analysis, DSA practice logs, and custom evaluations.
+TechForge is a production-ready, full-stack AI-powered career and technical interview preparation platform. It helps students and job seekers prepare for technical roles through AI-generated questions, real-time verbal response transcription, resume ATS optimization analysis, DSA practice logs, and custom evaluations.
 
 ---
 
@@ -148,3 +148,4 @@ TalentForge is a production-ready, full-stack AI-powered career and technical in
 - `GET /api/admin/analytics` - Fetch platform total metrics (resumes scanned, mock frequencies)
 - `POST /api/admin/broadcast` - Dispatch push notifications to all users
 - `POST /api/admin/challenges` - Create custom daily challenges
+

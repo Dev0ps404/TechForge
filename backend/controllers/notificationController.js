@@ -14,7 +14,7 @@ exports.getNotifications = async (req, res, next) => {
       notifications = [
         await Notification.create({
           user: req.user.id,
-          title: 'Welcome to TalentForge!',
+          title: 'Welcome to TechForge!',
           message: 'Explore the platform. Upload your resume to begin ATS scanning, or launch a mock interview.',
           type: 'system',
         }),
@@ -74,3 +74,4 @@ exports.markRead = async (req, res, next) => {
     });
   }
 };
+

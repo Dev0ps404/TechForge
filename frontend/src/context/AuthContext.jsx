@@ -59,7 +59,7 @@ export const AuthProvider = ({ children }) => {
       if (res.data.success) {
         localStorage.setItem('token', res.data.token);
         setUser(res.data.user);
-        toast.success(`Welcome to TalentForge, ${res.data.user.name}!`);
+        toast.success(`Welcome to TechForge, ${res.data.user.name}!`);
         return true;
       }
     } catch (err) {
@@ -131,3 +131,4 @@ export const AuthProvider = ({ children }) => {
 };
 
 export const useAuth = () => useContext(AuthContext);
+
