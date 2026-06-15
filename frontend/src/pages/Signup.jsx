@@ -109,7 +109,7 @@ const Signup = () => {
             <header className="auth-card-header">
               <Link to="/" className="auth-logo-group">
                 <div className="auth-logo-box">
-                  <Logo className="w-5 h-5 text-white" />
+                  <Logo className="w-6 h-6" />
                 </div>
                 <span className="auth-logo-text">
                   Tech<span className="auth-logo-accent">Forge</span>

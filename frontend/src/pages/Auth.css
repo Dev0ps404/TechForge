@@ -138,10 +138,10 @@
 }
 
 .auth-logo-box {
-  width: 36px;
-  height: 36px;
+  width: 42px;
+  height: 42px;
   background: #3B82F6;
-  border-radius: 10px;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -151,19 +151,18 @@
 .auth-logo-box::after {
   content: '';
   position: absolute;
-  bottom: -2px;
-  right: -2px;
-  width: 10px;
-  height: 10px;
+  bottom: -3px;
+  right: -3px;
+  width: 12px;
+  height: 12px;
   background-color: #10B981;
   border: 2px solid #ffffff;
   border-radius: 50%;
 }
 
 .auth-logo-box svg {
-  width: 18px;
-  height: 18px;
-  color: #ffffff;
+  width: 24px;
+  height: 24px;
 }
 
 .auth-logo-text {
