@@ -5,6 +5,85 @@ import toast from 'react-hot-toast';
 import { Calendar, Play, Send, Award, Flame, CheckCircle, Loader2, Sparkles } from 'lucide-react';
 import { motion } from 'framer-motion';
 
+// Language templates helper for DSA stubs
+const getLanguageStub = (lang, challenge) => {
+  if (!challenge) return '';
+  const title = challenge.title ? challenge.title.toLowerCase() : '';
+  const templateCode = challenge.templateCode || '';
+  
+  // Parse function name and parameters from JavaScript code template
+  let funcName = 'solution';
+  let params = ['args'];
+  const match = templateCode.match(/function\s+(\w+)\s*\(([^)]*)\)/);
+  if (match) {
+    funcName = match[1];
+    params = match[2].split(',').map(p => p.trim()).filter(Boolean);
+    if (params.length === 0) params = ['args'];
+  }
+
+  // Pre-defined stubs for known questions
+  if (title.includes('two sum')) {
+    if (lang === 'python') {
+      return `def twoSum(nums, target):\n    # Write your code here\n    return []`;
+    }
+    if (lang === 'java') {
+      return `class Solution {\n    public int[] twoSum(int[] nums, int target) {\n        // Write your code here\n        return new int[0];\n    }\n}`;
+    }
+    if (lang === 'cpp') {
+      return `class Solution {\npublic:\n    vector<int> twoSum(vector<int>& nums, int target) {\n        // Write your code here\n        return {};\n    }\n}`;
+    }
+    if (lang === 'c') {
+      return `int* twoSum(int* nums, int numsSize, int target, int* returnSize) {\n    // Write your code here\n    *returnSize = 0;\n    return NULL;\n}`;
+    }
+  }
+
+  if (title.includes('merge intervals') || title.includes('merge')) {
+    if (lang === 'python') {
+      return `def merge(intervals):\n    # Write your code here\n    return []`;
+    }
+    if (lang === 'java') {
+      return `class Solution {\n    public int[][] merge(int[][] intervals) {\n        // Write your code here\n        return new int[0][0];\n    }\n}`;
+    }
+    if (lang === 'cpp') {
+      return `class Solution {\npublic:\n    vector<vector<int>> merge(vector<vector<int>>& intervals) {\n        // Write your code here\n        return {};\n    }\n}`;
+    }
+    if (lang === 'c') {
+      return `int** merge(int** intervals, int intervalsSize, int* intervalsColSize, int* returnSize, int** returnColumnSizes) {\n    // Write your code here\n    return NULL;\n}`;
+    }
+  }
+
+  if (title.includes('reverse linked list') || title.includes('reverse')) {
+    if (lang === 'python') {
+      return `def reverseList(head):\n    # Write your code here\n    return head`;
+    }
+    if (lang === 'java') {
+      return `class Solution {\n    public ListNode reverseList(ListNode head) {\n        // Write your code here\n        return head;\n    }\n}`;
+    }
+    if (lang === 'cpp') {
+      return `class Solution {\npublic:\n    ListNode* reverseList(ListNode* head) {\n        // Write your code here\n        return head;\n    }\n}`;
+    }
+    if (lang === 'c') {
+      return `struct ListNode* reverseList(struct ListNode* head) {\n    // Write your code here\n    return head;\n}`;
+    }
+  }
+
+  // Fallbacks for general questions
+  switch (lang) {
+    case 'javascript':
+      return templateCode || `function ${funcName}(${params.join(', ')}) {\n    // Write your code here\n    return [];\n}`;
+    case 'python':
+      return `def ${funcName}(${params.join(', ')}):\n    # Write your code here\n    return []`;
+    case 'java':
+      return `class Solution {\n    public Object ${funcName}(${params.map(p => 'Object ' + p).join(', ')}) {\n        // Write your code here\n        return null;\n    }\n}`;
+    case 'cpp':
+      return `class Solution {\npublic:\n    auto ${funcName}(${params.map(p => 'auto& ' + p).join(', ')}) {\n        // Write your code here\n        \n    }\n};`;
+    case 'c':
+      return `void ${funcName}(${params.map(p => 'void* ' + p).join(', ')}) {\n    // Write your code here\n    \n}`;
+    default:
+      return templateCode;
+  }
+};
+
 const DailyChallenge = () => {
   const { user, refreshProfile } = useAuth();
   const [challenge, setChallenge] = useState(null);
@@ -15,6 +94,27 @@ const DailyChallenge = () => {
   const [editorCode, setEditorCode] = useState('');
   const [textResponse, setTextResponse] = useState('');
   const [completedToday, setCompletedToday] = useState(false);
+  
+  const [selectedLanguage, setSelectedLanguage] = useState('javascript');
+  const [languageCodes, setLanguageCodes] = useState({
+    javascript: '',
+    python: '',
+    java: '',
+    cpp: '',
+    c: ''
+  });
+
+  const handleLanguageChange = (lang) => {
+    setLanguageCodes(prev => {
+      const updated = {
+        ...prev,
+        [selectedLanguage]: editorCode
+      };
+      setEditorCode(updated[lang] || getLanguageStub(lang, challenge));
+      return updated;
+    });
+    setSelectedLanguage(lang);
+  };
 
   const fetchDailyChallenge = async () => {
     try {
@@ -24,7 +124,15 @@ const DailyChallenge = () => {
         setChallenge(res.data.challenge);
         setCompletedToday(res.data.challenge.userCompleted);
         if (res.data.challenge.type === 'coding') {
-          setEditorCode(res.data.challenge.templateCode || '');
+          const defaultCode = res.data.challenge.templateCode || '';
+          setEditorCode(defaultCode);
+          setLanguageCodes({
+            javascript: defaultCode,
+            python: getLanguageStub('python', res.data.challenge),
+            java: getLanguageStub('java', res.data.challenge),
+            cpp: getLanguageStub('cpp', res.data.challenge),
+            c: getLanguageStub('c', res.data.challenge)
+          });
         }
       }
     } catch (err) {
@@ -160,7 +268,24 @@ const DailyChallenge = () => {
           <form onSubmit={handleSubmit} className="flex-grow flex flex-col justify-between h-full space-y-6 relative z-10">
             <div className="flex-grow flex flex-col space-y-3">
               <div className="flex justify-between items-center text-[10px] font-bold text-slate-400 tracking-wider">
-                <span>{challenge.type === 'coding' ? 'JAVASCRIPT CONSOLE' : 'SCENARIO WORKSPACE'}</span>
+                {challenge.type === 'coding' ? (
+                  <div className="flex items-center gap-2">
+                    <span className="uppercase">{selectedLanguage} CONSOLE</span>
+                    <select
+                      value={selectedLanguage}
+                      onChange={(e) => handleLanguageChange(e.target.value)}
+                      className="bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/5 text-slate-700 dark:text-slate-200 rounded-lg px-2 py-0.5 text-[9px] font-bold outline-none cursor-pointer focus:ring-1 focus:ring-indigo-500"
+                    >
+                      <option value="javascript">JavaScript</option>
+                      <option value="python">Python</option>
+                      <option value="java">Java</option>
+                      <option value="cpp">C++</option>
+                      <option value="c">C</option>
+                    </select>
+                  </div>
+                ) : (
+                  <span>SCENARIO WORKSPACE</span>
+                )}
                 <span className="flex items-center gap-1.5 text-indigo-500">
                   <Sparkles className="w-3.5 h-3.5" /> Auto-lint enabled
                 </span>
