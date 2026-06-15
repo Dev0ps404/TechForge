@@ -325,6 +325,80 @@
   text-decoration: underline;
 }
 
+/* Custom Checkbox Styling */
+.remember-checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  position: relative;
+  user-select: none;
+  color: var(--tf-text-secondary);
+  font-weight: 500;
+  transition: var(--tf-transition-smooth);
+}
+
+.remember-checkbox:hover {
+  color: var(--tf-text-primary);
+}
+
+.remember-checkbox input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.custom-checkbox {
+  width: 18px;
+  height: 18px;
+  background-color: rgba(30, 41, 59, 0.5);
+  border: 1.5px solid rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  display: inline-block;
+  position: relative;
+  transition: var(--tf-transition-smooth);
+  flex-shrink: 0;
+}
+
+.remember-checkbox:hover input[type="checkbox"] ~ .custom-checkbox {
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.remember-checkbox input[type="checkbox"]:focus-visible ~ .custom-checkbox {
+  border-color: var(--tf-border-focus);
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+}
+
+.remember-checkbox input[type="checkbox"]:checked ~ .custom-checkbox {
+  background: var(--tf-primary-gradient);
+  border-color: transparent;
+  box-shadow: 0 0 12px rgba(99, 102, 241, 0.35);
+}
+
+.custom-checkbox::after {
+  content: "";
+  position: absolute;
+  display: none;
+  left: 6px;
+  top: 2px;
+  width: 4px;
+  height: 9px;
+  border: solid #ffffff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.remember-checkbox input[type="checkbox"]:checked ~ .custom-checkbox::after {
+  display: block;
+}
+
+.checkbox-lbl {
+  font-size: 0.85rem;
+  line-height: 1.2;
+}
+
 /* Submit Gradient Button */
 .auth-submit-btn {
   width: 100%;
@@ -482,7 +556,11 @@
   align-items: center;
   padding: 60px;
   position: relative;
-  background: linear-gradient(135deg, rgba(17, 24, 39, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
+  background-image: linear-gradient(135deg, rgba(11, 18, 32, 0.85) 0%, rgba(15, 23, 42, 0.95) 100%), 
+                    url('../assets/auth-bg.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   border-left: 1px solid var(--tf-border-color);
   overflow: hidden;
 }
@@ -513,8 +591,8 @@
   height: 320px;
   border-radius: 50%;
   background: linear-gradient(135deg, #6366F1 0%, #a78bfa 100%);
-  filter: blur(65px);
-  opacity: 0.45;
+  filter: blur(80px);
+  opacity: 0.25;
   animation: auth-float-art 12s ease-in-out infinite alternate;
 }
 
@@ -524,8 +602,8 @@
   height: 240px;
   border-radius: 50%;
   background: linear-gradient(135deg, #8B5CF6 0%, #ec4899 100%);
-  filter: blur(45px);
-  opacity: 0.35;
+  filter: blur(60px);
+  opacity: 0.20;
   animation: auth-float-art-alt 10s ease-in-out infinite alternate;
 }
 
