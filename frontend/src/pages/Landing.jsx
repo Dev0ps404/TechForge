@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Logo from '../components/Logo';
+import BackgroundParticles from '../components/BackgroundParticles';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 import {
@@ -52,7 +53,7 @@ const Landing = () => {
     <div className="min-h-screen bg-white dark:bg-[#030712] text-slate-800 dark:text-slate-100 selection:bg-blue-600 selection:text-white overflow-hidden relative transition-colors duration-300">
       {/* Mesh/Grid Background */}
       <div className="absolute inset-0 opacity-30 pointer-events-none">
-        <div className="w-full h-full grid-bg-light dark:grid-bg-dark"></div>
+        <BackgroundParticles />
       </div>
 
       {/* Decorative Glow Elements */}

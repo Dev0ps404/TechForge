@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import Logo from '../components/Logo';
+import BackgroundParticles from '../components/BackgroundParticles';
 import { GoogleLogin } from '@react-oauth/google';
 import { Mail, Lock, ArrowRight, AlertCircle, Loader2, Sparkles, Eye, EyeOff, TrendingUp } from 'lucide-react';
 import toast from 'react-hot-toast';
@@ -84,7 +85,7 @@ const Login = () => {
     <div className="auth-portal-container">
       {/* Decorative Dark SaaS Background */}
       <div className="auth-bg-grid"></div>
-      <div className="auth-bg-dots"></div>
+      <BackgroundParticles />
       <div className="auth-bg-noise"></div>
       <div className="auth-glow-blob auth-glow-1"></div>
       <div className="auth-glow-blob auth-glow-2"></div>
