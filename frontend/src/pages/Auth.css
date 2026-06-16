@@ -94,7 +94,7 @@
   max-width: 1100px;
   min-height: 720px;
   display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
+  grid-template-columns: 4fr 6fr;
   position: relative;
   z-index: 10;
   background-color: var(--tf-bg-card);
@@ -109,7 +109,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 48px;
+  padding: 40px 32px;
   position: relative;
   background-color: #ffffff;
 }
@@ -134,35 +134,8 @@
 .auth-logo-group {
   display: flex;
   align-items: center;
-  gap: 12px;
-}
-
-.auth-logo-box {
-  width: 42px;
-  height: 42px;
-  background: #3B82F6;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-}
-
-.auth-logo-box::after {
-  content: '';
-  position: absolute;
-  bottom: -3px;
-  right: -3px;
-  width: 12px;
-  height: 12px;
-  background-color: #10B981;
-  border: 2px solid #ffffff;
-  border-radius: 50%;
-}
-
-.auth-logo-box svg {
-  width: 24px;
-  height: 24px;
+  gap: 10px;
+  text-decoration: none;
 }
 
 .auth-logo-text {
@@ -170,6 +143,8 @@
   font-weight: 800;
   letter-spacing: -0.5px;
   color: #1E1B4B;
+  display: flex;
+  align-items: center;
 }
 
 .auth-logo-accent {
