@@ -19,11 +19,13 @@ const BackgroundParticles = () => {
       active: false
     };
 
-    // Detect and update active theme color
+
+    // Detect and update active theme color (increased opacities for brightness)
     const updateThemeColor = () => {
       const isDark = document.documentElement.classList.contains('dark');
-      particleColor.current = isDark ? 'rgba(255, 255, 255, 0.22)' : 'rgba(15, 23, 42, 0.12)';
+      particleColor.current = isDark ? 'rgba(255, 255, 255, 0.45)' : 'rgba(15, 23, 42, 0.25)';
     };
+
     updateThemeColor();
 
     const themeObserver = new MutationObserver(updateThemeColor);
