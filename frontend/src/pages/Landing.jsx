@@ -122,7 +122,7 @@ const Landing = () => {
           {/* Left Text Block */}
           <div className="lg:col-span-7 space-y-6 text-left">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-[10px] font-bold text-blue-600 dark:text-blue-300 uppercase tracking-wider">
-              ✨ Powered by Groq Llama 3.3
+              ✨ Next-Gen AI Engine
             </div>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black tracking-tight text-slate-900 dark:text-white leading-none">
               Nail Your Tech Interviews with{' '}
