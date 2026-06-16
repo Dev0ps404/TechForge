@@ -18,9 +18,7 @@ import {
   Moon,
   CheckCircle2,
   ChevronDown,
-  Cpu,
-  Globe,
-  AtSign
+  Cpu
 } from 'lucide-react';
 
 const Landing = () => {
@@ -475,40 +473,24 @@ const Landing = () => {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-slate-200/60 dark:border-white/5 bg-slate-50 dark:bg-[#0B1220] relative z-10 pt-16 pb-8 text-slate-500 dark:text-slate-400 transition-colors duration-300">
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 pb-12">
+      <footer className="border-t border-slate-200/30 dark:border-white/5 bg-slate-50/50 dark:bg-[#080d19]/80 relative z-10 pt-12 pb-6 text-slate-500 dark:text-slate-400 transition-colors duration-300">
+        <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-12 gap-8 pb-8">
           {/* Column 1: Brand & Tagline & Socials */}
-          <div className="space-y-4 text-left">
+          <div className="md:col-span-6 space-y-3.5 text-left">
             <div className="flex items-center gap-2">
-              <Logo className="w-6 h-6 flex-shrink-0" />
-              <span className="text-base font-bold text-slate-900 dark:text-white tracking-tight">TechForge</span>
+              <Logo className="w-5 h-5 flex-shrink-0" />
+              <span className="text-sm font-bold text-slate-900 dark:text-white tracking-tight">TechForge</span>
             </div>
-            <p className="text-xs text-slate-450 dark:text-slate-500 leading-relaxed font-light">
-              Technical interview intelligence for modern developers. Secure, intuitive, powerful.
+            <p className="text-xs text-slate-450 dark:text-slate-500 leading-relaxed font-light max-w-sm">
+              AI-powered interview intelligence for modern developers.
             </p>
             {/* Social Icons */}
-            <div className="flex items-center gap-2 pt-2">
-              <a 
-                href="https://techforge.dev" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="w-8 h-8 rounded-full bg-blue-50 dark:bg-blue-950/30 flex items-center justify-center text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/50 hover:text-blue-700 dark:hover:text-blue-300 hover:scale-105 hover:shadow-sm transition-all duration-300"
-                aria-label="Website"
-              >
-                <Globe className="w-4 h-4" />
-              </a>
-              <a 
-                href="mailto:contact@techforge.dev" 
-                className="w-8 h-8 rounded-full bg-blue-50 dark:bg-blue-950/30 flex items-center justify-center text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/50 hover:text-blue-700 dark:hover:text-blue-300 hover:scale-105 hover:shadow-sm transition-all duration-300"
-                aria-label="Email"
-              >
-                <AtSign className="w-4 h-4" />
-              </a>
+            <div className="flex items-center gap-2.5 pt-1">
               <a 
                 href="https://github.com/Dev0ps404/TechForge" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="w-8 h-8 rounded-full bg-blue-50 dark:bg-blue-950/30 flex items-center justify-center text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/50 hover:text-blue-700 dark:hover:text-blue-300 hover:scale-105 hover:shadow-sm transition-all duration-300"
+                className="w-8 h-8 rounded-full bg-slate-100 dark:bg-white/5 flex items-center justify-center text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-white/10 transition-all duration-200"
                 aria-label="GitHub"
               >
                 <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
@@ -516,65 +498,74 @@ const Landing = () => {
                 </svg>
               </a>
               <a 
-                href="https://instagram.com" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="w-8 h-8 rounded-full bg-blue-50 dark:bg-blue-950/30 flex items-center justify-center text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/50 hover:text-blue-700 dark:hover:text-blue-300 hover:scale-105 hover:shadow-sm transition-all duration-300"
-                aria-label="Instagram"
-              >
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-                </svg>
-              </a>
-              <a 
                 href="https://linkedin.com" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="w-8 h-8 rounded-full bg-blue-50 dark:bg-blue-950/30 flex items-center justify-center text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/50 hover:text-blue-700 dark:hover:text-blue-300 hover:scale-105 hover:shadow-sm transition-all duration-300"
+                className="w-8 h-8 rounded-full bg-slate-100 dark:bg-white/5 flex items-center justify-center text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-white/10 transition-all duration-200"
                 aria-label="LinkedIn"
               >
                 <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M22.23 0H1.77C.8 0 0 .77 0 1.72v20.56C0 23.23.8 24 1.77 24h20.46c.98 0 1.77-.77 1.77-1.72V1.72C24 .77 23.2 0 22.23 0zM7.12 20.45H3.56V9h3.56v11.45zM5.34 7.43c-1.14 0-2.06-.92-2.06-2.06 0-1.14.92-2.06 2.06-2.06 1.14 0 2.06.92 2.06 2.06 0 1.14-.92 2.06-2.06 2.06zm15.11 13.02h-3.56v-5.6c0-1.34-.03-3.05-1.86-3.05-1.86 0-2.14 1.45-2.14 2.95v5.7h-3.56V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29z" />
                 </svg>
               </a>
+              <a 
+                href="https://x.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-8 h-8 rounded-full bg-slate-100 dark:bg-white/5 flex items-center justify-center text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-white/10 transition-all duration-200"
+                aria-label="X (Twitter)"
+              >
+                <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                </svg>
+              </a>
             </div>
           </div>
 
           {/* Column 2: Product */}
-          <div className="space-y-3 text-left">
-            <h4 className="text-xs font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider">Product</h4>
-            <ul className="space-y-2 text-xs font-light">
-              <li><a href="#features" className="hover:text-slate-900 dark:hover:text-white transition-colors">Features</a></li>
-              <li><a href="#" className="hover:text-slate-900 dark:hover:text-white transition-colors">Pricing</a></li>
+          <div className="md:col-span-3 space-y-3.5 text-left">
+            <h4 className="text-[11px] font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider">Product</h4>
+            <ul className="space-y-2.5 text-xs font-light">
+              <li>
+                <a href="#features" className="text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors duration-200">
+                  Features
+                </a>
+              </li>
+              <li>
+                <a href="#" className="text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors duration-200">
+                  Pricing
+                </a>
+              </li>
             </ul>
           </div>
 
-          {/* Column 3: Resources */}
-          <div className="space-y-3 text-left">
-            <h4 className="text-xs font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider">Resources</h4>
-            <ul className="space-y-2 text-xs font-light">
-              <li><a href="#" className="hover:text-slate-900 dark:hover:text-white transition-colors">Blog</a></li>
-              <li><a href="#" className="hover:text-slate-900 dark:hover:text-white transition-colors">Help Center</a></li>
-            </ul>
-          </div>
-
-          {/* Column 4: Company */}
-          <div className="space-y-3 text-left">
-            <h4 className="text-xs font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider">Company</h4>
-            <ul className="space-y-2 text-xs font-light">
-              <li><a href="#" className="hover:text-slate-900 dark:hover:text-white transition-colors">About Us</a></li>
-              <li><a href="#" className="hover:text-slate-900 dark:hover:text-white transition-colors">Privacy Policy</a></li>
-              <li><a href="#" className="hover:text-slate-900 dark:hover:text-white transition-colors">Contact</a></li>
+          {/* Column 3: Company */}
+          <div className="md:col-span-3 space-y-3.5 text-left">
+            <h4 className="text-[11px] font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider">Company</h4>
+            <ul className="space-y-2.5 text-xs font-light">
+              <li>
+                <a href="#" className="text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors duration-200">
+                  About Us
+                </a>
+              </li>
+              <li>
+                <a href="#" className="text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors duration-200">
+                  Contact
+                </a>
+              </li>
+              <li>
+                <a href="#" className="text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors duration-200">
+                  Privacy Policy
+                </a>
+              </li>
             </ul>
           </div>
         </div>
 
         {/* Divider & Copyright */}
-        <div className="max-w-7xl mx-auto px-6 pt-8 border-t border-slate-200/60 dark:border-white/5 flex flex-col items-center justify-center text-center">
-          <p className="text-[10px] text-slate-400 dark:text-slate-650 font-light">
-            © 2026 TechForge. All rights reserved. Built with passion for developers.
+        <div className="max-w-7xl mx-auto px-6 pt-6 border-t border-slate-200/30 dark:border-white/5 flex flex-col items-center justify-center text-center">
+          <p className="text-[10px] text-slate-400 dark:text-slate-500 font-light">
+            © 2025 TechForge. All rights reserved.
           </p>
         </div>
       </footer>
