@@ -20,7 +20,6 @@ import {
   ChevronDown,
   Cpu,
   Globe,
-  Share2,
   AtSign
 } from 'lucide-react';
 
@@ -499,26 +498,6 @@ const Landing = () => {
                 <Globe className="w-4 h-4" />
               </a>
               <a 
-                href="#" 
-                onClick={(e) => {
-                  e.preventDefault();
-                  if (navigator.share) {
-                    navigator.share({
-                      title: 'TechForge',
-                      text: 'Nail Your Tech Interviews with TechForge!',
-                      url: window.location.href,
-                    }).catch(console.error);
-                  } else {
-                    navigator.clipboard.writeText(window.location.href);
-                    alert('Link copied to clipboard!');
-                  }
-                }}
-                className="w-8 h-8 rounded-full bg-blue-50 dark:bg-blue-950/30 flex items-center justify-center text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/50 hover:text-blue-700 dark:hover:text-blue-300 hover:scale-105 hover:shadow-sm transition-all duration-300"
-                aria-label="Share"
-              >
-                <Share2 className="w-4 h-4" />
-              </a>
-              <a 
                 href="mailto:contact@techforge.dev" 
                 className="w-8 h-8 rounded-full bg-blue-50 dark:bg-blue-950/30 flex items-center justify-center text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/50 hover:text-blue-700 dark:hover:text-blue-300 hover:scale-105 hover:shadow-sm transition-all duration-300"
                 aria-label="Email"
@@ -560,17 +539,6 @@ const Landing = () => {
                   <path d="M22.23 0H1.77C.8 0 0 .77 0 1.72v20.56C0 23.23.8 24 1.77 24h20.46c.98 0 1.77-.77 1.77-1.72V1.72C24 .77 23.2 0 22.23 0zM7.12 20.45H3.56V9h3.56v11.45zM5.34 7.43c-1.14 0-2.06-.92-2.06-2.06 0-1.14.92-2.06 2.06-2.06 1.14 0 2.06.92 2.06 2.06 0 1.14-.92 2.06-2.06 2.06zm15.11 13.02h-3.56v-5.6c0-1.34-.03-3.05-1.86-3.05-1.86 0-2.14 1.45-2.14 2.95v5.7h-3.56V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29z" />
                 </svg>
               </a>
-              <a 
-                href="https://wa.me/919999999999" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="w-8 h-8 rounded-full bg-blue-50 dark:bg-blue-950/30 flex items-center justify-center text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/50 hover:text-blue-700 dark:hover:text-blue-300 hover:scale-105 hover:shadow-sm transition-all duration-300"
-                aria-label="WhatsApp"
-              >
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 11.966.01c3.178.001 6.169 1.24 8.409 3.48 2.239 2.24 3.476 5.23 3.476 8.41-.003 6.557-5.338 11.894-11.906 11.894-2.003-.002-3.97-.504-5.711-1.459L0 24zm6.547-3.79c1.66.986 3.292 1.503 4.908 1.504 5.46 0 9.896-4.441 9.899-9.9.001-2.646-1.026-5.132-2.89-6.997A9.774 9.774 0 0 0 11.962 2.03c-5.466 0-9.902 4.443-9.905 9.902-.001 2.046.536 4.041 1.556 5.8l-.241.879-.997 3.64 3.729-.978.361.214zM16.14 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347" />
-                </svg>
-              </a>
             </div>
           </div>
 
@@ -580,8 +548,6 @@ const Landing = () => {
             <ul className="space-y-2 text-xs font-light">
               <li><a href="#features" className="hover:text-slate-900 dark:hover:text-white transition-colors">Features</a></li>
               <li><a href="#" className="hover:text-slate-900 dark:hover:text-white transition-colors">Pricing</a></li>
-              <li><a href="#" className="hover:text-slate-900 dark:hover:text-white transition-colors">Integrations</a></li>
-              <li><a href="#" className="hover:text-slate-900 dark:hover:text-white transition-colors">Student Plan</a></li>
             </ul>
           </div>
 
@@ -590,9 +556,7 @@ const Landing = () => {
             <h4 className="text-xs font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider">Resources</h4>
             <ul className="space-y-2 text-xs font-light">
               <li><a href="#" className="hover:text-slate-900 dark:hover:text-white transition-colors">Blog</a></li>
-              <li><a href="#" className="hover:text-slate-900 dark:hover:text-white transition-colors">Scholarships</a></li>
               <li><a href="#" className="hover:text-slate-900 dark:hover:text-white transition-colors">Help Center</a></li>
-              <li><a href="#" className="hover:text-slate-900 dark:hover:text-white transition-colors">API Docs</a></li>
             </ul>
           </div>
 
@@ -601,7 +565,6 @@ const Landing = () => {
             <h4 className="text-xs font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider">Company</h4>
             <ul className="space-y-2 text-xs font-light">
               <li><a href="#" className="hover:text-slate-900 dark:hover:text-white transition-colors">About Us</a></li>
-              <li><a href="#" className="hover:text-slate-900 dark:hover:text-white transition-colors">Careers</a></li>
               <li><a href="#" className="hover:text-slate-900 dark:hover:text-white transition-colors">Privacy Policy</a></li>
               <li><a href="#" className="hover:text-slate-900 dark:hover:text-white transition-colors">Contact</a></li>
             </ul>
