@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import toast from 'react-hot-toast';
 import Logo from '../components/Logo';
 import BackgroundParticles from '../components/BackgroundParticles';
 import { useAuth } from '../context/AuthContext';
@@ -18,13 +19,37 @@ import {
   Moon,
   CheckCircle2,
   ChevronDown,
-  Cpu
+  Cpu,
+  X,
+  Check
 } from 'lucide-react';
 
 const Landing = () => {
   const { user } = useAuth();
   const { theme, toggleTheme } = useTheme();
   const [activeFaq, setActiveFaq] = useState(null);
+  const [activeModal, setActiveModal] = useState(null);
+  const [contactName, setContactName] = useState('');
+  const [contactEmail, setContactEmail] = useState('');
+  const [contactMessage, setContactMessage] = useState('');
+  const [submittingContact, setSubmittingContact] = useState(false);
+
+  const handleContactSubmit = (e) => {
+    e.preventDefault();
+    if (!contactName || !contactEmail || !contactMessage) {
+      toast.error('Please fill in all fields');
+      return;
+    }
+    setSubmittingContact(true);
+    setTimeout(() => {
+      toast.success('Message sent successfully! We will get back to you soon.');
+      setContactName('');
+      setContactEmail('');
+      setContactMessage('');
+      setSubmittingContact(false);
+      setActiveModal(null);
+    }, 1000);
+  };
 
   const toggleFaq = (index) => {
     setActiveFaq(activeFaq === index ? null : index);
@@ -532,9 +557,12 @@ const Landing = () => {
                 </a>
               </li>
               <li>
-                <a href="#" className="text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors duration-200">
+                <button 
+                  onClick={() => setActiveModal('pricing')}
+                  className="text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors duration-200 text-left"
+                >
                   Pricing
-                </a>
+                </button>
               </li>
             </ul>
           </div>
@@ -544,19 +572,28 @@ const Landing = () => {
             <h4 className="text-[11px] font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider">Company</h4>
             <ul className="space-y-2.5 text-xs font-light">
               <li>
-                <a href="#" className="text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors duration-200">
+                <button 
+                  onClick={() => setActiveModal('about')}
+                  className="text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors duration-200 text-left"
+                >
                   About Us
-                </a>
+                </button>
               </li>
               <li>
-                <a href="#" className="text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors duration-200">
+                <button 
+                  onClick={() => setActiveModal('contact')}
+                  className="text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors duration-200 text-left"
+                >
                   Contact
-                </a>
+                </button>
               </li>
               <li>
-                <a href="#" className="text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors duration-200">
+                <button 
+                  onClick={() => setActiveModal('privacy')}
+                  className="text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors duration-200 text-left"
+                >
                   Privacy Policy
-                </a>
+                </button>
               </li>
             </ul>
           </div>
@@ -569,6 +606,179 @@ const Landing = () => {
           </p>
         </div>
       </footer>
+
+      {/* Modals */}
+      <AnimatePresence>
+        {activeModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setActiveModal(null)}
+              className="absolute inset-0 bg-slate-950/70 backdrop-blur-md"
+            />
+
+            {/* Modal Card */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 15 }}
+              transition={{ type: "spring", duration: 0.4 }}
+              className="w-full max-w-xl bg-white dark:bg-[#0c1322] border border-slate-200 dark:border-white/10 rounded-2xl shadow-2xl overflow-hidden relative z-10 p-6 sm:p-8 text-left max-h-[90vh] overflow-y-auto"
+            >
+              {/* Close Button */}
+              <button
+                onClick={() => setActiveModal(null)}
+                className="absolute top-4 right-4 p-2 rounded-xl text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/5 transition-colors"
+                aria-label="Close"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              {/* Modal Contents */}
+              {activeModal === 'pricing' && (
+                <div className="space-y-6">
+                  <div>
+                    <h3 className="text-xl font-bold text-slate-900 dark:text-white">Premium Prep Tiers</h3>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                      Choose the right plan to level up your engineering career.
+                    </p>
+                  </div>
+
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    {/* Free Plan */}
+                    <div className="border border-slate-150 dark:border-white/5 p-4 rounded-xl space-y-4 flex flex-col justify-between">
+                      <div className="space-y-2">
+                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Free Trial</span>
+                        <div className="text-2xl font-black text-slate-900 dark:text-white">$0</div>
+                        <ul className="space-y-1.5 text-xs text-slate-500 dark:text-slate-400">
+                          <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-blue-500 flex-shrink-0" /> 3 mock interviews</li>
+                          <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-blue-500 flex-shrink-0" /> 5 ATS resume scans</li>
+                          <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-blue-500 flex-shrink-0" /> Basic DSA sheet access</li>
+                          <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-blue-500 flex-shrink-0" /> Standard AI chatbot</li>
+                        </ul>
+                      </div>
+                      <Link
+                        to="/signup"
+                        onClick={() => setActiveModal(null)}
+                        className="w-full py-2.5 rounded-lg bg-slate-100 hover:bg-slate-200 dark:bg-white/5 dark:hover:bg-white/10 text-slate-700 dark:text-white font-bold text-xs text-center block transition-colors"
+                      >
+                        Start Free Trial
+                      </Link>
+                    </div>
+
+                    {/* Pro Plan */}
+                    <div className="border border-blue-500/30 dark:border-blue-500/20 bg-blue-500/5 p-4 rounded-xl space-y-4 flex flex-col justify-between relative">
+                      <div className="absolute top-3 right-3 px-2 py-0.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-[9px] font-bold text-blue-600 dark:text-blue-300 uppercase tracking-wider">Popular</div>
+                      <div className="space-y-2">
+                        <span className="text-[10px] font-bold text-blue-500 uppercase tracking-wider">Pro Access</span>
+                        <div className="text-2xl font-black text-slate-900 dark:text-white">$19<span className="text-xs font-normal text-slate-400">/mo</span></div>
+                        <ul className="space-y-1.5 text-xs text-slate-500 dark:text-slate-400">
+                          <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-blue-500 flex-shrink-0" /> Unlimited mock interviews</li>
+                          <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-blue-500 flex-shrink-0" /> Unlimited ATS resume scans</li>
+                          <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-blue-500 flex-shrink-0" /> System design mock prep</li>
+                          <li className="flex items-center gap-1.5"><Check className="w-3.5 h-3.5 text-blue-500 flex-shrink-0" /> Priority streak rewards</li>
+                        </ul>
+                      </div>
+                      <Link
+                        to="/signup"
+                        onClick={() => setActiveModal(null)}
+                        className="w-full py-2.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs text-center block transition-colors shadow-md shadow-blue-500/15"
+                      >
+                        Upgrade to Pro
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {activeModal === 'about' && (
+                <div className="space-y-4">
+                  <h3 className="text-xl font-bold text-slate-900 dark:text-white">About TechForge</h3>
+                  <div className="text-xs text-slate-500 dark:text-slate-400 space-y-3 font-light leading-relaxed">
+                    <p>
+                      TechForge is the ultimate AI-powered preparation platform for software engineers. We believe that technical interview preparation shouldn't consist of unstructured, stressful cramming.
+                    </p>
+                    <p>
+                      Our mission is to translate complex artificial intelligence capabilities into simple, accessible, and structured preparation flows. We evaluate spoken answers, compute instant ATS compatibility scores, and help you track your coding streaks.
+                    </p>
+                    <p>
+                      Designed with modern design aesthetics, responsive performance, and developers' needs at the core, TechForge is your complete career companion.
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {activeModal === 'contact' && (
+                <div className="space-y-4">
+                  <div>
+                    <h3 className="text-xl font-bold text-slate-900 dark:text-white">Get in Touch</h3>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                      Have questions or feedback? Send us a message directly.
+                    </p>
+                  </div>
+
+                  <form onSubmit={handleContactSubmit} className="space-y-3">
+                    <div className="space-y-1">
+                      <label className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Full Name</label>
+                      <input
+                        type="text"
+                        value={contactName}
+                        onChange={(e) => setContactName(e.target.value)}
+                        className="w-full px-3 py-2 text-xs rounded-xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none focus:border-blue-500 transition-colors"
+                        placeholder="John Doe"
+                        required
+                      />
+                    </div>
+                    <div className="space-y-1">
+                      <label className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Email Address</label>
+                      <input
+                        type="email"
+                        value={contactEmail}
+                        onChange={(e) => setContactEmail(e.target.value)}
+                        className="w-full px-3 py-2 text-xs rounded-xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none focus:border-blue-500 transition-colors"
+                        placeholder="john@example.com"
+                        required
+                      />
+                    </div>
+                    <div className="space-y-1">
+                      <label className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Message</label>
+                      <textarea
+                        value={contactMessage}
+                        onChange={(e) => setContactMessage(e.target.value)}
+                        rows="4"
+                        className="w-full px-3 py-2 text-xs rounded-xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white focus:outline-none focus:border-blue-500 transition-colors resize-none"
+                        placeholder="Your message here..."
+                        required
+                      />
+                    </div>
+                    <button
+                      type="submit"
+                      disabled={submittingContact}
+                      className="w-full py-2.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs transition-colors flex items-center justify-center gap-1.5"
+                    >
+                      {submittingContact ? 'Sending...' : 'Send Message'}
+                    </button>
+                  </form>
+                </div>
+              )}
+
+              {activeModal === 'privacy' && (
+                <div className="space-y-4">
+                  <h3 className="text-xl font-bold text-slate-900 dark:text-white">Privacy Policy</h3>
+                  <div className="text-xs text-slate-500 dark:text-slate-400 space-y-3 font-light leading-relaxed">
+                    <p><strong>1. Information We Collect:</strong> We securely process the resumes you upload for ATS evaluations, data structures challenge completions, and text responses submitted for AI mock interviews.</p>
+                    <p><strong>2. How We Use It:</strong> We leverage secure API connections to evaluate accuracy and compile feedback. Your personal data is never used to train external foundational models.</p>
+                    <p><strong>3. Data Protection:</strong> We employ high-grade industry standard encryption during transport and at rest. You can delete your account history at any time from the account profile page.</p>
+                  </div>
+                </div>
+              )}
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
