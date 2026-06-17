@@ -43,7 +43,7 @@ const BackgroundParticles = () => {
       canvas.width = w;
       canvas.height = h;
 
-      const spacing = w < 768 ? 16 : 12;
+      const spacing = w < 768 ? 24 : 18;
       const cols = Math.floor(w / spacing) + 2;
       const rows = Math.floor(h / spacing) + 2;
       
