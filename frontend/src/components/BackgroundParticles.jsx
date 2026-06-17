@@ -43,7 +43,7 @@ const BackgroundParticles = () => {
       canvas.width = w;
       canvas.height = h;
 
-      const spacing = w < 768 ? 32 : 24;
+      const spacing = w < 768 ? 16 : 12;
       const cols = Math.floor(w / spacing) + 2;
       const rows = Math.floor(h / spacing) + 2;
       
@@ -73,10 +73,11 @@ const BackgroundParticles = () => {
 
     initParticles();
 
-    // Mouse event handlers (accounting for page scroll offset)
+    // Mouse event handlers (utilizing getBoundingClientRect for perfect relative coordinate mapping)
     const handleMouseMove = (e) => {
-      mouse.x = e.clientX + window.scrollX;
-      mouse.y = e.clientY + window.scrollY;
+      const rect = canvas.getBoundingClientRect();
+      mouse.x = e.clientX - rect.left;
+      mouse.y = e.clientY - rect.top;
       mouse.active = true;
     };
 
@@ -87,16 +88,18 @@ const BackgroundParticles = () => {
     // Touch event handlers for mobile devices
     const handleTouchStart = (e) => {
       if (e.touches.length > 0) {
-        mouse.x = e.touches[0].clientX + window.scrollX;
-        mouse.y = e.touches[0].clientY + window.scrollY;
+        const rect = canvas.getBoundingClientRect();
+        mouse.x = e.touches[0].clientX - rect.left;
+        mouse.y = e.touches[0].clientY - rect.top;
         mouse.active = true;
       }
     };
 
     const handleTouchMove = (e) => {
       if (e.touches.length > 0) {
-        mouse.x = e.touches[0].clientX + window.scrollX;
-        mouse.y = e.touches[0].clientY + window.scrollY;
+        const rect = canvas.getBoundingClientRect();
+        mouse.x = e.touches[0].clientX - rect.left;
+        mouse.y = e.touches[0].clientY - rect.top;
         mouse.active = true;
       }
     };
