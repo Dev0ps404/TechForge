@@ -7,6 +7,7 @@ import { Toaster } from 'react-hot-toast';
 // Layout Components
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
+import BackgroundParticles from './components/BackgroundParticles';
 
 // Page Components
 import Landing from './pages/Landing';
@@ -58,9 +59,10 @@ const AppLayout = ({ children }) => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-dark-950 transition-colors duration-300">
+    <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-dark-950 transition-colors duration-300 relative overflow-hidden">
+      <BackgroundParticles key={location.pathname} />
       <Navbar onMenuToggle={() => setSidebarOpen(!sidebarOpen)} />
-      <div className="flex flex-1 relative">
+      <div className="flex flex-1 relative z-10">
         <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
         <main className="flex-1 p-4 md:p-6 lg:pl-68 w-full overflow-x-hidden min-h-[calc(100vh-62px)]">
           {children}
