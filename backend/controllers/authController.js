@@ -225,6 +225,31 @@ exports.googleAuth = async (req, res, next) => {
 };
 
 /**
+ * @desc    Google OAuth Callback (Redirect to frontend with token)
+ * @route   GET /api/auth/google/callback
+ * @access  Public
+ */
+exports.googleCallback = (req, res, next) => {
+  try {
+    if (!req.user) {
+      return res.status(401).json({
+        success: false,
+        message: 'Google authentication failed',
+      });
+    }
+
+    const token = generateToken(req.user._id);
+    const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5173';
+    
+    // Redirect user to frontend login page with token in query param
+    return res.redirect(`${frontendUrl.replace(/\/+$/, '')}/login?token=${token}`);
+  } catch (error) {
+    console.error('Google callback controller error:', error);
+    return res.status(500).json({ success: false, message: 'Server error during Google callback' });
+  }
+};
+
+/**
  * @desc    Get current user profile
  * @route   GET /api/auth/profile
  * @access  Private
