@@ -28,8 +28,7 @@
 ### DSA Practice & Streaks
 ![DSA Practice Checklist](screenshots/dsa.png)
 
-### Modern Workspace Panel
-![Platform Console](screenshots/dashboard.png)
+
 
 ---
 
@@ -160,3 +159,30 @@ TechForge features a rich, responsive interface designed to feel alive and premi
 - `GET /api/challenges/daily` - Retrieve active daily challenge items
 - `POST /api/challenges/submit` - Validate submissions and log points
 - `GET /api/leaderboard` - Fetch sorted global points list
+
+---
+# 👨‍💻 Developer
+
+### Devansh Agarwal
+
+<p align="left">
+
+<a href="https://github.com/Dev0ps404">
+<img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github"/>
+</a>
+
+<a href="https://linkedin.com">
+<img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin"/>
+</a>
+
+</p>
+
+---
+
+<div align="center">
+
+## ⭐ Star this repository if you found it useful
+
+Built with ❤️ by Devansh Agarwal
+
+</div>
