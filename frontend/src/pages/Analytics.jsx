@@ -115,7 +115,7 @@ const Analytics = () => {
       {history.length > 0 ? (
         <>
           {/* Stats widgets */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <div className="glass-card p-5">
               <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Average Grade</span>
               <h2 className="text-2xl font-black text-indigo-500 mt-1.5">{summary.avgScore}%</h2>

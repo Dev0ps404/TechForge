@@ -128,7 +128,7 @@ const Profile = () => {
         </div>
 
         {/* Dynamic counters */}
-        <div className="grid grid-cols-2 gap-4 border-t pt-5 border-slate-100 dark:border-white/5 relative z-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 border-t pt-5 border-slate-100 dark:border-white/5 relative z-10">
           <div className="bg-slate-50/50 dark:bg-bg-dark/30 p-3 rounded-xl border border-slate-200/50 dark:border-white/5 text-center">
             <span className="text-[9px] font-bold text-slate-400 uppercase tracking-wider flex items-center justify-center gap-1">
               <Award className="w-3.5 h-3.5 text-indigo-500" /> Mocks

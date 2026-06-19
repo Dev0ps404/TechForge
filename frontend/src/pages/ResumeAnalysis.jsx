@@ -327,7 +327,7 @@ const ResumeAnalysis = () => {
 
                   <div className="space-y-2 pt-2">
                     <h4 className="text-xs font-bold text-slate-750 dark:text-slate-200">Parsed Metadata Metrics</h4>
-                    <div className="grid grid-cols-2 gap-4 text-xs bg-slate-50/50 dark:bg-bg-dark/30 p-4 rounded-xl border border-slate-200/50 dark:border-white/5">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs bg-slate-50/50 dark:bg-bg-dark/30 p-4 rounded-xl border border-slate-200/50 dark:border-white/5">
                       <div className="space-y-1">
                         <p className="text-slate-400 font-bold text-[9px] uppercase tracking-wider flex items-center gap-1">
                           <BookOpen className="w-3 h-3 text-indigo-500" /> Academic Summary

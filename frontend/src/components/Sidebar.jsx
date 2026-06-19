@@ -46,7 +46,7 @@ const Sidebar = ({ isOpen, onClose }) => {
       {/* Mobile Backdrop Drawer */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-slate-950/40 backdrop-blur-md z-45 lg:hidden transition-opacity duration-300"
+          className="fixed inset-0 bg-slate-950/40 backdrop-blur-md z-35 lg:hidden transition-opacity duration-300"
           onClick={onClose}
         ></div>
       )}

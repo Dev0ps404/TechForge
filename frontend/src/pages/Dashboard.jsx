@@ -203,7 +203,7 @@ const Dashboard = () => {
       </div>
 
       {/* Stats Widgets Grid */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <motion.div variants={cardVariants} className="glass-card p-5 relative overflow-hidden group">
           <div className="w-9 h-9 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-500 mb-4">
             <Video className="w-4.5 h-4.5" />

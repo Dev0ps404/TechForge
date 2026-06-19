@@ -235,7 +235,7 @@ const Evaluation = () => {
                     </div>
 
                     {/* AI Scoring breakdown */}
-                    <div className="grid grid-cols-3 gap-4 bg-indigo-500/5 p-4 rounded-xl border border-indigo-550/10">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 bg-indigo-500/5 p-4 rounded-xl border border-indigo-550/10">
                       <div>
                         <p className="text-slate-400 font-bold uppercase text-[9px] tracking-wider">TECHNICAL SCORE</p>
                         <p className="text-sm font-extrabold text-indigo-600 dark:text-indigo-400 mt-1">

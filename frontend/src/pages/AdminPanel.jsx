@@ -147,7 +147,7 @@ const AdminPanel = () => {
       </div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="glass-card p-5">
           <span className="text-[10px] font-bold text-slate-450 dark:text-slate-400 uppercase tracking-wider">Total Users</span>
           <h2 className="text-2xl font-black mt-1.5 text-slate-805 dark:text-white">{stats.totalUsers}</h2>
@@ -224,7 +224,7 @@ const AdminPanel = () => {
           </p>
 
           <form onSubmit={handleCreateChallenge} className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <label className="text-[10px] font-bold text-slate-450 dark:text-slate-400 uppercase tracking-wider">Challenge Title</label>
                 <input
@@ -247,7 +247,7 @@ const AdminPanel = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <label className="text-[10px] font-bold text-slate-455 dark:text-slate-400 uppercase tracking-wider">Task Type</label>
                 <select
