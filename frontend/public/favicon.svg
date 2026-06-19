@@ -1,12 +1,31 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <!-- Left Wing -->
   <path 
-    d="M12 6 H24 L15 15 H21 L12 24 L16 18 H10 L14 12 H8 Z" 
-    fill="url(#techforge-logo-grad)" 
+    d="M15 4 L4 16 L15 28 V22 L10 16 L15 10 Z" 
+    fill="url(#logo-left-wing)" 
+  />
+  <!-- Right Wing -->
+  <path 
+    d="M17 4 L28 16 L17 28 V22 L22 16 L17 10 Z" 
+    fill="url(#logo-right-wing)" 
+  />
+  <!-- Center Core (Glowing Energy) -->
+  <path 
+    d="M16 11.5 L20.5 16 L16 20.5 L11.5 16 Z" 
+    fill="url(#logo-core)" 
   />
   <defs>
-    <linearGradient id="techforge-logo-grad" x1="8" y1="6" x2="24" y2="24" gradientUnits="userSpaceOnUse">
-      <stop stopColor="#A855F7" />
-      <stop offset="1" stopColor="#3B82F6" />
+    <linearGradient id="logo-left-wing" x1="4" y1="4" x2="15" y2="28" gradientUnits="userSpaceOnUse">
+      <stop stopColor="#3B82F6" />
+      <stop offset="1" stopColor="#8B5CF6" />
+    </linearGradient>
+    <linearGradient id="logo-right-wing" x1="28" y1="4" x2="17" y2="28" gradientUnits="userSpaceOnUse">
+      <stop stopColor="#8B5CF6" />
+      <stop offset="1" stopColor="#EC4899" />
+    </linearGradient>
+    <linearGradient id="logo-core" x1="11.5" y1="11.5" x2="20.5" y2="20.5" gradientUnits="userSpaceOnUse">
+      <stop stopColor="#06B6D4" />
+      <stop offset="1" stopColor="#10B981" />
     </linearGradient>
   </defs>
 </svg>
