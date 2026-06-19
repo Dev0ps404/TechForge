@@ -1,151 +1,333 @@
-# TechForge - AI Interview Preparation Platform
+# 🚀 TalentForge AI
 
-TechForge is a production-ready, full-stack AI-powered career and technical interview preparation platform. It helps students and job seekers prepare for technical roles through AI-generated questions, real-time verbal response transcription, resume ATS optimization analysis, DSA practice logs, and custom evaluations.
+<div align="center">
 
----
+<img src="https://img.shields.io/badge/AI-Powered%20Interview%20Preparation-6366F1?style=for-the-badge" />
 
-## Technical Stack
+### Your Personal AI-Powered Interview Preparation Platform
 
-### Frontend
-- **Framework**: React.js (Vite compiler)
-- **Styling**: Tailwind CSS & Vanilla CSS variable grids
-- **Animations**: Framer Motion
-- **Visual Analytics**: Recharts
-- **Icons**: Lucide React
-- **Authentication**: React Context API & Google OAuth Client implicit flow integration
-- **Networking**: Axios base client (configured with request header token injectors)
+Prepare smarter with AI-generated interview questions, resume analysis, mock interviews, DSA tracking, and personalized career guidance.
 
-### Backend
-- **Server**: Node.js & Express.js (MVC Architecture)
-- **Database**: MongoDB & Mongoose schemas
-- **AI Integrations**: OpenAI API (with JSON-mode instructions)
-- **OAuth**: Google OAuth Library token validations
-- **Media storage**: Multer & Cloudinary stream integrations
-- **Mailing**: Nodemailer SMTP alerts
-- **Security**: Helmet, Express Validator schemas, BCrypt hashing, and IP Rate Limiter
+![React](https://img.shields.io/badge/React-18-61DAFB?logo=react)
+![Node.js](https://img.shields.io/badge/Node.js-339933?logo=node.js&logoColor=white)
+![Express](https://img.shields.io/badge/Express.js-000000?logo=express)
+![MongoDB](https://img.shields.io/badge/MongoDB-47A248?logo=mongodb&logoColor=white)
+![JWT](https://img.shields.io/badge/JWT-Authentication-blue)
+![Google OAuth](https://img.shields.io/badge/Google-OAuth-red?logo=google)
+![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-06B6D4?logo=tailwindcss&logoColor=white)
+
+</div>
 
 ---
 
-## Directory Folder Structure
+## 🌟 Overview
 
-```
-├── backend/
-│   ├── config/             # DB, Cloudinary, and OpenAI configurations
-│   ├── controllers/        # Express API request controllers (MVC)
-│   ├── middleware/         # Auth verification, rate limiting, and uploads
-│   ├── models/             # Mongoose schemas
-│   ├── routes/             # Express routing paths
-│   ├── services/           # OpenAI prompt helpers and Nodemailer dispatches
-│   ├── .env.example        # Reference environment keys
-│   ├── package.json        # Dependencies definitions
-│   └── server.js           # Server startup script
-│
-├── frontend/
-│   ├── src/
-│   │   ├── components/     # Layout cards, sidebars, and navbars
-│   │   ├── context/        # Session Auth and Theme context controllers
-│   │   ├── pages/          # Dashboard, Mocks, Resumes, and DSA views
-│   │   ├── utils/          # Axios HTTP clients and formatters
-│   │   ├── App.jsx         # Router switchboard
-│   │   ├── index.css       # Core styling & Tailwind v4 theme variables
-│   │   └── main.jsx        # App DOM mounter
-│   ├── tailwind.config.js  # Content scanner configuration
-│   ├── postcss.config.js   # Autoprefixer mapping
-│   ├── package.json        # Client dependencies definitions
-│   └── .env                # Client-side endpoints configuration
-```
+TalentForge AI is a modern AI-powered interview preparation platform built using the MERN Stack. It helps students and job seekers prepare for technical interviews through AI-generated questions, resume analysis, mock interviews, DSA tracking, analytics, and personalized recommendations.
 
 ---
 
-## Local Setup & Installation
+## ✨ Features
 
-### Prerequisites
-- **Node.js** (v18.0.0 or higher)
-- **MongoDB** instance (local or Atlas cluster)
+### 🤖 AI Interview Question Generator
 
-### 1. Configure Backend
-1. Navigate to the backend folder:
-   ```bash
-   cd backend
-   ```
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Create a `.env` file based on `.env.example` and fill in your keys:
-   ```env
-   PORT=5000
-   MONGODB_URI=your_mongodb_connection_uri
-   JWT_SECRET=your_jwt_signing_key
-   OPENAI_API_KEY=your_openai_api_key
-   GOOGLE_CLIENT_ID=your_google_oauth_client_id
-   CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
-   CLOUDINARY_API_KEY=your_cloudinary_api_key
-   CLOUDINARY_API_SECRET=your_cloudinary_api_secret
-   EMAIL_USER=your_nodemailer_smtp_email
-   EMAIL_PASS=your_nodemailer_smtp_password
-   ```
-4. Start the server:
-   ```bash
-   npm run dev
-   ```
-   The backend will run on `http://localhost:5000`.
+- Role-based interview questions
+- Difficulty level selection
+- Experience-based customization
+- Technical, Behavioral & HR questions
+- AI-powered generation
 
-### 2. Configure Frontend
-1. Navigate to the frontend folder:
-   ```bash
-   cd ../frontend
-   ```
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Configure frontend endpoints inside `frontend/.env`:
-   ```env
-   VITE_API_URL=http://localhost:5000/api
-   VITE_GOOGLE_CLIENT_ID=your_google_oauth_client_id
-   ```
-4. Start the development server:
-   ```bash
-   npm run dev
-   ```
-   The frontend will run on `http://localhost:5173`.
+### 📄 Resume Analyzer
+
+- PDF Resume Upload
+- ATS Score Analysis
+- Skill Extraction
+- Missing Keywords Detection
+- Improvement Suggestions
+- Resume History
+
+### 🎤 Mock Interview System
+
+- Real Interview Simulation
+- Timer-Based Sessions
+- Speech-To-Text Answers
+- Response Storage
+- Interview History
+
+### 🧠 AI Evaluation Engine
+
+- Technical Score
+- Communication Score
+- Detailed Feedback
+- Improvement Suggestions
+- Performance Analysis
+
+### 💻 DSA Progress Tracker
+
+- Arrays
+- Strings
+- Linked Lists
+- Trees
+- Graphs
+- Dynamic Programming
+
+### 📊 Analytics Dashboard
+
+- Interview Statistics
+- Progress Charts
+- Performance Trends
+- Skill Insights
+
+### 🏆 Gamification
+
+- Daily Challenges
+- XP Points
+- Streak Tracking
+- Leaderboard Rankings
+
+### 🔐 Authentication
+
+- JWT Authentication
+- Google OAuth Login
+- Protected Routes
+- Secure Password Hashing
 
 ---
 
-## Core REST API Endpoints
+## 🖼️ Screenshots
 
-### Authentication
-- `POST /api/auth/register` - Register standard credentials
-- `POST /api/auth/login` - Sign in standard credentials
-- `POST /api/auth/google` - Validate Google Client OAuth credentials
-- `GET /api/auth/profile` - Fetch current active session profile details
-- `PUT /api/auth/profile` - Update user parameters or profile picture
+### Dashboard
+<img width="100%" src="screenshots/dashboard.png"/>
+
+### Login Page
+<img width="100%" src="screenshots/login.png"/>
 
 ### Resume Analysis
-- `POST /api/resumes/upload` - Upload PDF resume for AI parsing and ATS scoring
-- `GET /api/resumes/history` - Retrieve resume history list
-- `GET /api/resumes/:id` - Fetch details of a single scan analysis report
+<img width="100%" src="screenshots/resume-analysis.png"/>
 
-### Mock Interviews
-- `POST /api/interviews/generate` - Seed custom questions based on role filters
-- `POST /api/interviews/sessions/:id/submit-answer` - Submit written/verbal transcription answer
-- `POST /api/interviews/sessions/:id/evaluate` - Finalize mock run and invoke OpenAI grader reports
-- `GET /api/interviews/sessions` - List completed mock sessions list
-- `GET /api/interviews/sessions/:id` - Load specific feedback breakdown reports
+### Mock Interview
+<img width="100%" src="screenshots/mock-interview.png"/>
 
-### DSA Progress
-- `GET /api/dsa/progress` - Fetch completed problem checklists
-- `POST /api/dsa/progress` - Toggle completion status of a coding problem template
+---
 
-### Daily Challenges & Leaderboard
-- `GET /api/challenges/daily` - Retrieve active daily challenge items
-- `POST /api/challenges/submit` - Validate submission answers and log points
-- `GET /api/leaderboard` - Fetch sorted global points list
+# 🛠️ Tech Stack
 
-### Admin Controls
-- `GET /api/admin/users` - Fetch registered users table list
-- `GET /api/admin/analytics` - Fetch platform total metrics (resumes scanned, mock frequencies)
-- `POST /api/admin/broadcast` - Dispatch push notifications to all users
-- `POST /api/admin/challenges` - Create custom daily challenges
+## Frontend
 
+- React.js
+- React Router DOM
+- Tailwind CSS
+- Framer Motion
+- Axios
+- Recharts
+- React Hook Form
+- React Hot Toast
+
+## Backend
+
+- Node.js
+- Express.js
+- MongoDB
+- Mongoose
+- JWT Authentication
+- Bcrypt.js
+- Multer
+- Cloudinary
+
+## AI Integrations
+
+- OpenAI API / Gemini API / Groq API
+- Resume Analysis
+- Question Generation
+- AI Career Guidance
+- Answer Evaluation
+
+---
+
+# 📂 Folder Structure
+
+```bash
+TalentForge-AI
+│
+├── client
+│   ├── src
+│   │   ├── assets
+│   │   ├── components
+│   │   ├── pages
+│   │   ├── services
+│   │   ├── hooks
+│   │   ├── context
+│   │   └── App.jsx
+│
+├── server
+│   ├── config
+│   ├── controllers
+│   ├── middleware
+│   ├── models
+│   ├── routes
+│   ├── services
+│   └── server.js
+│
+└── README.md
+```
+
+---
+
+# ⚡ Key Features
+
+| Feature | Status |
+|----------|----------|
+| Google OAuth | ✅ |
+| JWT Authentication | ✅ |
+| Resume Upload | ✅ |
+| ATS Analysis | ✅ |
+| AI Question Generator | ✅ |
+| Mock Interviews | ✅ |
+| Speech-To-Text | ✅ |
+| DSA Tracker | ✅ |
+| Analytics Dashboard | ✅ |
+| Daily Challenges | ✅ |
+| Leaderboard | ✅ |
+| Mobile Responsive | ✅ |
+| Dark Mode | ✅ |
+
+---
+
+
+
+---
+
+# 🚀 Installation
+
+### Clone Repository
+
+```bash
+git clone https://github.com/Dev0ps404/TalentForge-AI.git
+
+cd TalentForge-AI
+```
+
+### Install Frontend Dependencies
+
+```bash
+cd client
+
+npm install
+```
+
+### Install Backend Dependencies
+
+```bash
+cd server
+
+npm install
+```
+
+### Start Backend
+
+```bash
+npm run dev
+```
+
+### Start Frontend
+
+```bash
+npm run dev
+```
+
+---
+
+# 🌍 Deployment
+
+### Frontend
+
+- Vercel
+
+### Backend
+
+- Render
+
+### Database
+
+- MongoDB Atlas
+
+### File Storage
+
+- Cloudinary
+
+---
+
+# 🔒 Security Features
+
+- JWT Authentication
+- Password Hashing using Bcrypt
+- Protected Routes
+- Input Validation
+- Secure Environment Variables
+- API Error Handling
+- CORS Configuration
+
+---
+
+# 🎯 Future Roadmap
+
+- AI Voice Interviews
+- Video Interview Evaluation
+- AI Resume Builder
+- AI Cover Letter Generator
+- Coding Compiler Integration
+- Company-Wise Interview Preparation
+- Placement Roadmap Generator
+
+---
+
+# 🤝 Contributing
+
+Contributions are welcome.
+
+```bash
+# Create Feature Branch
+
+git checkout -b feature-name
+
+# Commit Changes
+
+git commit -m "Added new feature"
+
+# Push Changes
+
+git push origin feature-name
+```
+
+Then create a Pull Request.
+
+---
+
+# 👨‍💻 Developer
+
+### Devansh Agarwal
+
+GitHub: https://github.com/Dev0ps404
+
+---
+
+# ⭐ Show Your Support
+
+If you found this project useful:
+
+⭐ Star this repository
+
+🍴 Fork this repository
+
+📢 Share it with others
+
+---
+
+<div align="center">
+
+### 🚀 TalentForge AI
+
+Prepare • Practice • Perform • Get Hired
+
+Built with ❤️ using MERN + AI
+
+</div>
