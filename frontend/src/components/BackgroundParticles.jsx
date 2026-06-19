@@ -20,10 +20,10 @@ const BackgroundParticles = () => {
     };
 
 
-    // Detect and update active theme color (increased opacities for brightness)
+    // Detect and update active theme color (increased opacities for brightness, black in light mode)
     const updateThemeColor = () => {
       const isDark = document.documentElement.classList.contains('dark');
-      particleColor.current = isDark ? 'rgba(255, 255, 255, 0.45)' : 'rgba(15, 23, 42, 0.25)';
+      particleColor.current = isDark ? 'rgba(255, 255, 255, 0.45)' : 'rgba(0, 0, 0, 0.45)';
     };
 
     updateThemeColor();
@@ -31,18 +31,8 @@ const BackgroundParticles = () => {
     const themeObserver = new MutationObserver(updateThemeColor);
     themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
 
-    // Initialize particles to cover the scroll height
-    const initParticles = () => {
-      const w = window.innerWidth;
-      const h = Math.max(
-        document.documentElement.scrollHeight,
-        document.body.scrollHeight,
-        window.innerHeight
-      );
-      
-      canvas.width = w;
-      canvas.height = h;
-
+    // Initialize particles based on parent layout dimensions
+    const initParticles = (w, h) => {
       const spacing = w < 768 ? 24 : 18;
       const cols = Math.floor(w / spacing) + 2;
       const rows = Math.floor(h / spacing) + 2;
@@ -71,7 +61,22 @@ const BackgroundParticles = () => {
       particles = newParticles;
     };
 
-    initParticles();
+    // Use ResizeObserver to set canvas dimensions dynamically, avoiding resolution stretching/blur
+    const resizeObserver = new ResizeObserver(() => {
+      const parent = canvas.parentElement;
+      if (!parent) return;
+      const newW = parent.clientWidth || window.innerWidth;
+      const newH = parent.clientHeight || window.innerHeight;
+      
+      if (canvas.width !== newW || canvas.height !== newH) {
+        canvas.width = newW;
+        canvas.height = newH;
+        mouse.radius = newW < 768 ? 130 : 180;
+        initParticles(newW, newH);
+      }
+    });
+
+    resizeObserver.observe(canvas.parentElement || canvas);
 
     // Mouse event handlers (utilizing getBoundingClientRect for perfect relative coordinate mapping)
     const handleMouseMove = (e) => {
@@ -113,13 +118,6 @@ const BackgroundParticles = () => {
     window.addEventListener('touchstart', handleTouchStart, { passive: true });
     window.addEventListener('touchmove', handleTouchMove, { passive: true });
     window.addEventListener('touchend', handleTouchEnd);
-
-    // Resize handler
-    const handleResize = () => {
-      mouse.radius = window.innerWidth < 768 ? 130 : 180;
-      initParticles();
-    };
-    window.addEventListener('resize', handleResize);
 
     // Main requestAnimationFrame loop
     const animate = () => {
@@ -220,7 +218,7 @@ const BackgroundParticles = () => {
       window.removeEventListener('touchstart', handleTouchStart);
       window.removeEventListener('touchmove', handleTouchMove);
       window.removeEventListener('touchend', handleTouchEnd);
-      window.removeEventListener('resize', handleResize);
+      resizeObserver.disconnect();
       themeObserver.disconnect();
     };
   }, []);
