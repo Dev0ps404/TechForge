@@ -1,333 +1,233 @@
-# 🚀 TalentForge AI
-
 <div align="center">
 
-<img src="https://img.shields.io/badge/AI-Powered%20Interview%20Preparation-6366F1?style=for-the-badge" />
+# 🚀 TalentForge AI
 
-### Your Personal AI-Powered Interview Preparation Platform
+### AI-Powered Interview Preparation Platform
 
-Prepare smarter with AI-generated interview questions, resume analysis, mock interviews, DSA tracking, and personalized career guidance.
+Prepare Smarter • Practice Better • Get Hired Faster
 
-![React](https://img.shields.io/badge/React-18-61DAFB?logo=react)
-![Node.js](https://img.shields.io/badge/Node.js-339933?logo=node.js&logoColor=white)
-![Express](https://img.shields.io/badge/Express.js-000000?logo=express)
-![MongoDB](https://img.shields.io/badge/MongoDB-47A248?logo=mongodb&logoColor=white)
-![JWT](https://img.shields.io/badge/JWT-Authentication-blue) 
-![Google OAuth](https://img.shields.io/badge/Google-OAuth-red?logo=google)
-![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-06B6D4?logo=tailwindcss&logoColor=white)
+<p align="center">
+  <a href="https://your-demo-link.vercel.app">
+    <img src="https://img.shields.io/badge/Live_Demo-6366F1?style=for-the-badge&logo=vercel&logoColor=white" />
+  </a>
+  <a href="#">
+    <img src="https://img.shields.io/github/stars/Dev0ps404/TalentForge-AI?style=for-the-badge" />
+  </a>
+  <a href="#">
+    <img src="https://img.shields.io/github/forks/Dev0ps404/TalentForge-AI?style=for-the-badge" />
+  </a>
+</p>
+
+<p align="center">
+
+TalentForge AI is an intelligent interview preparation platform that combines AI-powered mock interviews, resume analysis, DSA tracking, career guidance, and performance analytics into one modern SaaS experience.
+
+</p>
 
 </div>
 
 ---
 
-## 🌟 Overview
+## ✨ Why TalentForge?
 
-TalentForge AI is a modern AI-powered interview preparation platform built using the MERN Stack. It helps students and job seekers prepare for technical interviews through AI-generated questions, resume analysis, mock interviews, DSA tracking, analytics, and personalized recommendations.
+Most interview preparation platforms focus on only one aspect.
+
+TalentForge combines:
+
+- 🤖 AI Interview Generation
+- 📄 Resume ATS Analysis
+- 🎤 Mock Interviews
+- 💻 DSA Tracking
+- 📊 Performance Analytics
+- 🏆 Gamification
+- 🧠 AI Career Assistant
+
+All inside a single platform.
 
 ---
 
-## ✨ Features
+## 🖼 Preview
 
-### 🤖 AI Interview Question Generator
+<p align="center">
+  <img src="./screenshots/dashboard.png" width="90%">
+</p>
 
-- Role-based interview questions
-- Difficulty level selection
-- Experience-based customization
-- Technical, Behavioral & HR questions
-- AI-powered generation
+---
+
+## ⚡ Core Features
+
+<table>
+<tr>
+<td width="50%">
+
+### 🤖 AI Interview Generator
+
+Generate role-specific interview questions powered by AI.
+
+- Frontend
+- Backend
+- MERN
+- Java
+- React
+- System Design
+
+</td>
+
+<td width="50%">
 
 ### 📄 Resume Analyzer
 
-- PDF Resume Upload
-- ATS Score Analysis
-- Skill Extraction
-- Missing Keywords Detection
+Upload your resume and receive:
+
+- ATS Score
+- Skill Analysis
+- Missing Keywords
 - Improvement Suggestions
-- Resume History
 
-### 🎤 Mock Interview System
+</td>
+</tr>
 
-- Real Interview Simulation
-- Timer-Based Sessions
-- Speech-To-Text Answers
-- Response Storage
-- Interview History
+<tr>
+<td width="50%">
 
-### 🧠 AI Evaluation Engine
+### 🎤 Mock Interviews
 
-- Technical Score
-- Communication Score
-- Detailed Feedback
-- Improvement Suggestions
-- Performance Analysis
+Real interview simulation with:
 
-### 💻 DSA Progress Tracker
+- Timers
+- Speech-to-Text
+- Performance Tracking
 
-- Arrays
-- Strings
-- Linked Lists
-- Trees
-- Graphs
-- Dynamic Programming
+</td>
+
+<td width="50%">
 
 ### 📊 Analytics Dashboard
 
-- Interview Statistics
-- Progress Charts
-- Performance Trends
-- Skill Insights
+Track:
 
-### 🏆 Gamification
+- Interview Scores
+- DSA Progress
+- Growth Trends
+- Streaks
 
-- Daily Challenges
-- XP Points
-- Streak Tracking
-- Leaderboard Rankings
-
-### 🔐 Authentication
-
-- JWT Authentication
-- Google OAuth Login
-- Protected Routes
-- Secure Password Hashing
+</td>
+</tr>
+</table>
 
 ---
 
-## 🖼️ Screenshots
+## 🏗 Architecture
 
-### Dashboard
-<img width="100%" src="screenshots/dashboard.png"/>
+```mermaid
+graph LR
 
-### Login Page
-<img width="100%" src="screenshots/login.png"/>
+A[React Frontend]
+B[Node.js API]
+C[MongoDB]
+D[Google OAuth]
+E[AI Engine]
+F[Cloudinary]
 
-### Resume Analysis
-<img width="100%" src="screenshots/resume-analysis.png"/>
-
-### Mock Interview
-<img width="100%" src="screenshots/mock-interview.png"/>
-
----
-
-# 🛠️ Tech Stack
-
-## Frontend
-
-- React.js
-- React Router DOM
-- Tailwind CSS
-- Framer Motion
-- Axios
-- Recharts
-- React Hook Form
-- React Hot Toast
-
-## Backend
-
-- Node.js
-- Express.js
-- MongoDB
-- Mongoose
-- JWT Authentication
-- Bcrypt.js
-- Multer
-- Cloudinary
-
-## AI Integrations
-
-- OpenAI API / Gemini API / Groq API
-- Resume Analysis
-- Question Generation
-- AI Career Guidance
-- Answer Evaluation
-
----
-
-# 📂 Folder Structure
-
-```bash
-TalentForge-AI
-│
-├── client
-│   ├── src
-│   │   ├── assets
-│   │   ├── components
-│   │   ├── pages
-│   │   ├── services
-│   │   ├── hooks
-│   │   ├── context
-│   │   └── App.jsx
-│
-├── server
-│   ├── config
-│   ├── controllers
-│   ├── middleware
-│   ├── models
-│   ├── routes
-│   ├── services
-│   └── server.js
-│
-└── README.md
+A --> B
+B --> C
+B --> D
+B --> E
+B --> F
 ```
 
 ---
 
-# ⚡ Key Features
+## 🛠 Tech Stack
 
-| Feature | Status |
-|----------|----------|
-| Google OAuth | ✅ |
-| JWT Authentication | ✅ |
-| Resume Upload | ✅ |
-| ATS Analysis | ✅ |
-| AI Question Generator | ✅ |
-| Mock Interviews | ✅ |
-| Speech-To-Text | ✅ |
-| DSA Tracker | ✅ |
-| Analytics Dashboard | ✅ |
-| Daily Challenges | ✅ |
-| Leaderboard | ✅ |
-| Mobile Responsive | ✅ |
-| Dark Mode | ✅ |
+### Frontend
+
+- React.js
+- Tailwind CSS
+- Framer Motion
+- React Router
+- Axios
+- Recharts
+
+### Backend
+
+- Node.js
+- Express.js
+- MongoDB
+- JWT Authentication
+- Google OAuth
+- Cloudinary
+
+### AI Layer
+
+- OpenAI
+- Gemini
+- Groq
 
 ---
 
-
-
----
-
-# 🚀 Installation
-
-### Clone Repository
+## 🚀 Getting Started
 
 ```bash
 git clone https://github.com/Dev0ps404/TalentForge-AI.git
 
 cd TalentForge-AI
+
+npm install
 ```
 
-### Install Frontend Dependencies
+### Run Frontend
 
 ```bash
 cd client
-
-npm install
+npm run dev
 ```
 
-### Install Backend Dependencies
+### Run Backend
 
 ```bash
 cd server
-
-npm install
-```
-
-### Start Backend
-
-```bash
-npm run dev
-```
-
-### Start Frontend
-
-```bash
 npm run dev
 ```
 
 ---
 
-# 🌍 Deployment
+## 🌍 Deployment
 
-### Frontend
-
-- Vercel
-
-### Backend
-
-- Render
-
-### Database
-
-- MongoDB Atlas
-
-### File Storage
-
-- Cloudinary
+| Service | Platform |
+|----------|----------|
+| Frontend | Vercel |
+| Backend | Render |
+| Database | MongoDB Atlas |
+| Storage | Cloudinary |
 
 ---
 
-# 🔒 Security Features
+## 📈 Roadmap
 
-- JWT Authentication
-- Password Hashing using Bcrypt
-- Protected Routes
-- Input Validation
-- Secure Environment Variables
-- API Error Handling
-- CORS Configuration
-
----
-
-# 🎯 Future Roadmap
-
-- AI Voice Interviews
-- Video Interview Evaluation
-- AI Resume Builder
-- AI Cover Letter Generator
-- Coding Compiler Integration
-- Company-Wise Interview Preparation
-- Placement Roadmap Generator
+- [x] Resume Analysis
+- [x] AI Mock Interviews
+- [x] DSA Tracker
+- [x] Google OAuth
+- [x] Analytics Dashboard
+- [ ] AI Voice Interviews
+- [ ] Video Interview Evaluation
+- [ ] AI Resume Builder
 
 ---
 
-# 🤝 Contributing
+## 👨‍💻 Developer
 
-Contributions are welcome.
-
-```bash
-# Create Feature Branch
-
-git checkout -b feature-name
-
-# Commit Changes
-
-git commit -m "Added new feature"
-
-# Push Changes
-
-git push origin feature-name
-```
-
-Then create a Pull Request.
-
----
-
-# 👨‍💻 Developer
-
-### Devansh Agarwal
+**Devansh Agarwal**
 
 GitHub: https://github.com/Dev0ps404
 
 ---
 
-# ⭐ Show Your Support
-
-If you found this project useful:
-
-⭐ Star this repository
-
-🍴 Fork this repository
-
-📢 Share it with others
-
----
-
 <div align="center">
 
-### 🚀 TalentForge AI
+### ⭐ If you like this project, consider starring the repository.
 
-Prepare • Practice • Perform • Get Hired
-
-Built with ❤️ using MERN + AI
+Built with ❤️ by Devansh Agarwal
 
 </div>
