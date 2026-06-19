@@ -8,17 +8,7 @@
 
 AI-Powered Mock Interviews • Resume Intelligence • DSA Tracking • Career Guidance
 
-<p align="center">
-  
-<a href="https://talentforge-ai.vercel.app">
-<img src="https://img.shields.io/badge/Live-Demo-000000?style=for-the-badge&logo=vercel&logoColor=white" />
-</a>
 
-<img src="https://img.shields.io/github/stars/Dev0ps404/TalentForge-AI?style=for-the-badge&color=7C3AED" />
-<img src="https://img.shields.io/github/forks/Dev0ps404/TalentForge-AI?style=for-the-badge&color=06B6D4" />
-<img src="https://img.shields.io/github/license/Dev0ps404/TalentForge-AI?style=for-the-badge" />
-
-</p>
 
 <p align="center">
 
