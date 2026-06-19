@@ -25,6 +25,9 @@
 ### AI Resume Scanner & Analyzer
 ![AI Resume Scanner](screenshots/resume.png)
 
+### DSA Practice & Streaks
+![DSA Practice Checklist](screenshots/dsa.png)
+
 ### Modern Workspace Panel
 ![Platform Console](screenshots/dashboard.png)
 
