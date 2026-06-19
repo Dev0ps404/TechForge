@@ -19,6 +19,9 @@
 ### Coding & Practice Rooms
 ![DSA Practice Arena](screenshots/editor.png)
 
+### AI Interview Room Setup
+![AI Interview Room](screenshots/interview.png)
+
 ### Modern Workspace Panel
 ![Platform Console](screenshots/dashboard.png)
 
