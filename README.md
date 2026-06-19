@@ -9,6 +9,14 @@
 AI-Powered Mock Interviews • Resume Intelligence • DSA Tracking • Career Guidance
 
 
+![React](https://img.shields.io/badge/React-18-61DAFB?logo=react)
+![Node.js](https://img.shields.io/badge/Node.js-339933?logo=node.js&logoColor=white)
+![Express](https://img.shields.io/badge/Express.js-000000?logo=express)
+![MongoDB](https://img.shields.io/badge/MongoDB-47A248?logo=mongodb&logoColor=white)
+![JWT](https://img.shields.io/badge/JWT-Authentication-blue)
+![Google OAuth](https://img.shields.io/badge/Google-OAuth-red?logo=google)
+![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-06B6D4?logo=tailwindcss&logoColor=white)
+
 
 <p align="center">
 
