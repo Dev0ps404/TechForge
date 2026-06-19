@@ -9,7 +9,9 @@ passport.use(
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       callbackURL: process.env.BACKEND_URL 
         ? `${process.env.BACKEND_URL.replace(/\/+$/, '')}/api/auth/google/callback` 
-        : 'http://localhost:5000/api/auth/google/callback',
+        : (process.env.NODE_ENV === 'production' 
+            ? 'https://techforge-w677.onrender.com/api/auth/google/callback'
+            : 'http://localhost:5000/api/auth/google/callback'),
       proxy: true
     },
     async (accessToken, refreshToken, profile, done) => {
