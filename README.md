@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="./public/logo.png" width="120"/>
+
 
 # TalentForge AI
 
