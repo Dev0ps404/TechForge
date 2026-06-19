@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 
 const BackgroundParticles = () => {
   const canvasRef = useRef(null);
-  const particleColor = useRef('rgba(255, 255, 255, 0.22)');
+  const particleColor = useRef('rgba(255, 255, 255, 0.75)');
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -23,7 +23,7 @@ const BackgroundParticles = () => {
     // Detect and update active theme color (increased opacities for brightness, black in light mode)
     const updateThemeColor = () => {
       const isDark = document.documentElement.classList.contains('dark');
-      particleColor.current = isDark ? 'rgba(255, 255, 255, 0.45)' : 'rgba(0, 0, 0, 0.45)';
+      particleColor.current = isDark ? 'rgba(255, 255, 255, 0.75)' : 'rgba(0, 0, 0, 0.75)';
     };
 
     updateThemeColor();
