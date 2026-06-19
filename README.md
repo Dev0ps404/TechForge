@@ -22,6 +22,9 @@
 ### AI Interview Room Setup
 ![AI Interview Room](screenshots/interview.png)
 
+### AI Resume Scanner & Analyzer
+![AI Resume Scanner](screenshots/resume.png)
+
 ### Modern Workspace Panel
 ![Platform Console](screenshots/dashboard.png)
 
